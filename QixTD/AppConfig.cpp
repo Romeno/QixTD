@@ -8,6 +8,8 @@ AppConfig::AppConfig()
 
 	, m_windowTitle("")
 	, m_windowTitleKey("WindowTitle")
+    , m_numMaps(0)
+    , m_numMapsKey("NumMaps")
 {
 
 }
@@ -33,7 +35,14 @@ void AppConfig::Parse(std::ifstream& strm)
 		parts[0] = pys::strip(parts[0]);
 		if (parts[0] == m_windowTitleKey) {
 			parts[1] = pys::strip(parts[1]);
-			m_windowTitle = parts[1].substr(1, parts[1].length() - 2);
-		}
+
+            m_windowTitle = ParseString(parts[1]);
+		} 
+        else if (parts[0] == m_numMapsKey)
+        {
+            parts[1] = pys::strip(parts[1]);
+
+            m_numMaps = ParseInt(parts[1]);
+        }
 	}
 }

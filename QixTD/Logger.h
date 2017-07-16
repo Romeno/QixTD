@@ -12,6 +12,7 @@ enum ErrorType
 
 int InitLogger();
 
+
 #define ERR(ERR_TYPE, fmt, ...) ERR_F(ERR_TYPE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__)
 #define INFO(fmt, ...) INFO_F(__LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__)
 

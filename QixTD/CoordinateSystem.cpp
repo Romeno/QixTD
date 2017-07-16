@@ -1,7 +1,6 @@
 ﻿#include "stdafx.h"
 #include "CoordinateSystem.h"
 #include "GameManager.h"
-#include "LevelInfo.h"
 #include "glm/glm.hpp"
 
 #include "SC.h"
@@ -181,5 +180,37 @@ glm::dvec3 W2R(glm::dvec3& worldPoint)
 		W2Sy(worldPoint.y),
 		0
 	};
+}
+
+
+glm::dvec3 DirToVec(Direction dir)
+{
+	switch (dir)
+	{
+	case DIR_TOP:
+		return glm::dvec3(0, 1, 0);
+		break;
+	case DIR_RIGHT:
+		return glm::dvec3(1, 0, 0);
+		break;
+	case DIR_BOTTOM:
+		return glm::dvec3(0, -1, 0);
+		break;
+	case DIR_LEFT:
+		return glm::dvec3(-1, 0, 0);
+		break;
+	case DIR_UNKNOWN:
+		return glm::dvec3(0, 0, 0);
+		break;
+	default:
+		return glm::dvec3(0, 0, 0);
+		break;
+	}
+}
+
+
+Direction VecToDir(glm::dvec3 vec)
+{
+	return DIR_LEFT;
 }
 

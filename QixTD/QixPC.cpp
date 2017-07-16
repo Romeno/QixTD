@@ -3,19 +3,23 @@
 #include "GameManager.h"
 #include "Utils.h"
 #include "Logger.h"
+#include "MapConfigStub.h"
+#include "LineCascade.h"
+#include "my_math.h"
 
 
 QixPC::QixPC()
-	: m_imageWidth(100)
-	, m_imageHeight(100)
+	: PlayerController()
 	, m_moveSpeed(3)
 
-	, m_wPos( {0, 0, 0} )
 	, m_tryingToMove(false)
 	, m_moving(false)
-	, m_facing(Direction::DIR_LEFT)
+	, m_facing(DIR_UNKNOWN)
 
-	, m_plrTex(nullptr)
+    , m_sprite(nullptr)
+	, m_lastTurnPos(0, 0, 0)
+	, m_playerImagePath("Gluka.png")
+	, m_playerShootImagePath("Gluka.png")
 {
 
 }
@@ -29,70 +33,73 @@ QixPC::~QixPC()
 
 int QixPC::Init()
 {
-	std::string imagePath = GetResourcePath() + "Gluka.png";
-	SDL_Surface *img = IMG_Load(imagePath.c_str());
-	if (img == nullptr) {
-		ERR(ERR_TYPE_SDL_ERROR, "IMG_Load error: %s", SDL_GetError());
-		cleanup(img);
-		return 1;
-	}
+    m_sprite = new Sprite("character", m_playerImagePath, glm::dvec3(100.0, 100.0, 0));
+    m_sprite->Init();
 
-	m_plrTex = SDL_CreateTextureFromSurface(REN, img);
-	cleanup(img);
-	if (m_plrTex == nullptr) {
-		ERR(ERR_TYPE_SDL_ERROR, "SDL_CreateTextureFromSurface error: %s", SDL_GetError());
-		cleanup(m_plrTex);
-		return 1;
-	}
-
-	return 0;
-}
-
-
-void QixPC::Render()
-{
-	SDL_Rect dstrect = {
-		W2Sx(m_wPos.x),
-		W2Sy(m_wPos.y),
-		m_imageWidth,
-		m_imageHeight
-	};
-	SDL_RenderCopy(REN, m_plrTex, NULL, &dstrect);
+    return 0;
 }
 
 
 void QixPC::Tick(Uint32 diff)
 {
-	if (m_tryingToMove)
-	{
-		if (m_facing & Direction::DIR_LEFT)
-		{
-			if ((int)m_wPos.x > (int)-GameManager::Inst()->vpWidth / 2)
+    if (m_sprite) {
+        if (m_tryingToMove)
+        {
+            if (m_facing & Direction::DIR_LEFT)
+            {
+                if ((int)m_sprite->m_wPos.x > (int)-GameManager::Inst()->m_currentMap->m_mapDimensions.x / 2)
+                {
+                    m_sprite->m_wPos.x -= m_moveSpeed;
+                    m_moving = true;
+					GameManager::Inst()->m_borderController->Moved(m_sprite->GetRectCenter());
+                }
+
+                m_moving = false;
+            }
+
+            if (m_facing & Direction::DIR_RIGHT)
+            {
+                if ((int)m_sprite->m_wPos.x < (int)GameManager::Inst()->m_currentMap->m_mapDimensions.x / 2 - (int)m_sprite->m_size.x)
+                {
+                    m_sprite->m_wPos.x += m_moveSpeed;
+                    m_moving = true;
+					GameManager::Inst()->m_borderController->Moved(m_sprite->GetRectCenter());
+                }
+
+                m_moving = false;
+            }
+
+			if (m_facing & Direction::DIR_TOP)
 			{
-				m_wPos.x -= m_moveSpeed;
-				m_moving = true;
+				if ((int)m_sprite->m_wPos.y < (int)GameManager::Inst()->m_currentMap->m_mapDimensions.y / 2)
+				{
+					m_sprite->m_wPos.y += m_moveSpeed;
+					m_moving = true;
+					GameManager::Inst()->m_borderController->Moved(m_sprite->GetRectCenter());
+				}
+
+				m_moving = false;
 			}
-
-			m_moving = false;
-		}
-
-		if (m_facing & Direction::DIR_RIGHT)
-		{
-			if ((int)m_wPos.x < (int)GameManager::Inst()->vpWidth / 2)
+		
+			if (m_facing & Direction::DIR_BOTTOM)
 			{
-				m_wPos.x += m_moveSpeed;
-				m_moving = true;
-			}
+				if ((int)m_sprite->m_wPos.y > (int)-GameManager::Inst()->m_currentMap->m_mapDimensions.y / 2 + (int)m_sprite->m_size.y)
+				{
+					m_sprite->m_wPos.y -= m_moveSpeed;
+					m_moving = true;
+					GameManager::Inst()->m_borderController->Moved(m_sprite->GetRectCenter());
+				}
 
-			m_moving = false;
+				m_moving = false;
+			}
 		}
-	}
+    }
 }
 
 
 void QixPC::Clear()
 {
-
+    delete m_sprite;
 }
 
 
@@ -105,6 +112,12 @@ int QixPC::RequestStartMoveLeft()
 	//		// do nothing
 	//	}
 	//}
+
+	if (m_facing != Direction::DIR_LEFT) 
+	{
+		m_lastTurnPos = m_sprite->GetRectCenter();
+		StartNewBorder();
+	}
 
 	m_facing = Direction::DIR_LEFT;
 	m_tryingToMove = true;
@@ -128,6 +141,13 @@ int QixPC::RequestStartMoveRight()
 	//{
 	//	m_facing |= Direction::DIR_RIGHT;
 	//}
+
+	if (m_facing != Direction::DIR_RIGHT)
+	{
+		m_lastTurnPos = m_sprite->GetRectCenter();
+		StartNewBorder();
+	}
+
 	m_facing = Direction::DIR_RIGHT;
 	m_tryingToMove = true;
 
@@ -156,6 +176,15 @@ int QixPC::RequestStopMoveRight()
 
 int QixPC::RequestStartMoveUp()
 {
+	if (m_facing != Direction::DIR_TOP)
+	{
+		m_lastTurnPos = m_sprite->GetRectCenter();
+		StartNewBorder();
+	}
+
+	m_facing = Direction::DIR_TOP;
+	m_tryingToMove = true;
+
 	//if (!(m_facing & Direction::DIR_BOTTOM))
 	//{
 	//	m_facing |= Direction::DIR_TOP;
@@ -175,7 +204,7 @@ int QixPC::RequestStartMoveUp()
 int QixPC::RequestStopMoveUp()
 {
 	//m_facing &= ~Direction::DIR_TOP;
-	//m_tryingToMove = false;
+	m_tryingToMove = false;
 
 	return 1;
 }
@@ -183,6 +212,15 @@ int QixPC::RequestStopMoveUp()
 
 int QixPC::RequestStartMoveDown()
 {
+	if (m_facing != Direction::DIR_BOTTOM)
+	{
+		m_lastTurnPos = m_sprite->GetRectCenter();
+		StartNewBorder();
+	}
+
+	m_facing = Direction::DIR_BOTTOM;
+	m_tryingToMove = true;
+
 	//if (!(m_facing & Direction::DIR_TOP))
 	//{
 	//	m_facing |= Direction::DIR_BOTTOM;
@@ -202,7 +240,47 @@ int QixPC::RequestStartMoveDown()
 int QixPC::RequestStopMoveDown()
 {
 	//m_facing &= ~Direction::DIR_BOTTOM;
-	//m_tryingToMove = false;
+	m_tryingToMove = false;
 
 	return 1;
+}
+
+
+
+
+void QixPC::Possess(Sprite* sprite)
+{
+    m_sprite = sprite;
+}
+
+
+void QixPC::Render()
+{
+    m_sprite->Render();
+}
+
+
+void QixPC::SetWPos(glm::dvec3 wPos, Pivot pivot)
+{
+    m_sprite->SetWPos(wPos, pivot);
+	m_lastTurnPos = wPos;
+}
+
+
+void QixPC::StartNewBorder()
+{
+	GameManager::Inst()->m_borderController->AddLine(m_lastTurnPos, m_sprite->GetRectCenter());
+}
+
+
+int QixPC::RequestShoot()
+{
+	Sprite* shoot = new Sprite("shoot", m_playerShootImagePath, glm::dvec3(10, 10, 0));
+	shoot->Init();
+	shoot->SetDirection((Direction)m_facing);
+	shoot->SetMoveSpeed(10);
+	shoot->SetTimeToLive(5);
+	GameManager::Inst()->RegisterDrawable(shoot);
+
+	return 0;
 }

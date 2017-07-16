@@ -24,23 +24,11 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Gameplay\Platformer">
-      <UniqueIdentifier>{c6f560b4-60ac-4018-81ce-1500f410ce54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Gameplay\Lines">
-      <UniqueIdentifier>{3c653204-e3a0-48b9-a234-5c51f1dd33a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Gameplay\Points">
-      <UniqueIdentifier>{fdd69151-88b8-47b5-a612-72ee5655a747}</UniqueIdentifier>
-    </Filter>
     <Filter Include="__">
       <UniqueIdentifier>{73ef2401-8b8c-4d3a-8475-465bcfccaf71}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utils\Shortcuts">
       <UniqueIdentifier>{9aababfa-951f-4b08-add9-53dccffbfc50}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Gameplay\Qix">
-      <UniqueIdentifier>{008bf168-88de-49f6-bf67-bb2f55abb1d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -71,17 +59,11 @@
     <ClInclude Include="GameManager.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="LevelInfo.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Logger.h">
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="EngiUtils.h">
       <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="PlatformerPC.h">
-      <Filter>Gameplay\Platformer</Filter>
     </ClInclude>
     <ClInclude Include="PlayerController.h">
       <Filter>Base</Filter>
@@ -89,33 +71,12 @@
     <ClInclude Include="InputHandler.h">
       <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="PointIH.h">
-      <Filter>Gameplay\Points</Filter>
-    </ClInclude>
-    <ClInclude Include="PlatformerIH.h">
-      <Filter>Gameplay\Platformer</Filter>
-    </ClInclude>
-    <ClInclude Include="LineIH.h">
-      <Filter>Gameplay\Lines</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="LineCascadePC.h">
-      <Filter>Gameplay\Lines</Filter>
-    </ClInclude>
     <ClInclude Include="ScreenController.h">
       <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="PointSplashSC.h">
-      <Filter>Gameplay\Points</Filter>
-    </ClInclude>
-    <ClInclude Include="PlatformerSC.h">
-      <Filter>Gameplay\Platformer</Filter>
-    </ClInclude>
     <ClInclude Include="Defines.h">
       <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="PointSplashPC.h">
-      <Filter>Gameplay\Points</Filter>
     </ClInclude>
     <ClInclude Include="IH.h">
       <Filter>Utils\Shortcuts</Filter>
@@ -126,24 +87,6 @@
     <ClInclude Include="SC.h">
       <Filter>Utils\Shortcuts</Filter>
     </ClInclude>
-    <ClInclude Include="LeafRain.h">
-      <Filter>Gameplay\Platformer</Filter>
-    </ClInclude>
-    <ClInclude Include="QixPC.h">
-      <Filter>Gameplay\Qix</Filter>
-    </ClInclude>
-    <ClInclude Include="QixSC.h">
-      <Filter>Gameplay\Qix</Filter>
-    </ClInclude>
-    <ClInclude Include="QixIH.h">
-      <Filter>Gameplay\Qix</Filter>
-    </ClInclude>
-    <ClInclude Include="BackgroundC.h">
-      <Filter>Gameplay\Platformer</Filter>
-    </ClInclude>
-    <ClInclude Include="PlatformInfo.h">
-      <Filter>Gameplay\Platformer</Filter>
-    </ClInclude>
     <ClInclude Include="Rect.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -153,17 +96,50 @@
     <ClInclude Include="pystring.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
     <ClInclude Include="WindowTitleManager.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="AppConfig.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="QixIH.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="QixPC.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="QixSC.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="MapConfig.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="MapConfigTiled.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="MapConfigStub.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="ColoredRect.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="LineCascade.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawableRect.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -191,14 +167,8 @@
     <ClCompile Include="Uncategorized.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="LevelInfo.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="PlatformerPC.cpp">
-      <Filter>Gameplay\Platformer</Filter>
     </ClCompile>
     <ClCompile Include="PlayerController.cpp">
       <Filter>Base</Filter>
@@ -206,47 +176,8 @@
     <ClCompile Include="InputHandler.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="PointIH.cpp">
-      <Filter>Gameplay\Points</Filter>
-    </ClCompile>
-    <ClCompile Include="PlatformerIH.cpp">
-      <Filter>Gameplay\Platformer</Filter>
-    </ClCompile>
-    <ClCompile Include="LineIH.cpp">
-      <Filter>Gameplay\Lines</Filter>
-    </ClCompile>
-    <ClCompile Include="LineCascadePC.cpp">
-      <Filter>Gameplay\Lines</Filter>
-    </ClCompile>
     <ClCompile Include="ScreenController.cpp">
       <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="PointSplashSC.cpp">
-      <Filter>Gameplay\Points</Filter>
-    </ClCompile>
-    <ClCompile Include="PlatformerSC.cpp">
-      <Filter>Gameplay\Platformer</Filter>
-    </ClCompile>
-    <ClCompile Include="PointSplashPC.cpp">
-      <Filter>Gameplay\Points</Filter>
-    </ClCompile>
-    <ClCompile Include="LeafRain.cpp">
-      <Filter>Gameplay\Platformer</Filter>
-    </ClCompile>
-    <ClCompile Include="QixPC.cpp">
-      <Filter>Gameplay\Qix</Filter>
-    </ClCompile>
-    <ClCompile Include="QixSC.cpp">
-      <Filter>Gameplay\Qix</Filter>
-    </ClCompile>
-    <ClCompile Include="QixIH.cpp">
-      <Filter>Gameplay\Qix</Filter>
-    </ClCompile>
-    <ClCompile Include="BackgroundC.cpp">
-      <Filter>Gameplay\Platformer</Filter>
-    </ClCompile>
-    <ClCompile Include="PlatformInfo.cpp">
-      <Filter>Gameplay\Platformer</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Base</Filter>
@@ -254,17 +185,50 @@
     <ClCompile Include="pystring.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Config.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
     <ClCompile Include="AppConfig.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="WindowTitleManager.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="QixIH.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="QixPC.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="QixSC.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="MapConfig.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="MapConfigTiled.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="MapConfigStub.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="ColoredRect.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="LineCascade.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableRect.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

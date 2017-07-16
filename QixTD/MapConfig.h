@@ -2,11 +2,11 @@
 #include "Config.h"
 
 
-class Map : public Config
+class MapConfig : public Config
 {
 public:
-	Map();
-	~Map();
+	MapConfig(const std::string& id);
+	~MapConfig();
 
 	virtual void Parse(std::ifstream& strm) override;
 };

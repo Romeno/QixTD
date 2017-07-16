@@ -4,23 +4,17 @@
 #include "Utils.h"
 #include "SystemInfo.h"
 #include "CoordinateSystem.h"
-#include "LevelInfo.h"
 #include "Logger.h"
 #include "WindowTitleManager.h"
 #include "IH.h"
 #include "PC.h"
 #include "SC.h"
 #include "AppConfig.h"
+#include "MapConfigStub.h"
+#include "ColoredRect.h"
+#include "LineCascade.h"
 
 
-#ifdef PLATFORMER_GAME_TYPE
-#include "LeafRain.h"
-#include "BackgroundC.h"
-#include "PlatformInfo.h"
-#endif
-
-#ifdef QIX_GAME_TYPE
-#endif
 
 GameManager::GameManager()
 	: vpHeight(480)
@@ -34,10 +28,21 @@ GameManager::GameManager()
 
 	, m_fps(0)
 
+	, m_quit(false)
+
+    , m_mapConfigs()
+	, m_mapNumber(0)
+	, m_currentMap(nullptr)
+
+	, m_borderController(nullptr)
+
 	, m_cfg(nullptr)
+
 	, m_pc(nullptr)
 	, m_ih(nullptr)
 	, m_sc(nullptr)
+
+	, m_drawables()
 {
 
 }
@@ -144,6 +149,12 @@ int GameManager::GetNumOpenGLDriver()
 }
 
 
+void GameManager::RegisterDrawable(Drawable* d)
+{
+	m_drawables.push_back(d);
+}
+
+
 void GameManager::CenterWindow()
 {
 	SDL_DisplayMode mode;
@@ -159,31 +170,9 @@ void GameManager::CenterWindow()
 
 int GameManager::InitEngine()
 {
-	int ret;
-
-#ifdef PLATFORMER_GAME_TYPE
-	m_ih = new PlatformerIH();
-	m_pc = new PlatformerPC();
-	m_sc = new PlatformerSC();
-#endif
-
-#ifdef LINE_CASCADE_GAME_TYPE
-	m_ih = new LineIH();
-	m_pc = new LineCascadePC();
-	m_sc = new PointSplashSC();
-#endif
-
-#ifdef POINT_SPLASH_GAME_TYPE
-	m_ih = new PointIH();
-	m_pc = new PointSplashPC();
-	m_sc = new PointSplashSC();
-#endif
-
-#ifdef QIX_GAME_TYPE
 	m_ih = new QixIH();
 	m_pc = new QixPC();
 	m_sc = new QixSC();
-#endif
 
 	m_cfg = new AppConfig();
 	ConfigError cfgRet = m_cfg->Read();
@@ -194,72 +183,90 @@ int GameManager::InitEngine()
 
 	WindowTitleManager::Inst()->Init(m_cfg->m_windowTitle);
 
-	// LEVEL_INFO
-	LevelInfo::Inst()->Init(2560, 1920);
-
-
-	// INPUT_HANDLER
-	m_ih->Init();
-
-
-	// PLAYER_CONTROLLER
-	ret = m_pc->Init();
-	if (ret)
-	{
-		ERR(ERR_TYPE_ENGINE_ERROR, "PlrCtrl Init failed");
-		return ret;
-	}
-
-	glm::dvec3 wPos = { -vpWidth / 2, 0, 0 };
-	PC()->SetWPos(wPos, PIVOT_CENTER);
-
-
-	// SCREEN_CONTROLLER
-	m_sc->Init(wPos);
-
-
-	// GENERIC ENTITIES
-#ifdef PLATFORMER_GAME_TYPE
-	m_entities.push_back(new PlatformInfo());
-#endif
-
-	for (size_t i = 0; i < m_entities.size(); i++)
-	{
-		ret = m_entities[i]->Init();
-		if (ret)
+    for (int i = 0; i < m_cfg->m_numMaps; i++) {
+		MapConfigStub* map = new MapConfigStub(std::to_string(i));
+		cfgRet = map->Read();
+		if (cfgRet != CONFIG_ERROR_OK)
 		{
-			for (size_t j = 0; j <= i; j++)
-			{
-				m_entities[j]->Clear();
-			}
-			
-			ERR(ERR_TYPE_ENGINE_ERROR, "%s Entity Init failed", m_entities[i]->m_name);
-			return ret;
+			return 1;
 		}
-	}
+
+        m_mapConfigs.push_back(map);
+    }
+
+	m_borderController = new LineCascade("borders");
+	//m_drawables.push_back(m_borderController);
+
+    return LoadMap(0);
+}
 
 
-	// OTHER_INSTANCES
-#ifdef PLATFORMER_GAME_TYPE
-	ret = BackgroundC::Inst()->Init();
-	if (ret)
-	{
-		BackgroundC::Inst()->Clear();
-		ERR(ERR_TYPE_ENGINE_ERROR, "BackgroundC Init failed");
-		return ret;
-	}
+int GameManager::LoadMap(int num) 
+{
+    int ret;
 
-	ret = LeafRain::Inst()->Init();
-	if (ret)
-	{
-		BackgroundC::Inst()->Clear();
-		LeafRain::Inst()->Clean();
-		ERR(ERR_TYPE_ENGINE_ERROR, "LeafRain Init failed");
-		return ret;
-	}
-#endif
+	m_mapNumber = num;
+    m_currentMap = m_mapConfigs[num];
+	
 
-	return 0;
+	//for (int i = 0; i < 40; i++)
+	//{
+	//	for (int j = 0; j < 30; j++)
+	//	{
+	//		ColoredRect* bg = new ColoredRect("bg", glm::ivec4(i % 2 == j % 2 ? 255 : 0, 0, i % 2 == j % 2 ? 0 : 255, 0), glm::dvec3(64, 64, 0));
+	//		bg->SetWPos(glm::dvec3(64 * i - m_currentMap->m_mapDimensions.x / 2, m_currentMap->m_mapDimensions.y / 2 - 64 * j, -100));
+	//		m_entities.insert(bg);
+	//	}
+	//}
+
+	ColoredRect* bg = new ColoredRect("bg", glm::ivec4(128, 128, 128, 0), glm::dvec3(m_currentMap->m_mapDimensions.x, m_currentMap->m_mapDimensions.y, 0));
+	bg->SetWPos(glm::dvec3(0, 0, -200));
+	m_drawables.push_back(bg);
+
+	bg = new ColoredRect("bg2", glm::ivec4(255, 0, 255, 0), glm::dvec3(100, 100, 0));
+	bg->SetWPos(glm::dvec3(0, 0, -100));
+	m_drawables.push_back(bg);
+
+
+    // INPUT_HANDLER
+    m_ih->Init();
+
+
+    // PLAYER_CONTROLLER
+    ret = m_pc->Init();
+    if (ret)
+    {
+        ERR(ERR_TYPE_ENGINE_ERROR, "PlrCtrl Init failed");
+        return ret;
+    }
+
+    PC()->SetWPos(m_currentMap->m_playerStartPos);
+
+
+    // SCREEN_CONTROLLER
+    m_sc->Init(m_currentMap->m_playerStartPos);
+
+
+    // GENERIC ENTITIES
+    //m_entities.push_back(new PlatformInfo());
+
+    for (auto it = m_drawables.begin(); it != m_drawables.end(); it++)
+    {
+        ret = (*it)->Init();
+        if (ret)
+        {
+			ERR(ERR_TYPE_ENGINE_ERROR, "%s Entity Init failed", (*it)->m_name);
+			
+			for (auto itc = m_drawables.begin(); itc != m_drawables.end(); itc++)
+            {
+                (*itc)->Clear();
+            }
+
+            return ret;
+        }
+    }
+
+    return 0;
 }
 
 
@@ -269,13 +276,11 @@ void GameManager::MainLoop()
 
 	SDL_Event e;
 
-	bool quit = false;
-
-	while (!quit) {
+	while (!m_quit) {
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT)
 			{
-				quit = true;
+				m_quit = true;
 			}
 			else if (e.type == SDL_KEYDOWN)
 			{
@@ -340,9 +345,7 @@ void GameManager::Tick(Uint32 diff)
 {
 	WindowTitleManager::Inst()->Tick(diff);
 
-#ifdef PLATFORMER_GAME_TYPE
-	BackgroundC::Inst()->Tick();
-#endif
+	//m_drawables.erase(std::remove_if(m_drawables.begin(), m_drawables.end(), ), m_drawables.end());
 
 	m_ih->Tick(diff);
 
@@ -350,14 +353,10 @@ void GameManager::Tick(Uint32 diff)
 
 	m_sc->Tick(diff);
 
-	for (size_t i = 0; i < m_entities.size(); i++) 
+	for (auto it = m_drawables.begin(); it != m_drawables.end(); it++) 
 	{
-		m_entities[i]->Tick(diff);
+		(*it)->Tick(diff);
 	}
-
-#ifdef PLATFORMER_GAME_TYPE
-	LeafRain::Inst()->Tick(diff);
-#endif
 }
 
 
@@ -371,42 +370,39 @@ void GameManager::Clean()
 }
 
 
+void GameManager::Quit()
+{
+    m_quit = true;
+}
+
+
 void GameManager::RenderScene(Uint32 diff)
 {
-	//Render the scene
-	SDL_SetRenderDrawColor(ren, 0, 0, 0, 0);
-	SDL_RenderClear(ren);
+    //Render the scene
+    SDL_SetRenderDrawColor(ren, 0, 0, 0, 0);
+    SDL_RenderClear(ren);
 
-	OutputFPS();
+    OutputFPS();
 
-#ifdef PLATFORMER_GAME_TYPE
-	BackgroundC::Inst()->Render();
-#endif
+    //	//SDL_Point imagePos = { (vpWidth - imageLength) / 2, (vpHeight - imageHeight) / 2 };
+    //
+    //#ifdef PLATFORMER_GAME_TYPE
+    //	LeafRain::Inst()->Render(true);
+    //#endif
+    //
+    //
+    //#ifdef PLATFORMER_GAME_TYPE
+    //	LeafRain::Inst()->Render(false);
+    //#endif
 
-	//SDL_Point imagePos = { (vpWidth - imageLength) / 2, (vpHeight - imageHeight) / 2 };
+	std::sort(m_drawables.begin(), m_drawables.end(), [](Drawable* one, Drawable* two) -> bool { return one->m_wPos.z < two->m_wPos.z; });
 
-#ifdef PLATFORMER_GAME_TYPE
-	LeafRain::Inst()->Render(true);
-#endif
+	for (auto it = m_drawables.begin(); it != m_drawables.end(); it++)
+	{
+		(*it)->Render();
+	}
 
 	m_pc->Render();
-
-#ifdef PLATFORMER_GAME_TYPE
-	LeafRain::Inst()->Render(false);
-#endif
-
-#ifdef QIX_GAME_TYPE
-
-
-
-
-#endif
-
-
-	//for (size_t i = 0; i < m_entities.size(); i++)
-	//{
-	//	m_entities[i]->Render();
-	//}
 
 	//renderTexture(image, renderer, x, y);
 
@@ -441,68 +437,14 @@ void GameManager::OutputFPS() {
 }
 
 
-#ifdef PLATFORMER_GAME_TYPE
-PlatformerPC* PC()
+void GameManager::DeleteDrawable(Drawable* d)
 {
-	return (PlatformerPC*)GameManager::Inst()->GetPC();
+	auto it = std::find_if(m_drawables.begin(), m_drawables.end(), [d](Drawable* found) { return found->m_id == d->m_id; });
+	m_drawables.erase(it);
+	delete (*it);
 }
 
 
-PlatformerIH* IH()
-{
-	return (PlatformerIH*)GameManager::Inst()->GetIH();
-}
-
-
-PlatformerSC* SC()
-{
-	return (PlatformerSC*)GameManager::Inst()->GetSC();
-}
-#endif
-
-
-#ifdef LINE_CASCADE_GAME_TYPE
-LineCascadePC* PC() 
-{
-	return (LineCascadePC*)GameManager::Inst()->GetPC();
-}
-
-
-LineIH* IH()
-{
-	return (LineIH*)GameManager::Inst()->GetIH();
-}
-
-
-PointSplashSC* SC()
-{
-	return (PointSplashSC*)GameManager::Inst()->GetSC();
-}
-#endif
-
-
-#ifdef POINT_SPLASH_GAME_TYPE
-PointSplashPC* PC()
-{
-	return (PointSplashPC*)GameManager::Inst()->GetPC();
-}
-
-
-PointIH* IH()
-{
-	return (PointIH*)GameManager::Inst()->GetIH();
-}
-
-
-PointSplashSC* SC()
-{
-	return (PointSplashSC*)GameManager::Inst()->GetSC();
-}
-
-#endif
-
-
-#ifdef QIX_GAME_TYPE
 QixPC* PC()
 {
 	return (QixPC*)GameManager::Inst()->GetPC();
@@ -519,8 +461,6 @@ QixSC* SC()
 {
 	return (QixSC*)GameManager::Inst()->GetSC();
 }
-
-#endif
 
 
 /*

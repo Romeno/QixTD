@@ -19,6 +19,7 @@
 #include <chrono>
 #include <ios>
 #include <fstream>
+#include <algorithm>
 
 #include "pystring.h"
 

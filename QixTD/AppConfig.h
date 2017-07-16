@@ -12,5 +12,7 @@ public:
 
 	std::string m_windowTitle;
 	std::string m_windowTitleKey;
+    int m_numMaps;
+    std::string m_numMapsKey;
 };
 

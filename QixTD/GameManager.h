@@ -1,13 +1,30 @@
 #pragma once
 #include "Defines.h"
 #include "Singleton.h"
-#include "Entity.h"
+#include "DrawableRect.h"
+#include <set>
 
 
+class LineCascade;
 class AppConfig;
+class MapConfigStub;
 class PlayerController;
 class InputHandler;
 class ScreenController;
+
+
+//template<class _Ty = void>
+//struct p_less
+//{	// functor for operator<
+//	typedef _Ty first_argument_type;
+//	typedef _Ty second_argument_type;
+//	typedef bool result_type;
+//
+//	_CONST_FUN bool operator()(const _Ty& _Left, const _Ty& _Right) const
+//	{	// apply operator< to operands
+//		return ((*_Left) < (*_Right));
+//	}
+//};
 
 
 class GameManager : public Singleton<GameManager>
@@ -29,6 +46,12 @@ public:
 	void Tick(Uint32 diff);
 	void RenderScene(Uint32 diff);
 	void Clean();
+    int LoadMap(int num);
+
+    void Quit();
+
+	void RegisterDrawable(Drawable* d);
+	void DeleteDrawable(Drawable* d);
 
 	PlayerController* GetPC() { return m_pc; }
 	InputHandler* GetIH() { return m_ih; }
@@ -47,53 +70,30 @@ public:
 
 	int					m_fps;
 
+    bool                m_quit;
+
+	std::vector<MapConfigStub*>		m_mapConfigs;
+	int 							m_mapNumber;
+	MapConfigStub*					m_currentMap;
+
+	LineCascade*					m_borderController;
+
 private:
 	GameManager();
 
 	void OutputFPS();
 
-	AppConfig          *m_cfg;
+	AppConfig                  *m_cfg;
 
-	PlayerController   *m_pc;
-	InputHandler       *m_ih;
-	ScreenController   *m_sc;
+	PlayerController           *m_pc;
+	InputHandler               *m_ih;
+	ScreenController           *m_sc;
 
-	std::vector<Entity*> m_entities;
+	std::vector<Drawable*>      m_drawables;
 };
 
 
 
-#ifdef PLATFORMER_GAME_TYPE
-class PlatformerPC;
-class PlatformerIH;
-class PlatformerSC;
-
-PlatformerPC* PC();
-PlatformerIH* IH();
-PlatformerSC* SC();
-#endif
-
-#ifdef LINE_CASCADE_GAME_TYPE
-class LineCascadePC;
-class LineIH;
-class PointSplashSC;
-
-LineCascadePC* PC();
-LineIH* IH();
-PointSplashSC* SC();
-#endif
-
-#ifdef POINT_SPLASH_GAME_TYPE
-class PointSplashPC;
-class PointIH;
-class PointSplashSC;
-
-PointSplashPC* PC();
-PointIH* IH();
-PointSplashSC* SC();
-#endif
-
-#ifdef QIX_GAME_TYPE
 class QixPC;
 class QixIH;
 class QixSC;
@@ -101,4 +101,3 @@ class QixSC;
 QixPC* PC();
 QixIH* IH();
 QixSC* SC();
-#endif

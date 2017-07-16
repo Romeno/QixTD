@@ -1,14 +1,7 @@
 #pragma once
 #include "Defines.h"
 #include "PlayerController.h"
-
-
-enum Direction {
-	DIR_TOP = 1,
-	DIR_RIGHT = 2,
-	DIR_BOTTOM = 4,
-	DIR_LEFT = 8,
-};
+#include "Sprite.h"
 
 
 class QixPC : public PlayerController
@@ -17,10 +10,13 @@ public:
 	QixPC();
 	virtual ~QixPC();
 
-	virtual int Init();
-	virtual void Render();
-	virtual void Tick(Uint32 diff);
-	virtual void Clear();
+	virtual int Init() override;
+	virtual void Tick(Uint32 diff) override;
+	virtual void Clear() override;
+    virtual void Possess(Sprite* sprite) override;
+    virtual void Render() override;
+
+    void SetWPos(glm::dvec3 wPos, Pivot pivot = PIVOT_CENTER);
 
 	int RequestStartMoveLeft();
 	int RequestStopMoveLeft();
@@ -30,16 +26,20 @@ public:
 	int RequestStopMoveUp();
 	int RequestStartMoveDown();
 	int RequestStopMoveDown();
+	int RequestShoot();
 
-	int				m_imageWidth;
-	int				m_imageHeight;
+	void StartNewBorder();
+
 	int				m_moveSpeed;
 
-	glm::dvec3		m_wPos;
 	bool			m_tryingToMove;
 	bool			m_moving;
 	Uint32			m_facing;
 
-	SDL_Texture	   *m_plrTex;
+    Sprite         *m_sprite;
+	glm::dvec3		m_lastTurnPos;
+
+	const std::string	m_playerImagePath;
+	const std::string	m_playerShootImagePath;
 };
 

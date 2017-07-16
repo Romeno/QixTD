@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "PlayerController.h"
+#include "Sprite.h"
+
 
 
 PlayerController::PlayerController()
@@ -20,12 +22,6 @@ int PlayerController::Init()
 }
 
 
-void PlayerController::Render()
-{
-
-}
-
-
 void PlayerController::Tick(Uint32 diff)
 {
 
@@ -38,13 +34,13 @@ void PlayerController::Clear()
 }
 
 
-void PlayerController::SetWPos(glm::dvec3 plrWPos, Pivot pivot)
+void PlayerController::Possess(Sprite* sprite)
 {
 
 }
 
 
-glm::dvec3 PlayerController::GetWPos()
+void PlayerController::Render()
 {
-	return { 0, 0, 0 };
+
 }

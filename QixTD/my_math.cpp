@@ -95,3 +95,27 @@ void FindPointsOnDistFromPointOnLine2(float angle, float xfrom, float yfrom, flo
 
 	return;
 }
+
+
+glm::dvec3 GetRectCenter(glm::dvec3 topLeft, glm::dvec3 size)
+{
+	glm::dvec3 center;
+
+	center.x = topLeft.x + size.x / 2;
+	center.y = topLeft.y - size.y / 2;
+	center.z = topLeft.z;
+
+	return center;
+}
+
+
+glm::dvec3 GetRectTopLeft(glm::dvec3 center, glm::dvec3 size)
+{
+	glm::dvec3 topLeft;
+
+	topLeft.x = center.x - size.x / 2;
+	topLeft.y = center.y + size.y / 2;
+	topLeft.z = center.z;
+
+	return topLeft;
+}

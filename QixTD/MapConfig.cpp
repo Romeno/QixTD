@@ -1,21 +1,21 @@
 #include "stdafx.h"
-#include "Map.h"
+#include "MapConfig.h"
 
 
-Map::Map()
-	: Config("map1")
+MapConfig::MapConfig(const std::string& id)
+	: Config(std::string("map") + id)
 {
 
 }
 
 
-Map::~Map()
+MapConfig::~MapConfig()
 {
 
 }
 
 
-void Map::Parse(std::ifstream& strm)
+void MapConfig::Parse(std::ifstream& strm)
 {
 	std::vector<std::string> parts;
 	std::string s;

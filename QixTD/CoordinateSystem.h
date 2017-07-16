@@ -72,3 +72,28 @@ glm::dvec3 R2W(glm::dvec3& romenoPoint);
 double W2Rx(double x);
 double W2Ry(double y);
 glm::dvec3 W2R(glm::dvec3& worldPoint);
+
+
+
+enum Pivot {
+    PIVOT_CENTER = 0,
+    PIVOT_TOP_LEFT,
+    PIVOT_BOTTOM_LEFT,
+    PIVOT_TOP_RIGHT,
+    PIVOT_BOTTOM_RIGHT,
+    PIVOT_MAX_PIVOTS,
+};
+
+
+enum Direction {
+	DIR_TOP = 1,
+	DIR_RIGHT = 2,
+	DIR_BOTTOM = 4,
+	DIR_LEFT = 8,
+	DIR_UNKNOWN = 16
+};
+
+
+glm::dvec3 DirToVec(Direction dir);
+Direction VecToDir(glm::dvec3 vec);
+

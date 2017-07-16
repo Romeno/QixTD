@@ -71,26 +71,26 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);i:\Romeno\VC\sdl\SDL2-2.0.5\include\;i:\Romeno\VC\sdl\extensions\SDL_image\include\;i:\Romeno\VC\glm\include\;i:\Romeno\VC\P7\include\;i:\Romeno\VC\glew\include\</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;i:\Romeno\VC\sdl\SDL2-2.0.5\lib\x86\;i:\Romeno\VC\sdl\extensions\SDL_image\lib\x86\;i:\Romeno\VC\\P7\lib\x86\debug\;i:\Romeno\VC\glew\lib\</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\debug\;$(ROMENO_BUNDLE)glew\lib\</LibraryPath>
     <SourcePath>$(VC_SourcePath);i:\Romeno\VC\__sources\full\SDL\SDL2-2.0.5\src\</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);i:\Romeno\VC\sdl\SDL2-2.0.5\include\;i:\Romeno\VC\sdl\extensions\SDL_image\include\;i:\Romeno\VC\glm\include\;i:\Romeno\VC\P7\include\</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;i:\Romeno\VC\sdl\SDL2-2.0.5\lib\x64\;i:\Romeno\VC\sdl\extensions\SDL_image\lib\x64\;i:\Romeno\VC\P7\lib\x64\debug\</LibraryPath>
-    <SourcePath>$(VC_SourcePath);i:\Romeno\VC\__sources\full\SDL\SDL2-2.0.5\src\</SourcePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\debug\;$(ROMENO_BUNDLE)glew\lib\</LibraryPath>
+    <SourcePath>$(VC_SourcePath);$(ROMENO_BUNDLE)__sources\full\SDL\SDL2-2.0.5\src\</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);i:\Romeno\VC\sdl\SDL2-2.0.5\include\;i:\Romeno\VC\sdl\extensions\SDL_image\include\;i:\Romeno\VC\glm\include\;i:\Romeno\VC\P7\include\</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;i:\Romeno\VC\sdl\SDL2-2.0.5\lib\x86\;i:\Romeno\VC\sdl\extensions\SDL_image\lib\x86\;i:\Romeno\VC\P7\lib\x86\release\</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\debug\;$(ROMENO_BUNDLE)glew\lib\</LibraryPath>
     <SourcePath>$(VC_SourcePath);i:\Romeno\VC\__sources\full\SDL\SDL2-2.0.5\src\</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);i:\Romeno\VC\sdl\SDL2-2.0.5\include\;i:\Romeno\VC\sdl\extensions\SDL_image\include\;i:\Romeno\VC\glm\include\;i:\Romeno\VC\P7\include\</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;i:\Romeno\VC\sdl\SDL2-2.0.5\lib\x64\;i:\Romeno\VC\sdl\extensions\SDL_image\lib\x64\;i:\Romeno\VC\P7\lib\x64\release\</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\debug\;$(ROMENO_BUNDLE)glew\lib\</LibraryPath>
     <SourcePath>$(VC_SourcePath);i:\Romeno\VC\__sources\full\SDL\SDL2-2.0.5\src\;</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -161,32 +161,26 @@
     <Text Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BackgroundC.h" />
     <ClInclude Include="AppConfig.h" />
+    <ClInclude Include="ColoredRect.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="CoordinateSystem.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="Drawable.h" />
+    <ClInclude Include="DrawableRect.h" />
     <ClInclude Include="EngiUtils.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="IH.h" />
     <ClInclude Include="InputHandler.h" />
-    <ClInclude Include="LineIH.h" />
-    <ClInclude Include="Map.h" />
+    <ClInclude Include="LineCascade.h" />
+    <ClInclude Include="MapConfigStub.h" />
+    <ClInclude Include="MapConfig.h" />
+    <ClInclude Include="MapConfigTiled.h" />
     <ClInclude Include="PC.h" />
-    <ClInclude Include="PlatformerIH.h" />
-    <ClInclude Include="LeafRain.h" />
-    <ClInclude Include="LevelInfo.h" />
-    <ClInclude Include="LineCascadePC.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="my_math.h" />
-    <ClInclude Include="PlatformerPC.h" />
-    <ClInclude Include="PlatformerSC.h" />
-    <ClInclude Include="PlatformInfo.h" />
     <ClInclude Include="PlayerController.h" />
-    <ClInclude Include="PointIH.h" />
-    <ClInclude Include="PointSplashPC.h" />
-    <ClInclude Include="PointSplashSC.h" />
     <ClInclude Include="pystring.h" />
     <ClInclude Include="QixIH.h" />
     <ClInclude Include="QixPC.h" />
@@ -196,7 +190,9 @@
     <ClInclude Include="SC.h" />
     <ClInclude Include="ScreenController.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="StringUtils.h" />
     <ClInclude Include="SystemInfo.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Uncategorized.h" />
@@ -204,41 +200,37 @@
     <ClInclude Include="WindowTitleManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BackgroundC.cpp" />
     <ClCompile Include="AppConfig.cpp" />
+    <ClCompile Include="ColoredRect.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="CoordinateSystem.cpp" />
+    <ClCompile Include="Drawable.cpp" />
+    <ClCompile Include="DrawableRect.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="InputHandler.cpp" />
-    <ClCompile Include="LineIH.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="PlatformerIH.cpp" />
-    <ClCompile Include="LeafRain.cpp" />
-    <ClCompile Include="LevelInfo.cpp" />
-    <ClCompile Include="LineCascadePC.cpp" />
+    <ClCompile Include="LineCascade.cpp" />
+    <ClCompile Include="MapConfigStub.cpp" />
+    <ClCompile Include="MapConfig.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MapConfigTiled.cpp" />
     <ClCompile Include="my_math.cpp" />
-    <ClCompile Include="PlatformerPC.cpp" />
-    <ClCompile Include="PlatformerSC.cpp" />
-    <ClCompile Include="PlatformInfo.cpp" />
     <ClCompile Include="PlayerController.cpp" />
-    <ClCompile Include="PointIH.cpp" />
-    <ClCompile Include="PointSplashPC.cpp" />
-    <ClCompile Include="PointSplashSC.cpp" />
     <ClCompile Include="pystring.cpp" />
     <ClCompile Include="QixIH.cpp" />
     <ClCompile Include="QixPC.cpp" />
     <ClCompile Include="QixSC.cpp" />
     <ClCompile Include="ScreenController.cpp" />
     <ClCompile Include="Singleton.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="SystemInfo.cpp" />
     <ClCompile Include="Uncategorized.cpp" />
     <ClCompile Include="WindowTitleManager.cpp" />

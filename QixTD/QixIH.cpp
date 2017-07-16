@@ -57,7 +57,31 @@ void QixIH::HandleKeyUp(SDL_KeyboardEvent* e)
 
 void QixIH::HandleKeyDown(SDL_KeyboardEvent* e)
 {
+	if (e->keysym.scancode == SDL_SCANCODE_LEFT)
+	{
+		PC()->RequestStartMoveLeft();
+	}
+	else if (e->keysym.scancode == SDL_SCANCODE_RIGHT)
+	{
+		PC()->RequestStartMoveRight();
+	}
+	else if (e->keysym.scancode == SDL_SCANCODE_UP)
+	{
+		PC()->RequestStartMoveUp();
+	}
+	else if (e->keysym.scancode == SDL_SCANCODE_DOWN)
+	{
+		PC()->RequestStartMoveDown();
+	}
+	else if (e->keysym.scancode == SDL_SCANCODE_SPACE)
+	{
+		PC()->RequestShoot();
+	}
 
+	else if (e->keysym.scancode == SDL_SCANCODE_ESCAPE)
+	{
+		GameManager::Inst()->Quit();
+	}
 }
 
 
