@@ -51,7 +51,7 @@ void QixPC::Tick(Uint32 diff)
                 {
                     m_sprite->m_wPos.x -= m_moveSpeed;
                     m_moving = true;
-					GameManager::Inst()->m_borderController->Moved(m_sprite->GetRectCenter());
+					GameManager::Inst()->m_borderController->NotifyMovement(m_sprite->GetRectCenter());
                 }
 
                 m_moving = false;
@@ -63,7 +63,7 @@ void QixPC::Tick(Uint32 diff)
                 {
                     m_sprite->m_wPos.x += m_moveSpeed;
                     m_moving = true;
-					GameManager::Inst()->m_borderController->Moved(m_sprite->GetRectCenter());
+					GameManager::Inst()->m_borderController->NotifyMovement(m_sprite->GetRectCenter());
                 }
 
                 m_moving = false;
@@ -75,7 +75,7 @@ void QixPC::Tick(Uint32 diff)
 				{
 					m_sprite->m_wPos.y += m_moveSpeed;
 					m_moving = true;
-					GameManager::Inst()->m_borderController->Moved(m_sprite->GetRectCenter());
+					GameManager::Inst()->m_borderController->NotifyMovement(m_sprite->GetRectCenter());
 				}
 
 				m_moving = false;
@@ -87,7 +87,7 @@ void QixPC::Tick(Uint32 diff)
 				{
 					m_sprite->m_wPos.y -= m_moveSpeed;
 					m_moving = true;
-					GameManager::Inst()->m_borderController->Moved(m_sprite->GetRectCenter());
+					GameManager::Inst()->m_borderController->NotifyMovement(m_sprite->GetRectCenter());
 				}
 
 				m_moving = false;
@@ -277,9 +277,10 @@ int QixPC::RequestShoot()
 {
 	Sprite* shoot = new Sprite("shoot", m_playerShootImagePath, glm::dvec3(10, 10, 0));
 	shoot->Init();
+	shoot->SetWPos(glm::dvec3(0, 0, 0));
 	shoot->SetDirection((Direction)m_facing);
-	shoot->SetMoveSpeed(10);
-	shoot->SetTimeToLive(5);
+	//shoot->SetMoveSpeed(10);
+	//shoot->SetTimeToLive(5);
 	GameManager::Inst()->RegisterDrawable(shoot);
 
 	return 0;

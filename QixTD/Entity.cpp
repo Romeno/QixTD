@@ -42,6 +42,18 @@ Entity::~Entity()
 }
 
 
+int Entity::Init()
+{
+	return 0;
+}
+
+
+void Entity::Tick(Uint32 diff)
+{
+
+}
+
+
 void Entity::Remove()
 {
 	m_removed = true;

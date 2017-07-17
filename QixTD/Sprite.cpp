@@ -19,7 +19,7 @@ Sprite::Sprite(const std::string& name, const std::string& imagePath, glm::dvec3
 
 Sprite::~Sprite()
 {
-
+	RemoveSDLObj(m_texture);
 }
 
 
@@ -29,7 +29,7 @@ Sprite::Sprite(const Sprite& other)
 	, m_imagePath(other.m_imagePath)
 	, m_texture(nullptr)
 {
-	this->Init();
+	this->Init(); // ??? should it be here or should a value be initialized manually after copying
 }
 
 
@@ -38,7 +38,7 @@ Sprite& Sprite::operator=(const Sprite& other)
 	m_imagePath = other.m_imagePath;
 	m_texture = nullptr;
 
-	this->Init();
+	this->Init(); // ??? should it be here or should a value be initialized manually after copying
 
 	return (*this);
 }
@@ -46,19 +46,21 @@ Sprite& Sprite::operator=(const Sprite& other)
 
 int Sprite::Init()
 {
+	// should introduce TextureManager for better memeory management?
+
 	std::string imagePath = GetResourcePath() + m_imagePath;
 	SDL_Surface *img = IMG_Load(imagePath.c_str());
 	if (img == nullptr) {
 		ERR(ERR_TYPE_SDL_ERROR, "IMG_Load error: %s", SDL_GetError());
-		cleanup(img);
+		RemoveSDLObj(img);
 		return 1;
 	}
 
 	m_texture = SDL_CreateTextureFromSurface(REN, img);
-	cleanup(img);
+	RemoveSDLObj(img);
 	if (m_texture == nullptr) {
 		ERR(ERR_TYPE_SDL_ERROR, "SDL_CreateTextureFromSurface error: %s", SDL_GetError());
-		cleanup(m_texture);
+		RemoveSDLObj(m_texture);
 		return 1;
 	}
 
@@ -81,12 +83,6 @@ void Sprite::Render()
 void Sprite::Tick(Uint32 diff)
 {
 	DrawableRect::Tick(diff);
-}
-
-
-void Sprite::Clear()
-{
-    cleanup(m_texture);
 }
 
 

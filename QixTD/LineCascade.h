@@ -6,12 +6,16 @@ class LineCascade : public Drawable
 {
 public:
 	LineCascade(const std::string& name);
+	//LineCascade(const LineCascade& other);
+	////LineCascade(LineCascade&& other);
+	//LineCascade& operator=(const LineCascade& other);
 	~LineCascade();
 
 	virtual int Init() override;
 	virtual void Tick(Uint32 diff) override;
-	virtual void Clear() override;
 	virtual void Render() override;
+
+	void NotifyMovement(glm::dvec3 to);
 
 	void AddLine(glm::dvec3 wPos1, glm::dvec3 wPos2);
 
@@ -21,6 +25,6 @@ public:
 	glm::ivec4			m_color;
 
 	const int		m_borderZ;
-	void Moved(glm::dvec3 to);
+
 };
 

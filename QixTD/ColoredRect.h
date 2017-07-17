@@ -10,6 +10,9 @@ class ColoredRect : public DrawableRect
 {
 public:
     ColoredRect(const std::string& name, glm::ivec4 color, glm::dvec3 size);
+	ColoredRect(const ColoredRect& other);
+	//ColoredRect(ColoredRect&& other);
+	ColoredRect& operator=(const ColoredRect& other);
     ~ColoredRect();
 
     virtual int Init() override;

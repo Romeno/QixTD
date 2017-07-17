@@ -7,11 +7,13 @@ class Sprite : public DrawableRect
 {
 public:
 	Sprite(const std::string& name, const std::string& imagePath, glm::dvec3 size);
+	Sprite(const Sprite& other);
+	//Sprite(Sprite&& other);
+	Sprite& operator=(const Sprite& other);
 	virtual ~Sprite();
 
 	virtual int Init() override;
 	virtual void Tick(Uint32 diff) override;
-	virtual void Clear() override;
 	virtual void Render() override;
 
 

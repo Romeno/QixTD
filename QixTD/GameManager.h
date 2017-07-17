@@ -45,8 +45,7 @@ public:
 
 	void Tick(Uint32 diff);
 	void RenderScene(Uint32 diff);
-	void Clean();
-    int LoadMap(int num);
+	int LoadMap(int num);
 
     void Quit();
 
@@ -59,6 +58,7 @@ public:
 
 	int		GetNumOpenGLDriver();
 
+public:
 	int					vpHeight;
 	int					vpWidth;
 
@@ -81,8 +81,11 @@ public:
 private:
 	GameManager();
 
+	void RemovePhase();
+	void TickPhase(Uint32 diff);
 	void OutputFPS();
 
+private:
 	AppConfig                  *m_cfg;
 
 	PlayerController           *m_pc;

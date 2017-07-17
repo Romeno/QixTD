@@ -19,32 +19,45 @@ LineCascade::~LineCascade()
 }
 
 
+//LineCascade::LineCascade(const LineCascade& other)
+//	: Drawable(other)
+//	, m_lines()
+//	, m_color(0, 0, 0, 0)
+//	, m_borderZ(50)
+//{
+//
+//}
+//
+//
+//LineCascade& LineCascade::operator=(const LineCascade& other)
+//{
+//
+//
+//	return (*this);
+//}
+
+
 void LineCascade::AddLine(glm::dvec3 wPos1, glm::dvec3 wPos2)
 {
 	m_lines.push_back(Line(glm::dvec3(wPos1.x, wPos1.y, m_borderZ), glm::dvec3(wPos2.x, wPos2.y, m_borderZ)));
 }
 
 
-void LineCascade::Moved(glm::dvec3 to)
+void LineCascade::NotifyMovement(glm::dvec3 to)
 {
 	m_lines.back().second = glm::dvec3(to.x, to.y, m_borderZ);
 }
 
+
 int LineCascade::Init()
 {
-	return 0;
+	return Drawable::Init();
 }
 
 
 void LineCascade::Tick(Uint32 diff)
 {
-
-}
-
-
-void LineCascade::Clear()
-{
-
+	Drawable::Tick(diff);
 }
 
 

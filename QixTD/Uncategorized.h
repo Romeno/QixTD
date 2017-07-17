@@ -11,11 +11,11 @@ float Random(float min, float max);
 * the first one in the list each iteration.
 */
 template<typename T, typename... Args>
-void cleanup(T *t, Args&&... args) {
+void RemoveSDLObj(T *t, Args&&... args) {
 	//Cleanup the first item in the list
-	cleanup(t);
+	RemoveSDLObj(t);
 	//Recurse to clean up the remaining arguments
-	cleanup(std::forward<Args>(args)...);
+	RemoveSDLObj(std::forward<Args>(args)...);
 }
 
 
@@ -29,7 +29,7 @@ void cleanup(T *t, Args&&... args) {
 * but rather just want to clean everything up and let cleanup sort it out
 */
 template<>
-inline void cleanup<SDL_Window>(SDL_Window *win) {
+inline void RemoveSDLObj<SDL_Window>(SDL_Window *win) {
 	if (!win) {
 		return;
 	}
@@ -37,7 +37,7 @@ inline void cleanup<SDL_Window>(SDL_Window *win) {
 }
 
 template<>
-inline void cleanup<SDL_Renderer>(SDL_Renderer *ren) {
+inline void RemoveSDLObj<SDL_Renderer>(SDL_Renderer *ren) {
 	if (!ren) {
 		return;
 	}
@@ -45,7 +45,7 @@ inline void cleanup<SDL_Renderer>(SDL_Renderer *ren) {
 }
 
 template<>
-inline void cleanup<SDL_Texture>(SDL_Texture *tex) {
+inline void RemoveSDLObj<SDL_Texture>(SDL_Texture *tex) {
 	if (!tex) {
 		return;
 	}
@@ -53,11 +53,20 @@ inline void cleanup<SDL_Texture>(SDL_Texture *tex) {
 }
 
 template<>
-inline void cleanup<SDL_Surface>(SDL_Surface *surf) {
+inline void RemoveSDLObj<SDL_Surface>(SDL_Surface *surf) {
 	if (!surf) {
 		return;
 	}
 	SDL_FreeSurface(surf);
+}
+
+#define DEL(pObj) SafeDelete(pObj); pObj = nullptr;
+
+template <class T>
+void SafeDelete(T* pObj)
+{
+	if (pObj)
+		delete pObj;
 }
 
 #endif // _MY_UTILS_H_

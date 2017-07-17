@@ -50,10 +50,27 @@ GameManager::GameManager()
 
 GameManager::~GameManager()
 {
-	delete m_ih;
-	delete m_pc;
-	delete m_sc;
-	delete m_cfg;
+	RemoveSDLObj(win, ren);
+	win = nullptr;
+	ren = nullptr;
+
+	std::for_each(m_mapConfigs.begin(), m_mapConfigs.end(), [](auto config) { SafeDelete(config); });
+	m_mapConfigs.clear();
+	m_currentMap = nullptr;
+
+	std::for_each(m_drawables.begin(), m_drawables.end(), [](auto d) { SafeDelete(d); });
+	m_drawables.clear();
+
+	DEL(m_borderController);
+
+	DEL(m_ih);
+	DEL(m_pc);
+	DEL(m_sc);
+	DEL(m_cfg);
+
+	SDL_StopTextInput();
+
+	SDL_Quit();
 }
 
 
@@ -63,7 +80,7 @@ int GameManager::Init()
 	ret = InitLogger();
 	if (ret != 0)
 	{
-		ERR(ERR_TYPE_ENGINE_ERROR, "InitLogger failed");
+		std::cout << "InitLogger failed" << std::endl;
 		_getch();
 		return ret;
 	}
@@ -82,7 +99,7 @@ int GameManager::Init()
 	if (ret != 0)
 	{
 		ERR(ERR_TYPE_ENGINE_ERROR, "InitEngine failed");
-		cleanup(win, ren);
+		RemoveSDLObj(win, ren);
 		SDL_StopTextInput();
 		SDL_Quit();
 		_getch();
@@ -123,7 +140,7 @@ int GameManager::InitSDL()
 	ren = SDL_CreateRenderer(win, numRenderDriver, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (ren == nullptr) {
 		ERR(ERR_TYPE_SDL_ERROR, "SDL_CreateRenderer error: %s", SDL_GetError());
-		cleanup(win);
+		RemoveSDLObj(win);
 		return 1;
 	}
 
@@ -256,11 +273,8 @@ int GameManager::LoadMap(int num)
         if (ret)
         {
 			ERR(ERR_TYPE_ENGINE_ERROR, "%s Entity Init failed", (*it)->m_name);
-			
-			for (auto itc = m_drawables.begin(); itc != m_drawables.end(); itc++)
-            {
-                (*itc)->Clear();
-            }
+
+			std::for_each(m_drawables.begin(), m_drawables.end(), [](auto d) { SafeDelete(d); });
 
             return ret;
         }
@@ -343,30 +357,9 @@ void GameManager::MainLoop()
 
 void GameManager::Tick(Uint32 diff) 
 {
-	WindowTitleManager::Inst()->Tick(diff);
+	RemovePhase();
 
-	//m_drawables.erase(std::remove_if(m_drawables.begin(), m_drawables.end(), ), m_drawables.end());
-
-	m_ih->Tick(diff);
-
-	m_pc->Tick(diff);
-
-	m_sc->Tick(diff);
-
-	for (auto it = m_drawables.begin(); it != m_drawables.end(); it++) 
-	{
-		(*it)->Tick(diff);
-	}
-}
-
-
-void GameManager::Clean()
-{
-	SDL_StopTextInput();
-
-	cleanup(ren, win);
-
-	SDL_Quit();
+	TickPhase(diff);
 }
 
 
@@ -395,7 +388,7 @@ void GameManager::RenderScene(Uint32 diff)
     //	LeafRain::Inst()->Render(false);
     //#endif
 
-	std::sort(m_drawables.begin(), m_drawables.end(), [](Drawable* one, Drawable* two) -> bool { return one->m_wPos.z < two->m_wPos.z; });
+	std::sort(m_drawables.begin(), m_drawables.end(), [](Drawable* one, Drawable* two) { return one->m_wPos.z < two->m_wPos.z; });
 
 	for (auto it = m_drawables.begin(); it != m_drawables.end(); it++)
 	{
@@ -433,6 +426,31 @@ void GameManager::OutputFPS() {
 		title += std::to_string(m_fps);
 
 		WindowTitleManager::Inst()->AddToWindowTitle(title);
+	}
+}
+
+
+void GameManager::RemovePhase()
+{
+	auto start = std::remove_if(m_drawables.begin(), m_drawables.end(), [](auto d) { return d->m_removed; });
+	std::for_each(start, m_drawables.end(), [](auto d) { SafeDelete(d); });
+	m_drawables.erase(start, m_drawables.end());
+}
+
+
+void GameManager::TickPhase(Uint32 diff)
+{
+	WindowTitleManager::Inst()->Tick(diff);
+
+	m_ih->Tick(diff);
+
+	m_pc->Tick(diff);
+
+	m_sc->Tick(diff);
+
+	for (auto it = m_drawables.begin(); it != m_drawables.end(); it++)
+	{
+		(*it)->Tick(diff);
 	}
 }
 

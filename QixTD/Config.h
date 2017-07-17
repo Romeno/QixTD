@@ -23,6 +23,5 @@ public:
 
 
 	std::string		m_filename;
-	int qq;
 };
 

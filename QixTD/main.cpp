@@ -23,8 +23,6 @@ int main()
 
 	GameManager::Inst()->MainLoop();
 
-	GameManager::Inst()->Clean();
-
 	return 0;
 }
 
