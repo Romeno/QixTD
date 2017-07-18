@@ -432,9 +432,12 @@ void GameManager::OutputFPS() {
 
 void GameManager::RemovePhase()
 {
-	auto start = std::remove_if(m_drawables.begin(), m_drawables.end(), [](auto d) { return d->m_removed; });
-	std::for_each(start, m_drawables.end(), [](auto d) { SafeDelete(d); });
-	m_drawables.erase(start, m_drawables.end());
+	auto start = std::remove_if(m_drawables.begin(), m_drawables.end(), [](auto d) { if (d->m_removed) { SafeDelete(d); } return d->m_removed; });
+	if (start != m_drawables.end())
+	{
+		//std::for_each(start + 1, m_drawables.end(), [](auto d) { SafeDelete(d); });
+		m_drawables.erase(start, m_drawables.end());
+	}
 }
 
 

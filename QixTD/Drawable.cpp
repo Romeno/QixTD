@@ -69,10 +69,9 @@ bool Drawable::RemoveIfElapsed()
 	if (m_removed)
 		return m_removed;
 	
-	if (m_timeToLive && (m_timeToLive + m_startTime > SDL_GetTicks()))
+	if (m_timeToLive && (m_timeToLive + m_startTime < SDL_GetTicks()))
 	{
 		m_removed = true;
-		//GameManager::Inst()->MarkForRemoval(this);
 		return true;
 	}
 

@@ -29,6 +29,7 @@ public:
 	int RequestShoot();
 
 	void StartNewBorder();
+	glm::dvec3 GetShootPos();
 
 	int				m_moveSpeed;
 

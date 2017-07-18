@@ -273,14 +273,20 @@ void QixPC::StartNewBorder()
 }
 
 
+glm::dvec3 QixPC::GetShootPos()
+{
+	return ::GetRectShootPos(m_sprite->m_wPos, m_sprite->m_size, (Direction)m_facing);
+}
+
+
 int QixPC::RequestShoot()
 {
 	Sprite* shoot = new Sprite("shoot", m_playerShootImagePath, glm::dvec3(10, 10, 0));
 	shoot->Init();
-	shoot->SetWPos(glm::dvec3(0, 0, 0));
+	shoot->SetWPos(GetShootPos());
 	shoot->SetDirection((Direction)m_facing);
-	//shoot->SetMoveSpeed(10);
-	//shoot->SetTimeToLive(5);
+	shoot->SetMoveSpeed(3);
+	shoot->SetTimeToLive(5);
 	GameManager::Inst()->RegisterDrawable(shoot);
 
 	return 0;

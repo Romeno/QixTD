@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "my_math.h"
 #include "glm/glm.hpp"
+#include "Logger.h"
 
 
 void FindPointsOnDistFromPointOnLine(double angle, 
@@ -118,4 +119,28 @@ glm::dvec3 GetRectTopLeft(glm::dvec3 center, glm::dvec3 size)
 	topLeft.z = center.z;
 
 	return topLeft;
+}
+
+
+glm::dvec3 GetRectShootPos(glm::dvec3 topLeft, glm::dvec3 size, Direction dir)
+{
+	switch (dir)
+	{
+	case DIR_TOP:
+		return glm::dvec3(topLeft.x + size.x / 2, topLeft.y, topLeft.z);
+		break;
+	case DIR_RIGHT:
+		return glm::dvec3(topLeft.x + size.x, topLeft.y - size.y / 2, topLeft.z);
+		break;
+	case DIR_BOTTOM:
+		return glm::dvec3(topLeft.x + size.x / 2, topLeft.y - size.y, topLeft.z);
+		break;
+	case DIR_LEFT:
+		return glm::dvec3(topLeft.x, topLeft.y - size.y / 2, topLeft.z);
+		break;
+	default:
+		ERR(ERR_TYPE_PROGRAMMING_ERROR, "Unknown direction: %d", (int)dir);
+		return topLeft;
+		break;
+	}
 }

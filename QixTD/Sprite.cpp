@@ -4,6 +4,7 @@
 #include "Utils.h"
 #include "Logger.h"
 #include "ColoredRect.h"
+#include "TextureManager.h"
 
 
 
@@ -19,7 +20,7 @@ Sprite::Sprite(const std::string& name, const std::string& imagePath, glm::dvec3
 
 Sprite::~Sprite()
 {
-	RemoveSDLObj(m_texture);
+
 }
 
 
@@ -46,21 +47,11 @@ Sprite& Sprite::operator=(const Sprite& other)
 
 int Sprite::Init()
 {
-	// should introduce TextureManager for better memeory management?
-
 	std::string imagePath = GetResourcePath() + m_imagePath;
-	SDL_Surface *img = IMG_Load(imagePath.c_str());
-	if (img == nullptr) {
-		ERR(ERR_TYPE_SDL_ERROR, "IMG_Load error: %s", SDL_GetError());
-		RemoveSDLObj(img);
-		return 1;
-	}
 
-	m_texture = SDL_CreateTextureFromSurface(REN, img);
-	RemoveSDLObj(img);
-	if (m_texture == nullptr) {
-		ERR(ERR_TYPE_SDL_ERROR, "SDL_CreateTextureFromSurface error: %s", SDL_GetError());
-		RemoveSDLObj(m_texture);
+	m_texture = TextureManager::Inst()->GetTexture(imagePath);
+	if (!m_texture)
+	{ 
 		return 1;
 	}
 

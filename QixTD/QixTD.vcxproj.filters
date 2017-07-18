@@ -141,6 +141,9 @@
     <ClInclude Include="Drawable.h">
       <Filter>Base</Filter>
     </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -229,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="Drawable.cpp">
       <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

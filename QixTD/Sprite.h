@@ -16,7 +16,6 @@ public:
 	virtual void Tick(Uint32 diff) override;
 	virtual void Render() override;
 
-
     std::string		m_imagePath;
 
     SDL_Texture	   *m_texture;
