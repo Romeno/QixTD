@@ -244,6 +244,14 @@ int GameManager::LoadMap(int num)
 	bg->SetWPos(glm::dvec3(0, 0, -100));
 	m_drawables.push_back(bg);
 
+	for (size_t i = 0; i < 1; i++)
+	{
+		ColoredRect* pingpongMonster = new ColoredRect("monster" + std::to_string(i), glm::ivec4(255, 255, 255, 0), glm::dvec3(30, 30, 0));
+		pingpongMonster->SetWPos(glm::dvec3(150, 0, 0));
+		m_drawables.push_back(pingpongMonster);
+
+		
+	}
 
     // INPUT_HANDLER
     m_ih->Init();

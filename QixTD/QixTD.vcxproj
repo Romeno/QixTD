@@ -71,25 +71,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\debug\;$(ROMENO_BUNDLE)glew\lib\</LibraryPath>
     <SourcePath>$(VC_SourcePath);i:\Romeno\VC\__sources\full\SDL\SDL2-2.0.5\src\</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\debug\;$(ROMENO_BUNDLE)glew\lib\</LibraryPath>
     <SourcePath>$(VC_SourcePath);$(ROMENO_BUNDLE)__sources\full\SDL\SDL2-2.0.5\src\</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\debug\;$(ROMENO_BUNDLE)glew\lib\</LibraryPath>
     <SourcePath>$(VC_SourcePath);i:\Romeno\VC\__sources\full\SDL\SDL2-2.0.5\src\</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\debug\;$(ROMENO_BUNDLE)glew\lib\</LibraryPath>
     <SourcePath>$(VC_SourcePath);i:\Romeno\VC\__sources\full\SDL\SDL2-2.0.5\src\;</SourcePath>
   </PropertyGroup>
@@ -161,6 +161,7 @@
     <Text Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIController.h" />
     <ClInclude Include="AppConfig.h" />
     <ClInclude Include="ColoredRect.h" />
     <ClInclude Include="Config.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="DrawableRect.h" />
     <ClInclude Include="EngiUtils.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="DrawableController.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="IH.h" />
     <ClInclude Include="InputHandler.h" />
@@ -180,6 +182,7 @@
     <ClInclude Include="PC.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="my_math.h" />
+    <ClInclude Include="PingPongMonsterAI.h" />
     <ClInclude Include="PlayerController.h" />
     <ClInclude Include="pystring.h" />
     <ClInclude Include="QixIH.h" />
@@ -201,6 +204,7 @@
     <ClInclude Include="WindowTitleManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AIController.cpp" />
     <ClCompile Include="AppConfig.cpp" />
     <ClCompile Include="ColoredRect.cpp" />
     <ClCompile Include="Config.cpp" />
@@ -208,6 +212,7 @@
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DrawableRect.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="DrawableController.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="LineCascade.cpp" />
@@ -217,6 +222,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MapConfigTiled.cpp" />
     <ClCompile Include="my_math.cpp" />
+    <ClCompile Include="PingPongMonsterAI.cpp" />
     <ClCompile Include="PlayerController.cpp" />
     <ClCompile Include="pystring.cpp" />
     <ClCompile Include="QixIH.cpp" />

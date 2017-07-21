@@ -11,6 +11,7 @@ class MapConfigStub;
 class PlayerController;
 class InputHandler;
 class ScreenController;
+class DrawableController;
 
 
 //template<class _Ty = void>
@@ -92,7 +93,8 @@ private:
 	InputHandler               *m_ih;
 	ScreenController           *m_sc;
 
-	std::vector<Drawable*>      m_drawables;
+	std::vector<DrawableController*> m_controllers;
+	std::vector<Drawable*>			m_drawables;
 };
 
 

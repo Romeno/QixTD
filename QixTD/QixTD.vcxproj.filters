@@ -144,6 +144,11 @@
     <ClInclude Include="TextureManager.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="DrawableController.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="AIController.h" />
+    <ClInclude Include="PingPongMonsterAI.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -234,6 +239,15 @@
       <Filter>Base</Filter>
     </ClCompile>
     <ClCompile Include="TextureManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawableController.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="AIController.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="PingPongMonsterAI.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
