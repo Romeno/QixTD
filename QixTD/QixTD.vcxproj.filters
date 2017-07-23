@@ -32,223 +32,249 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Collision\Collision.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collision\Collider.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Config\AppConfig.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Config\Config.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Controlling\DrawableController.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\InputHandler.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\LineCascade.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Entity.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Drawable.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ColoredRect.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DrawableRect.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\CoordinateSystem.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utils\Logger.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Config\MapConfig.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Config\MapConfigStub.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Config\MapConfigTiled.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Controlling\PingPongMonsterAI.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Controlling\PlayerController.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utils\pystring.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utils\Singleton.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Sprite.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utils\StringUtils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ScreenController.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\QixIH.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\QixPC.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\QixSC.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collision\RectCollider.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utils\WindowTitleManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TextureManager.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utils\SystemInfo.h">
+      <Filter>Info</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Rect.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utils\Utils.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Utils\Uncategorized.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Controlling\TickPingPongMonsterAI.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h">
       <Filter>__</Filter>
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>__</Filter>
     </ClInclude>
-    <ClInclude Include="Singleton.h">
+    <ClInclude Include="Engine\Utils\EngiUtils.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="my_math.h">
+    <ClInclude Include="Engine\Controlling\AIController.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\Defines.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\PC.h">
+      <Filter>Utils\Shortcuts</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\IH.h">
+      <Filter>Utils\Shortcuts</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\SC.h">
+      <Filter>Utils\Shortcuts</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\Math.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="SystemInfo.h">
-      <Filter>Info</Filter>
-    </ClInclude>
-    <ClInclude Include="CoordinateSystem.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Uncategorized.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="EngiUtils.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerController.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="InputHandler.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="ScreenController.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Defines.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="IH.h">
-      <Filter>Utils\Shortcuts</Filter>
-    </ClInclude>
-    <ClInclude Include="PC.h">
-      <Filter>Utils\Shortcuts</Filter>
-    </ClInclude>
-    <ClInclude Include="SC.h">
-      <Filter>Utils\Shortcuts</Filter>
-    </ClInclude>
-    <ClInclude Include="Rect.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="pystring.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowTitleManager.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="AppConfig.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="StringUtils.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Config.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="QixIH.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="QixPC.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="QixSC.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="MapConfig.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="MapConfigTiled.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="MapConfigStub.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="ColoredRect.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="LineCascade.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawableRect.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Drawable.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="TextureManager.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawableController.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="AIController.h" />
-    <ClInclude Include="PingPongMonsterAI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Engine\Collision\Collision.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collision\Collider.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\AppConfig.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\Config.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Controlling\DrawableController.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\InputHandler.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\LineCascade.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Entity.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Drawable.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ColoredRect.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DrawableRect.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\CoordinateSystem.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\Logger.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\main.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\MapConfig.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\MapConfigStub.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\MapConfigTiled.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Controlling\PingPongMonsterAI.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Controlling\PlayerController.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\pystring.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\Singleton.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Sprite.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\StringUtils.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ScreenController.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\QixIH.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\QixPC.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\QixSC.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collision\RectCollider.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\WindowTitleManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\TextureManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\SystemInfo.cpp">
+      <Filter>Info</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\Uncategorized.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Controlling\TickPingPongMonsterAI.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>__</Filter>
     </ClCompile>
-    <ClCompile Include="Singleton.cpp">
-      <Filter>Utils</Filter>
+    <ClCompile Include="Engine\Controlling\AIController.cpp">
+      <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="my_math.cpp">
+    <ClCompile Include="Math\Math.cpp">
       <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="SystemInfo.cpp">
-      <Filter>Info</Filter>
-    </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="CoordinateSystem.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Uncategorized.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Logger.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerController.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="InputHandler.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ScreenController.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="pystring.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="AppConfig.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowTitleManager.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="StringUtils.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Config.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="QixIH.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="QixPC.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="QixSC.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="MapConfig.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="MapConfigTiled.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="MapConfigStub.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="ColoredRect.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="LineCascade.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawableRect.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Drawable.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureManager.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawableController.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="AIController.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="PingPongMonsterAI.cpp">
-      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

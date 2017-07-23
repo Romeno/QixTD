@@ -8,6 +8,7 @@
 #define NOMINMAX
 
 #include "targetver.h"
+#include <windows.h>
 
 #include <stdio.h>
 #include <tchar.h>
@@ -20,8 +21,12 @@
 #include <ios>
 #include <fstream>
 #include <algorithm>
-
-#include "pystring.h"
+#include <cctype>
+#include <cstring>
+#include <sstream>
+#include <locale>
+#include <codecvt>
+#include <string>
 
 #include <GL/glew.h>
 
@@ -30,7 +35,9 @@
 #include <SDL_opengl.h>
 #include <SDL_opengl_glext.h>
 
-#include <windows.h>
 #include <glm/glm.hpp>
+
+#include "Engine/Utils/pystring.h"
+
 
 // TODO: reference additional headers your program requires here

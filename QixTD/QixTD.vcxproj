@@ -71,25 +71,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ProjectDir);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\debug\;$(ROMENO_BUNDLE)glew\lib\</LibraryPath>
     <SourcePath>$(VC_SourcePath);i:\Romeno\VC\__sources\full\SDL\SDL2-2.0.5\src\</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ProjectDir);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\debug\;$(ROMENO_BUNDLE)glew\lib\</LibraryPath>
     <SourcePath>$(VC_SourcePath);$(ROMENO_BUNDLE)__sources\full\SDL\SDL2-2.0.5\src\</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ProjectDir);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\debug\;$(ROMENO_BUNDLE)glew\lib\</LibraryPath>
     <SourcePath>$(VC_SourcePath);i:\Romeno\VC\__sources\full\SDL\SDL2-2.0.5\src\</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ProjectDir);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\debug\;$(ROMENO_BUNDLE)glew\lib\</LibraryPath>
     <SourcePath>$(VC_SourcePath);i:\Romeno\VC\__sources\full\SDL\SDL2-2.0.5\src\;</SourcePath>
   </PropertyGroup>
@@ -161,87 +161,95 @@
     <Text Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AIController.h" />
-    <ClInclude Include="AppConfig.h" />
-    <ClInclude Include="ColoredRect.h" />
-    <ClInclude Include="Config.h" />
-    <ClInclude Include="CoordinateSystem.h" />
-    <ClInclude Include="Defines.h" />
-    <ClInclude Include="Drawable.h" />
-    <ClInclude Include="DrawableRect.h" />
-    <ClInclude Include="EngiUtils.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="DrawableController.h" />
-    <ClInclude Include="GameManager.h" />
-    <ClInclude Include="IH.h" />
-    <ClInclude Include="InputHandler.h" />
-    <ClInclude Include="LineCascade.h" />
-    <ClInclude Include="MapConfigStub.h" />
-    <ClInclude Include="MapConfig.h" />
-    <ClInclude Include="MapConfigTiled.h" />
-    <ClInclude Include="PC.h" />
-    <ClInclude Include="Logger.h" />
-    <ClInclude Include="my_math.h" />
-    <ClInclude Include="PingPongMonsterAI.h" />
-    <ClInclude Include="PlayerController.h" />
-    <ClInclude Include="pystring.h" />
-    <ClInclude Include="QixIH.h" />
-    <ClInclude Include="QixPC.h" />
-    <ClInclude Include="QixSC.h" />
-    <ClInclude Include="Rect.h" />
+    <ClInclude Include="Engine\Controlling\AIController.h" />
+    <ClInclude Include="Engine\Config\AppConfig.h" />
+    <ClInclude Include="Engine\Collision\Collider.h" />
+    <ClInclude Include="Engine\Collision\Collision.h" />
+    <ClInclude Include="Engine\ColoredRect.h" />
+    <ClInclude Include="Engine\Config\Config.h" />
+    <ClInclude Include="Engine\CoordinateSystem.h" />
+    <ClInclude Include="Gameplay\Defines.h" />
+    <ClInclude Include="Engine\Drawable.h" />
+    <ClInclude Include="Engine\DrawableRect.h" />
+    <ClInclude Include="Engine\Utils\EngiUtils.h" />
+    <ClInclude Include="Engine\Entity.h" />
+    <ClInclude Include="Engine\Controlling\DrawableController.h" />
+    <ClInclude Include="Engine\GameManager.h" />
+    <ClInclude Include="Gameplay\IH.h" />
+    <ClInclude Include="Engine\InputHandler.h" />
+    <ClInclude Include="Gameplay\LineCascade.h" />
+    <ClInclude Include="Engine\Config\MapConfigStub.h" />
+    <ClInclude Include="Engine\Config\MapConfig.h" />
+    <ClInclude Include="Engine\Config\MapConfigTiled.h" />
+    <ClInclude Include="Gameplay\PC.h" />
+    <ClInclude Include="Engine\Utils\Logger.h" />
+    <ClInclude Include="Math\Math.h" />
+    <ClInclude Include="Engine\Controlling\PingPongMonsterAI.h" />
+    <ClInclude Include="Engine\Controlling\PlayerController.h" />
+    <ClInclude Include="Engine\Utils\pystring.h" />
+    <ClInclude Include="Gameplay\QixIH.h" />
+    <ClInclude Include="Gameplay\QixPC.h" />
+    <ClInclude Include="Gameplay\QixSC.h" />
+    <ClInclude Include="Engine\Rect.h" />
+    <ClInclude Include="Engine\Collision\RectCollider.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="SC.h" />
-    <ClInclude Include="ScreenController.h" />
-    <ClInclude Include="Singleton.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="Gameplay\SC.h" />
+    <ClInclude Include="Engine\ScreenController.h" />
+    <ClInclude Include="Engine\Utils\Singleton.h" />
+    <ClInclude Include="Engine\Sprite.h" />
+    <ClInclude Include="Engine\TextureManager.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="StringUtils.h" />
-    <ClInclude Include="SystemInfo.h" />
+    <ClInclude Include="Engine\Utils\StringUtils.h" />
+    <ClInclude Include="Engine\Utils\SystemInfo.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Uncategorized.h" />
-    <ClInclude Include="Utils.h" />
-    <ClInclude Include="WindowTitleManager.h" />
+    <ClInclude Include="Engine\Controlling\TickPingPongMonsterAI.h" />
+    <ClInclude Include="Engine\Utils\Uncategorized.h" />
+    <ClInclude Include="Engine\Utils\Utils.h" />
+    <ClInclude Include="Engine\Utils\WindowTitleManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AIController.cpp" />
-    <ClCompile Include="AppConfig.cpp" />
-    <ClCompile Include="ColoredRect.cpp" />
-    <ClCompile Include="Config.cpp" />
-    <ClCompile Include="CoordinateSystem.cpp" />
-    <ClCompile Include="Drawable.cpp" />
-    <ClCompile Include="DrawableRect.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="DrawableController.cpp" />
-    <ClCompile Include="GameManager.cpp" />
-    <ClCompile Include="InputHandler.cpp" />
-    <ClCompile Include="LineCascade.cpp" />
-    <ClCompile Include="MapConfigStub.cpp" />
-    <ClCompile Include="MapConfig.cpp" />
-    <ClCompile Include="Logger.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MapConfigTiled.cpp" />
-    <ClCompile Include="my_math.cpp" />
-    <ClCompile Include="PingPongMonsterAI.cpp" />
-    <ClCompile Include="PlayerController.cpp" />
-    <ClCompile Include="pystring.cpp" />
-    <ClCompile Include="QixIH.cpp" />
-    <ClCompile Include="QixPC.cpp" />
-    <ClCompile Include="QixSC.cpp" />
-    <ClCompile Include="ScreenController.cpp" />
-    <ClCompile Include="Singleton.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="Engine\Controlling\AIController.cpp" />
+    <ClCompile Include="Engine\Config\AppConfig.cpp" />
+    <ClCompile Include="Engine\Collision\Collider.cpp" />
+    <ClCompile Include="Engine\Collision\Collision.cpp" />
+    <ClCompile Include="Engine\ColoredRect.cpp" />
+    <ClCompile Include="Engine\Config\Config.cpp" />
+    <ClCompile Include="Engine\CoordinateSystem.cpp" />
+    <ClCompile Include="Engine\Drawable.cpp" />
+    <ClCompile Include="Engine\DrawableRect.cpp" />
+    <ClCompile Include="Engine\Entity.cpp" />
+    <ClCompile Include="Engine\Controlling\DrawableController.cpp" />
+    <ClCompile Include="Engine\GameManager.cpp" />
+    <ClCompile Include="Engine\InputHandler.cpp" />
+    <ClCompile Include="Gameplay\LineCascade.cpp" />
+    <ClCompile Include="Engine\Config\MapConfigStub.cpp" />
+    <ClCompile Include="Engine\Config\MapConfig.cpp" />
+    <ClCompile Include="Engine\Utils\Logger.cpp" />
+    <ClCompile Include="Gameplay\main.cpp" />
+    <ClCompile Include="Engine\Config\MapConfigTiled.cpp" />
+    <ClCompile Include="Math\Math.cpp" />
+    <ClCompile Include="Engine\Controlling\PingPongMonsterAI.cpp" />
+    <ClCompile Include="Engine\Controlling\PlayerController.cpp" />
+    <ClCompile Include="Engine\Utils\pystring.cpp" />
+    <ClCompile Include="Gameplay\QixIH.cpp" />
+    <ClCompile Include="Gameplay\QixPC.cpp" />
+    <ClCompile Include="Gameplay\QixSC.cpp" />
+    <ClCompile Include="Engine\Collision\RectCollider.cpp" />
+    <ClCompile Include="Engine\ScreenController.cpp" />
+    <ClCompile Include="Engine\Utils\Singleton.cpp" />
+    <ClCompile Include="Engine\Sprite.cpp" />
+    <ClCompile Include="Engine\TextureManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="StringUtils.cpp" />
-    <ClCompile Include="SystemInfo.cpp" />
-    <ClCompile Include="Uncategorized.cpp" />
-    <ClCompile Include="WindowTitleManager.cpp" />
+    <ClCompile Include="Engine\Utils\StringUtils.cpp" />
+    <ClCompile Include="Engine\Utils\SystemInfo.cpp" />
+    <ClCompile Include="Engine\Controlling\TickPingPongMonsterAI.cpp" />
+    <ClCompile Include="Engine\Utils\Uncategorized.cpp" />
+    <ClCompile Include="Engine\Utils\WindowTitleManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SDL.rc" />
