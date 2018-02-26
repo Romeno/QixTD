@@ -32,109 +32,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Engine\Collision\Collision.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Collision\Collider.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\AppConfig.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\Config.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Controlling\DrawableController.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\InputHandler.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Gameplay\LineCascade.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\GameManager.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Entity.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Drawable.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ColoredRect.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\DrawableRect.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\CoordinateSystem.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\Logger.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\MapConfig.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\MapConfigStub.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Config\MapConfigTiled.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Controlling\PingPongMonsterAI.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Controlling\PlayerController.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\pystring.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\Singleton.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Sprite.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\StringUtils.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ScreenController.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Gameplay\QixIH.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Gameplay\QixPC.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Gameplay\QixSC.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Collision\RectCollider.h">
-      <Filter>Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\WindowTitleManager.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\TextureManager.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\SystemInfo.h">
-      <Filter>Info</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Rect.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\Utils.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Utils\Uncategorized.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Controlling\TickPingPongMonsterAI.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h">
       <Filter>__</Filter>
@@ -142,34 +39,163 @@
     <ClInclude Include="targetver.h">
       <Filter>__</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Utils\EngiUtils.h">
-      <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\Controlling\AIController.h">
+    <ClInclude Include="Engine\Entity.h" />
+    <ClInclude Include="Engine\GameManager.h" />
+    <ClInclude Include="Engine\Component.h" />
+    <ClInclude Include="Engine\Components\Drawable.h" />
+    <ClInclude Include="Engine\Components\TextComponent.h" />
+    <ClInclude Include="Engine\Components\UIComponent.h" />
+    <ClInclude Include="Engine\Components\UI\UIButton.h" />
+    <ClInclude Include="Engine\Components\UI\UICheckbox.h" />
+    <ClInclude Include="Engine\Components\UI\UIElement.h" />
+    <ClInclude Include="Engine\Components\UI\UIHint.h" />
+    <ClInclude Include="Engine\Components\UI\UIICon1.h" />
+    <ClInclude Include="Engine\Components\UI\UILabel.h" />
+    <ClInclude Include="Engine\Components\UI\UIMinimap.h" />
+    <ClInclude Include="Engine\Components\UI\UIPanel.h" />
+    <ClInclude Include="Engine\Components\UI\UIProgressBar.h" />
+    <ClInclude Include="Engine\Components\UI\UIRadioButton.h" />
+    <ClInclude Include="Engine\Components\UI\UIScrollBar.h" />
+    <ClInclude Include="Engine\Components\UI\UISimpleButton.h" />
+    <ClInclude Include="Engine\Components\UI\UISlider.h" />
+    <ClInclude Include="Engine\Components\UI\UISpoiler.h" />
+    <ClInclude Include="Engine\Components\UI\UIWindow.h" />
+    <ClInclude Include="Engine\Config\AppConfig.h" />
+    <ClInclude Include="Engine\Config\Config.h" />
+    <ClInclude Include="Engine\Config\MapConfig.h" />
+    <ClInclude Include="Engine\Config\MapConfigTiled.h" />
+    <ClInclude Include="Engine\Components\Collision\CircleCollider.h" />
+    <ClInclude Include="Engine\Components\Collision\Collider.h">
       <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="Gameplay\Defines.h">
-      <Filter>Utils</Filter>
+    <ClInclude Include="Engine\Components\Collision\Collision.h">
+      <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="Gameplay\PC.h">
-      <Filter>Utils\Shortcuts</Filter>
+    <ClInclude Include="Engine\Components\Collision\LineCollider.h" />
+    <ClInclude Include="Engine\Components\Collision\MapCollider.h" />
+    <ClInclude Include="Engine\Components\Collision\RectCollider.h">
+      <Filter>Base</Filter>
     </ClInclude>
-    <ClInclude Include="Gameplay\IH.h">
-      <Filter>Utils\Shortcuts</Filter>
-    </ClInclude>
-    <ClInclude Include="Gameplay\SC.h">
-      <Filter>Utils\Shortcuts</Filter>
-    </ClInclude>
-    <ClInclude Include="Math\Math.h">
-      <Filter>Math</Filter>
-    </ClInclude>
+    <ClInclude Include="Math\Math.h" />
+    <ClInclude Include="Engine\Components\Controllable.h" />
+    <ClInclude Include="Engine\Utils\EngiUtils.h" />
+    <ClInclude Include="Engine\Utils\pystring.h" />
+    <ClInclude Include="Engine\Utils\Singleton.h" />
+    <ClInclude Include="Engine\Utils\StringUtils.h" />
+    <ClInclude Include="Engine\Utils\SystemInfo.h" />
+    <ClInclude Include="Engine\Utils\Utils.h" />
+    <ClInclude Include="Engine\Utils\WindowTitleManager.h" />
+    <ClInclude Include="Engine\Components\Collidable.h" />
+    <ClInclude Include="Engine\CoordinateSystem.h" />
+    <ClInclude Include="Engine\InputHandler.h" />
+    <ClInclude Include="Engine\Camera.h" />
+    <ClInclude Include="Engine\API.h" />
+    <ClInclude Include="Engine\Game.h" />
+    <ClInclude Include="Engine\Cache\FontCache.h" />
+    <ClInclude Include="Engine\Cache\TextureCache.h" />
+    <ClInclude Include="Engine\Components\Drawing\Sprite.h" />
+    <ClInclude Include="Engine\Components\Controlling\Playable.h" />
+    <ClInclude Include="Engine\Utils\SDLUtils.h" />
+    <ClInclude Include="Engine\Utils\CppUtils.h" />
+    <ClInclude Include="Engine\Components\Controlling\AI.h" />
+    <ClInclude Include="Mechanics\Qix\Components\Controlling\PingPongAI.h" />
+    <ClInclude Include="Mechanics\Qix\Components\Controlling\QixPC.h" />
+    <ClInclude Include="Mechanics\Qix\Components\Controlling\TickPingPongAI.h" />
+    <ClInclude Include="Mechanics\Qix\Config\MapConfigStub.h" />
+    <ClInclude Include="Mechanics\Qix\Config\PlayerConfig.h" />
+    <ClInclude Include="Mechanics\Qix\LineCascade.h" />
+    <ClInclude Include="Mechanics\Qix\Qix.h" />
+    <ClInclude Include="Mechanics\Qix\QixAPI.h" />
+    <ClInclude Include="Mechanics\Qix\QixCamera.h" />
+    <ClInclude Include="Mechanics\Qix\QixIH.h" />
+    <ClInclude Include="QixTD\QixTD.h" />
+    <ClInclude Include="Engine\Mechanics.h" />
+    <ClInclude Include="Engine\Components\PhysicsComponent.h" />
+    <ClInclude Include="Engine\Components\Physics\SimplePhysicsComponent.h" />
+    <ClInclude Include="Engine\Components\Physics\Box2DPhysicsComponent.h" />
+    <ClInclude Include="Engine\Components\Drawing\AnimatedSprite.h" />
+    <ClInclude Include="Engine\Components\Drawing\FolderAnimation.h" />
+    <ClInclude Include="Engine\Components\Drawing\ConfigAnimation.h" />
+    <ClInclude Include="Engine\Config\AnimationConfig.h" />
+    <ClInclude Include="Engine\Config\Animation\RomenoAnimConfig.h" />
+    <ClInclude Include="Engine\Components\Drawing\SpriteBase.h" />
+    <ClInclude Include="Engine\Components\UI\Sensors\MouseInputSensor.h" />
+    <ClInclude Include="Engine\Components\UI\Sensors\InputSensor.h" />
+    <ClInclude Include="Engine\Components\UI\Sensors\EntityPositionSensor.h" />
+    <ClInclude Include="Engine\Input\Keyboard.h" />
+    <ClInclude Include="Engine\Input\Mouse.h" />
+    <ClInclude Include="Engine\Utils\Logger\Logger.h" />
+    <ClInclude Include="Engine\Utils\Logger\Sink.h" />
+    <ClInclude Include="Engine\Utils\types.h" />
+    <ClInclude Include="Engine\Utils\MeasureUnits\InfoSize.h" />
+    <ClInclude Include="Engine\Utils\OldLogger.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine\Collision\Collision.cpp">
-      <Filter>Base</Filter>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>__</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Collision\Collider.cpp">
-      <Filter>Base</Filter>
+    <ClCompile Include="Engine\Entity.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Component.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Drawable.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\TextComponent.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UIComponent.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UIButton.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UICheckbox.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UIElement.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UIHint.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UIICon1.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UILabel.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UIMinimap.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UIPanel.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UIProgressBar.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UIRadioButton.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UIScrollBar.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UISimpleButton.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UISlider.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UISpoiler.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\UIWindow.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Config\AppConfig.cpp">
       <Filter>Engine</Filter>
@@ -177,111 +203,189 @@
     <ClCompile Include="Engine\Config\Config.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Controlling\DrawableController.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\InputHandler.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Gameplay\LineCascade.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\GameManager.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Entity.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Drawable.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ColoredRect.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\DrawableRect.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\CoordinateSystem.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Utils\Logger.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Gameplay\main.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Config\MapConfig.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Config\MapConfigStub.cpp">
-      <Filter>Gameplay</Filter>
+      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Config\MapConfigTiled.cpp">
-      <Filter>Gameplay</Filter>
+      <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Controlling\PingPongMonsterAI.cpp">
-      <Filter>Gameplay</Filter>
+    <ClCompile Include="Engine\Components\Collision\CircleCollider.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Controlling\PlayerController.cpp">
+    <ClCompile Include="Engine\Components\Collision\Collider.cpp">
       <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Collision\Collision.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Collision\LineCollider.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Collision\MapCollider.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Collision\RectCollider.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Math.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Controllable.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utils\pystring.cpp">
-      <Filter>Utils</Filter>
+      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utils\Singleton.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Sprite.cpp">
-      <Filter>Base</Filter>
+      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utils\StringUtils.cpp">
-      <Filter>Utils</Filter>
+      <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\ScreenController.cpp">
-      <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Gameplay\QixIH.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="Gameplay\QixPC.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="Gameplay\QixSC.cpp">
-      <Filter>Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Collision\RectCollider.cpp">
-      <Filter>Base</Filter>
+    <ClCompile Include="Engine\Utils\SystemInfo.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utils\WindowTitleManager.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\TextureManager.cpp">
+    <ClCompile Include="Engine\Components\Collidable.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Utils\SystemInfo.cpp">
-      <Filter>Info</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Utils\Uncategorized.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Controlling\TickPingPongMonsterAI.cpp">
+    <ClCompile Include="Engine\CoordinateSystem.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>__</Filter>
+    <ClCompile Include="Engine\InputHandler.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Controlling\AIController.cpp">
-      <Filter>Base</Filter>
+    <ClCompile Include="Engine\Camera.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Math\Math.cpp">
-      <Filter>Math</Filter>
+    <ClCompile Include="Engine\API.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Game.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Cache\FontCache.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Cache\TextureCache.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Drawing\Sprite.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Controlling\Playable.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\SDLUtils.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\EngiUtils.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\Utils.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\CppUtils.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Controlling\AI.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\Components\Controlling\PingPongAI.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\Components\Controlling\QixPC.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\Components\Controlling\TickPingPongAI.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\Config\MapConfigStub.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\Config\PlayerConfig.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\LineCascade.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\Qix.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\QixAPI.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\QixCamera.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\QixIH.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="QixTD\main.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="QixTD\QixTD.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Mechanics.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\PhysicsComponent.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Physics\SimplePhysicsComponent.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Physics\Box2DPhysicsComponent.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Drawing\AnimatedSprite.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Drawing\FolderAnimation.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Drawing\ConfigAnimation.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\AnimationConfig.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\Animation\RomenoAnimConfig.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\Drawing\SpriteBase.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\Sensors\MouseInputSensor.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\Sensors\InputSensor.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\Sensors\EntityPositionSensor.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Input\Keyboard.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Input\Mouse.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\Logger\Logger.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\Logger\Sink.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="SDL.rc">
+    <ResourceCompile Include="..\..\..\..\VC\__sources\loading extensions\glew-2.1.0\build\glew.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

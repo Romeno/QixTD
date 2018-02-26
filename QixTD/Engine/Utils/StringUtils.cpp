@@ -15,11 +15,17 @@ std::wstring Str2Wstr(std::string& narrow)
 }
 
 
+std::wstring Str2Wstr( char* narrow )
+{
+	return Str2Wstr( std::string(narrow) );
+}
+
+
 // обратно не работает
-//std::string Wstr2Str(std::wstring& wide)
-//{
-//	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
-//	std::string narrow = converter.to_bytes(wide);
-//
-//	return narrow;
-//}
+std::string Wstr2Str(std::wstring& wide)
+{
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	std::string narrow = converter.to_bytes(wide);
+
+	return narrow;
+}

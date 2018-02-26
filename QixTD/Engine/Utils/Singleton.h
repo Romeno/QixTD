@@ -8,15 +8,17 @@ public:
 	friend A;
 
 	static A* Inst() {
-		if (!p_instance)
-			p_instance = new A();
+		if ( !p_instance )
+			InitInstance();
 		return p_instance;
 	}
+
+	static void InitInstance() { new A(); }
 
 protected:
 	static A* p_instance;
 
-	Singleton() {};
+	Singleton() { p_instance = (A*)this; };
 	Singleton(const Singleton&);
 	Singleton& operator=(Singleton&);
 };

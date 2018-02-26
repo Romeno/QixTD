@@ -4,26 +4,31 @@
 // SDL
 //
 // (0, 0)
-//   ┌──────────────────┐----→ 
+//   ┌──────────────────┐────> 
 //   |					|	  x
 //   |					|
 //   |					|
 //	 |					|	
 //   └──────────────────┘ 
-//   |					(width, height)
+//   |					(screenWidth, 
+//	 |					 screenHeight)
 //   ↓ y
+
 
 // Romeno
 //					 
-//	(- width / 2,            ↑ y
-//	 - height / 2) ┌─────────┼─────────┐
-//	               |         |         |	  
-//                 |         |         |
-//               ──┼─────────┼─────────┼────→ 
-//                 |         |(0, 0)   |	 x
-//                 |         |         |	
-//                 └─────────┼─────────┘ 
-//                           |         (width / 2, height / 2)
+//	(-screenWidth  / 2,           ↑ y
+//	  screenHeight / 2) ┌─────────┼─────────┐
+//	                    |         |         |	  
+//                      |         |         |
+//                    ──┼─────────┼─────────┼────> 
+//                      |         |(0, 0)   |	 x
+//                      |         |         |	
+//                      └─────────┼─────────┘ 
+//                                |         ( screenWidth  / 2, 
+//		                                     -screenHeight / 2)
+//
+
 
 double S2Rx(int x);
 double S2Ry(int y);
@@ -35,25 +40,27 @@ SDL_Point R2S(glm::dvec3& romenoPoint);
 
 // World
 //
-// (-levelWidth / 2
-//  -levelHeight / 2)                        ↑ y
+// (-levelWidth  / 2
+//   levelHeight / 2 )                       ↑ y
 //          ┌────────────────────────────────┼────────────────────────────────┐
 //          |                                |                                |
-//          |                   ( -screenWidth / 2,                           |
-//          |                     -screenHeight / 2)                          |
-//          |                               ┌┼──────────────────┐             |
-//          |                               ||                  |             |
-//          |                               ||                  |             |
-//          |                               ||                  |             |
-//        ──┼───────────────────────────────┼┼──────────────────┼─────────────┼───→
-//          |                               || (0, 0)           |             |    x
-//          |                               └┼──────────────────┘             |
-//          |                                |           ( screenWidth / 2,   |
-//          |                                |             screenHeight / 2)  |
+//          |           (screenWPos.x,       |                                |
+//          |            screenWPos.y )      |                                |
+//          |                  ┌─────────────┼───────────────────┐            |
+//          |                  | (screenWPos.x + vpWidth  / 2,   |            |
+//          |                  |  screenWPos.y - vpHeight / 2 )  |            |
+//          |                  |             |  *                |            |
+//        ──┼──────────────────┼─────────────┼───────────────────┼────────────┼───→
+//          |                  |             | (0, 0)            |            |    x
+//          |                  └─────────────┼───────────────────┘            |
+//          |                                |      (screenPos.x + vpWidth,   |
+//          |                                |       screenPos.y - vpHeight ) |
 //          |                                |                                |
 //          |                                |                                |
 //          └────────────────────────────────┼────────────────────────────────┘
-//                                           |                                (levelWidth / 2, levelHeight / 2)
+//                                           |                          (levelWidth  / 2, 
+//                                                                       levelHeight / 2 )
+
 
 double S2Wx(int x);
 double S2Wy(int y);
@@ -73,6 +80,7 @@ double W2Rx(double x);
 double W2Ry(double y);
 glm::dvec3 W2R(glm::dvec3& worldPoint);
 
+SDL_Rect ToSDLRect(glm::dvec3 center, glm::dvec3 size);
 
 
 enum Pivot {

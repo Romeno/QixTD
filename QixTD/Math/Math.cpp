@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Math.h"
-#include "Engine/Utils/Logger.h"
 #include "Engine/Utils/Utils.h"
 
 
@@ -100,10 +99,16 @@ void FindPointsOnDistFromPointOnLine2(float angle, float xfrom, float yfrom, flo
 
 glm::dvec3 GetRectCenter(glm::dvec3 topLeft, glm::dvec3 size)
 {
+	return GetRectCenter( topLeft, size.x, size.y );
+}
+
+
+glm::dvec3 GetRectCenter( glm::dvec3 topLeft, double width, double height )
+{
 	glm::dvec3 center;
 
-	center.x = topLeft.x + size.x / 2;
-	center.y = topLeft.y - size.y / 2;
+	center.x = topLeft.x + width / 2;
+	center.y = topLeft.y - height / 2;
 	center.z = topLeft.z;
 
 	return center;
@@ -112,13 +117,28 @@ glm::dvec3 GetRectCenter(glm::dvec3 topLeft, glm::dvec3 size)
 
 glm::dvec3 GetRectTopLeft(glm::dvec3 center, glm::dvec3 size)
 {
+	return GetRectTopLeft(center, size.x, size.y);
+}
+
+
+glm::dvec3 GetRectTopLeft( glm::dvec3 center, double width, double height )
+{
 	glm::dvec3 topLeft;
 
-	topLeft.x = center.x - size.x / 2;
-	topLeft.y = center.y + size.y / 2;
+	topLeft.x = center.x - width / 2;
+	topLeft.y = center.y + height / 2;
 	topLeft.z = center.z;
 
 	return topLeft;
+}
+
+
+bool IsPointInRect(glm::dvec3 pos, glm::dvec3 center, glm::dvec3 size)
+{
+	return	pos.x > center.x - size.x / 2 &&
+			pos.y > center.y - size.y / 2 &&
+			pos.x < center.x + size.x / 2 &&
+			pos.y < center.y + size.y / 2;
 }
 
 
@@ -149,4 +169,24 @@ glm::dvec3 GetRectShootPos(glm::dvec3 topLeft, glm::dvec3 size, Direction dir)
 glm::dvec3 GetRandomDirection()
 {
 	return glm::normalize(glm::dvec3(Random(-10., 10.), Random(-10., 10.), 0.));
+}
+
+
+float DistanceFromLineSegmentToPoint( glm::dvec3 v, glm::dvec3 w, glm::dvec3 p )
+{
+	// ÍÀÏÈÑÀÍÀ ÄËß ÊÀÊÎÃÎ-ÒÎ vec2
+
+// 	// Return minimum distance between line segment vw and point p
+// 	const float l2 = length_squared( v, w );  // i.e. |w-v|^2 -  avoid a sqrt
+// 	if ( l2 == 0.0 ) return distance( p, v );   // v == w case
+// 												// Consider the line extending the segment, parameterized as v + t (w - v).
+// 												// We find projection of point p onto the line. 
+// 												// It falls where t = [(p-v) . (w-v)] / |w-v|^2
+// 	const float t = dot( p - v, w - v ) / l2;
+// 	if ( t < 0.0 ) return distance( p, v );       // Beyond the 'v' end of the segment
+// 	else if ( t > 1.0 ) return distance( p, w );  // Beyond the 'w' end of the segment
+// 	const vec2 projection = v + t * (w - v);  // Projection falls on the segment
+// 	return distance( p, projection );
+
+	return 0;
 }

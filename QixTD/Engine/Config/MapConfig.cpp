@@ -3,7 +3,7 @@
 
 
 MapConfig::MapConfig(const std::string& id)
-	: Config(std::string("map") + id)
+	: super(std::string("map") + id)
 {
 
 }

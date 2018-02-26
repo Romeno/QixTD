@@ -3,7 +3,7 @@
 
 
 MapConfigTiled::MapConfigTiled(const std::string& id)
-    : MapConfig(id)
+    : super(id)
 {
 
 }

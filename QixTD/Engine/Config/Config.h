@@ -10,9 +10,8 @@ enum ConfigError {
 class Config
 {
 public:
-	Config(std::string filename);
-	~Config();
-
+	Config(const std::string& filename);
+	virtual ~Config();
 
 	ConfigError Read();
 	virtual void Parse(std::ifstream& strm);
@@ -20,6 +19,7 @@ public:
     glm::dvec3 ParseVector2(const std::string& str);
     std::string ParseString(const std::string& str);
     int ParseInt(const std::string& str);
+	double ParseDouble( const std::string& str );
 
 
 	std::string		m_filename;

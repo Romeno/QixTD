@@ -1,33 +1,38 @@
 ﻿#include "stdafx.h"
 #include "CoordinateSystem.h"
-#include "Engine/GameManager.h"
-#include "glm/glm.hpp"
+#include "Engine/Utils/Utils.h"
+#include "Engine/Camera.h"
+#include "Engine/Game.h"
+#include "Math/Math.h"
 
-#include "Gameplay/SC.h"
 
 // SDL
 //
 // (0, 0)
-//   ┌──────────────────┐----→ 
+//   ┌──────────────────┐────> 
 //   |					|	  x
 //   |					|
 //   |					|
 //	 |					|	
 //   └──────────────────┘ 
-//   |					(width, height)
+//   |					(screenWidth, 
+//	 |					 screenHeight)
 //   ↓ y
+
 
 // Romeno
 //					 
-//	(- width / 2,            ↑ y
-//	 - height / 2) ┌─────────┼─────────┐
-//	               |         |         |	  
-//                 |         |         |
-//               ──┼─────────┼─────────┼────→ 
-//                 |         |(0, 0)   |	 x
-//                 |         |         |	
-//                 └─────────┼─────────┘ 
-//                           |         (width / 2, height / 2)
+//	(-screenWidth  / 2,           ↑ y
+//	  screenHeight / 2) ┌─────────┼─────────┐
+//	                    |         |         |	  
+//                      |         |         |
+//                    ──┼─────────┼─────────┼────> 
+//                      |         |(0, 0)   |	 x
+//                      |         |         |	
+//                      └─────────┼─────────┘ 
+//                                |         ( screenWidth  / 2, 
+//		                                     -screenHeight / 2)
+
 
 double S2Rx(int x)
 {
@@ -74,66 +79,61 @@ SDL_Point R2S(glm::dvec3& romenoPoint)
 
 // World
 //
-// (-levelWidth / 2
-//  -levelHeight / 2)                        ↑ y
+// (-levelWidth  / 2
+//   levelHeight / 2 )                       ↑ y
 //          ┌────────────────────────────────┼────────────────────────────────┐
 //          |                                |                                |
-//          |                   ( screenPos.x,                                |
-//          |                     screenPos.y )                               |
-//          |                               ┌┼──────────────────┐             |
-//          |                               ||                  |             |
-//          |                               ||                  |             |
-//          |                               ||                  |             |
-//        ──┼───────────────────────────────┼┼──────────────────┼─────────────┼───→
-//          |                               || (0, 0)           |             |    x
-//          |                               └┼──────────────────┘             |
-//          |                                |     ( screenPos.x + vpWidth,   |
-//          |                                |       screenPos.x + vpHeight ) |
+//          |           (screenWPos.x,       |                                |
+//          |            screenWPos.y )      |                                |
+//          |                  ┌─────────────┼───────────────────┐            |
+//          |                  | (screenWPos.x + vpWidth  / 2,   |            |
+//          |                  |  screenWPos.y - vpHeight / 2 )  |            |
+//          |                  |             |  *                |            |
+//        ──┼──────────────────┼─────────────┼───────────────────┼────────────┼───→
+//          |                  |             | (0, 0)            |            |    x
+//          |                  └─────────────┼───────────────────┘            |
+//          |                                |      (screenPos.x + vpWidth,   |
+//          |                                |       screenPos.y - vpHeight ) |
 //          |                                |                                |
 //          |                                |                                |
 //          └────────────────────────────────┼────────────────────────────────┘
-//                                           |                                (levelWidth / 2, levelHeight / 2)
+//                                           |                          (levelWidth  / 2, 
+//                                                                       levelHeight / 2 )
+
 
 double S2Wx(int x)
 {
-	return S2Rx(x) + SC()->GetWPos().x;
+	return CAMERA->S2Wx( x );
 }
 
 
 double S2Wy(int y) 
 {
-	return S2Ry(y) + SC()->GetWPos().y;
+	return CAMERA->S2Wy( y );
 }
 
 
 glm::dvec3 S2W(SDL_Point& sdlPoint) 
 {
-	return {
-		S2Wx(sdlPoint.x),
-		S2Wy(sdlPoint.y),
-		0
-	};
+	return CAMERA->S2W( sdlPoint );
 }
 
 
 int W2Sx(double x) 
 {
-	return R2Sx(x - SC()->GetWPos().x);
+	return CAMERA->W2Sx( x );
 }
 
 
 int W2Sy(double y) 
 {
-	return R2Sy(y - SC()->GetWPos().y);
+	return CAMERA->W2Sy( y );
 }
 
 
 SDL_Point W2S(glm::dvec3& worldPoint) 
 {
-	return {
-		W2Sx(worldPoint.x),
-		W2Sy(worldPoint.y)
-	};
+	return CAMERA->W2S( worldPoint );
 }
 
 
@@ -141,45 +141,47 @@ SDL_Point W2S(glm::dvec3& worldPoint)
 
 double R2Wx(double x)
 {
-	return x + SC()->GetWPos().x;
+	return CAMERA->R2Wx( x );
 }
 
 
 double R2Wy(double y)
 {
-	return y + SC()->GetWPos().y;
+	return CAMERA->R2Wy( y );
 }
 
 
 glm::dvec3 R2W(glm::dvec3& romenoPoint)
 {
-	return{
-		R2Wx(romenoPoint.x),
-		R2Wy(romenoPoint.y),
-		0
-	};
+	return CAMERA->R2W( romenoPoint );
 }
 
 
 double W2Rx(double x)
 {
-	return x - SC()->GetWPos().x;
+	return CAMERA->W2Rx( x );
 }
 
 
 double W2Ry(double y)
 {
-	return y - SC()->GetWPos().y;
+	return CAMERA->W2Ry( y );
 }
 
 
 glm::dvec3 W2R(glm::dvec3& worldPoint)
 {
-	return {
-		W2Sx(worldPoint.x),
-		W2Sy(worldPoint.y),
-		0
-	};
+	return CAMERA->W2R( worldPoint );
+}
+
+
+SDL_Rect ToSDLRect(glm::dvec3 center, glm::dvec3 size)
+{
+	glm::dvec3 topLeft = GetRectTopLeft(center, size);
+	return { W2Sx(topLeft.x),
+			 W2Sy(topLeft.y),
+ 			 int(size.x),
+			 int(size.y) };
 }
 
 

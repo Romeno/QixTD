@@ -1,11 +1,10 @@
 #include "stdafx.h"
 #include "Config.h"
 #include "Engine/Utils/Utils.h"
-#include "Engine/Utils/Logger.h"
 #include "Engine/Utils/StringUtils.h"
 
 
-Config::Config(std::string filename)
+Config::Config(const std::string& filename)
 	: m_filename(filename)
 {
 
@@ -79,6 +78,16 @@ int Config::ParseInt(const std::string& str)
     ret = stoi(str);
 
     return ret;
+}
+
+
+double Config::ParseDouble( const std::string& str )
+{
+	double ret;
+
+	ret = std::stod( str );
+
+	return ret;
 }
 
 

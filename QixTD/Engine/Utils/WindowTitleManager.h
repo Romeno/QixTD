@@ -5,6 +5,8 @@
 class WindowTitleManager : public Singleton<WindowTitleManager>
 {
 public:
+	typedef Singleton<WindowTitleManager> super;
+
 	WindowTitleManager();
 	~WindowTitleManager();
 

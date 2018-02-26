@@ -5,7 +5,9 @@
 
 
 WindowTitleManager::WindowTitleManager()
-	: m_defaultTitle("")
+	: super()
+
+	, m_defaultTitle("")
 	, m_currentTickTitle("")
 {
 

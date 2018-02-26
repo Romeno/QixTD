@@ -4,10 +4,11 @@
 
 
 AppConfig::AppConfig()
-	: Config("conf")
+	: super("conf")
 
 	, m_windowTitle("")
 	, m_windowTitleKey("WindowTitle")
+
     , m_numMaps(0)
     , m_numMapsKey("NumMaps")
 {
@@ -30,6 +31,10 @@ void AppConfig::Parse(std::ifstream& strm)
 		strm.getline(line, 255);
 		s = line;
 		s = pys::strip(s);
+
+		if ( s.empty() )
+			continue;
+
 		pys::split(s, parts, "=", 1);
 
 		parts[0] = pys::strip(parts[0]);
@@ -44,5 +49,9 @@ void AppConfig::Parse(std::ifstream& strm)
 
             m_numMaps = ParseInt(parts[1]);
         }
+		else
+		{
+			throw "shit";
+		}
 	}
 }

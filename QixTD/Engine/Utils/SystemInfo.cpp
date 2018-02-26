@@ -349,13 +349,12 @@ void PrintAudioH()
 }
 
 
-void PrintKeyboardH(SDL_Window* win) {
+void PrintKeyboardH(SDL_Window* win) 
+{
 	cout << endl;
 	cout << "-------------     KEYBOARD     -------------" << endl;
 	SDL_Window* w = SDL_GetKeyboardFocus();
 	cout << "SDL_GetKeyboardFocus(): 0x" << std::hex << (Uint32)w << std::dec << endl;
-
-	//SDL_GetKeyboardState
 
 	cout << endl;
 	cout << "SDL_HasScreenKeyboardSupport(): " << SDL_HasScreenKeyboardSupport() << endl;
@@ -363,7 +362,41 @@ void PrintKeyboardH(SDL_Window* win) {
 }
 
 
-void PrintMouseH() {
+void ListenKeyboardH( SDL_Window* win ) 
+{
+	const Uint8* keyboardKeys;
+	int numkeys;
+	keyboardKeys = SDL_GetKeyboardState( &numkeys );
+	for ( size_t i = 0; i < numkeys; i++ )
+	{
+		if ( keyboardKeys[i] )
+		{
+			SDL_Scancode scancode = (SDL_Scancode) i;
+
+			cout << "Scancode: " << scancode << endl;
+
+			const char* name = SDL_GetScancodeName( scancode );
+			cout << "Scancode name: " << name << endl;
+			
+			SDL_Keycode keyCode = SDL_GetKeyFromScancode( scancode );
+			cout << "Keycode: " << keyCode << endl;
+
+			const char* keyCodeName = SDL_GetKeyName( keyCode );
+			cout << "Keycode name: " << keyCodeName << endl;
+
+		}
+	}
+
+	SDL_Keymod mods = SDL_GetModState();
+	if ( mods & KMOD_LSHIFT == KMOD_LSHIFT )
+	{
+		cout << "LSHIFT pressed" << endl;
+	}
+}
+
+
+void PrintMouseH() 
+{
 	cout << endl;
 	cout << "-------------     MOUSE     -------------" << endl;
 
@@ -609,9 +642,15 @@ void PrintPowerState(SDL_PowerState s)
 }
 
 
+void PrintSDLTtfVersion()
+{
+	INFO("SDL_ttf version: %d.%d.%d", SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL);
+}
+
+
 void PrintKeyboardEvent(SDL_Event* e) {
 
-	PrintEventType(e->type);
+	//PrintEventType(e->type);
 	cout << endl;
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowId: " << e->key.windowID << endl;
@@ -624,7 +663,7 @@ void PrintKeyboardEvent(SDL_Event* e) {
 
 void PrintTextEditingEvent(SDL_Event* e) {
 
-	PrintEventType(e->type);
+	//PrintEventType(e->type);
 	cout << endl;
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowId: " << e->edit.windowID << endl;
@@ -637,7 +676,7 @@ void PrintTextEditingEvent(SDL_Event* e) {
 
 
 void PrintTextInputEvent(SDL_Event* e) {
-	PrintEventType(e->type);
+	//PrintEventType(e->type);
 	cout << endl;
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowId: " << e->text.windowID << endl;
@@ -649,7 +688,7 @@ void PrintTextInputEvent(SDL_Event* e) {
 
 void PrintMouseButtonEvent(SDL_Event* e) {
 
-	PrintEventType(e->type);
+	//PrintEventType(e->type);
 	cout << endl;
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowId: " << e->button.windowID << endl;
@@ -672,7 +711,7 @@ void PrintMouseButtonEvent(SDL_Event* e) {
 
 void PrintMouseMotionEvent(SDL_Event* e) {
 
-	PrintEventType(e->type);
+	//PrintEventType(e->type);
 	cout << endl;
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowId: " << e->motion.windowID << endl;
@@ -696,7 +735,7 @@ void PrintMouseMotionEvent(SDL_Event* e) {
 
 void PrintMouseWheelEvent(SDL_Event* e) {
 
-	PrintEventType(e->type);
+	//PrintEventType(e->type);
 	cout << endl;
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowId: " << e->wheel.windowID << endl;
@@ -713,6 +752,25 @@ void PrintMouseWheelEvent(SDL_Event* e) {
 	cout << "   y: " << (int)e->wheel.y << endl;
 	cout << endl;
 
+}
+
+
+void PrintGenericEvent( SDL_Event* e )
+{
+	//PrintEventType( e->type );
+	cout << "   timestamp: " << e->common.timestamp << endl;
+}
+
+
+void PrintWindowEvent( SDL_Event* e )
+{
+	//PrintEventType( e->type );
+	cout << "   timestamp: " << e->common.timestamp << endl;
+	cout << "   windowEvent: ";
+	//PrintWindowEventType( (SDL_WindowEventID)(e->window.event) );
+	cout << endl;
+	cout << "   data1: " << e->window.data1 << endl;
+	cout << "   data2: " << e->window.data2 << endl;
 }
 
 
@@ -804,57 +862,198 @@ void PrintMouseButtonNum(Uint8 mouseButton) {
 }
 
 
-void PrintEventType(Uint32 eventType) {
-	char* res;
-	if (eventType == SDL_KEYDOWN)
-	{
-		res = "SDL_KEYDOWN";
-	}
-	else if (eventType == SDL_KEYUP)
-	{
-		res = "SDL_KEYUP";
-	}
-	else if (eventType == SDL_KEYMAPCHANGED)
-	{
-		res = "SDL_KEYMAPCHANGED";
-	}
-	else if (eventType == SDL_TEXTEDITING)
-	{
-		res = "SDL_TEXTEDITING";
-	}
-	else if (eventType == SDL_TEXTINPUT)
-	{
-		res = "SDL_TEXTINPUT";
-	}
+#define ENUM2STR(enumType, funcName, ...)
 
-	else if (eventType == SDL_MOUSEMOTION)
-	{
-		res = "SDL_MOUSEMOTION";
-	}
-	else if (eventType == SDL_MOUSEBUTTONDOWN)
-	{
-		res = "SDL_MOUSEBUTTONDOWN";
-	}
-	else if (eventType == SDL_MOUSEBUTTONUP)
-	{
-		res = "SDL_MOUSEBUTTONUP";
-	}
-	else if (eventType == SDL_MOUSEWHEEL)
-	{
-		res = "SDL_MOUSEWHEEL";
-	}
+bool InitSDL_WindowEvent2StrMap( std::map<SDL_WindowEventID, std::string>& map)
+{
+	MADD( SDL_WINDOWEVENT_SHOWN );
+	MADD( SDL_WINDOWEVENT_HIDDEN );
+	MADD( SDL_WINDOWEVENT_EXPOSED );
 
-	else if (eventType == SDL_QUIT)
-	{
-		res = "SDL_QUIT";
-	}
-	else
-	{
-		res = "UNKNOWN_EVENT_TYPE";
-	}
-	cout << res;
+	MADD( SDL_WINDOWEVENT_MOVED );
+	MADD( SDL_WINDOWEVENT_RESIZED );
+	MADD( SDL_WINDOWEVENT_SIZE_CHANGED );
+
+	MADD( SDL_WINDOWEVENT_MINIMIZED );
+	MADD( SDL_WINDOWEVENT_MAXIMIZED );
+	MADD( SDL_WINDOWEVENT_RESTORED );
+
+	MADD( SDL_WINDOWEVENT_ENTER );
+	MADD( SDL_WINDOWEVENT_LEAVE );
+	MADD( SDL_WINDOWEVENT_FOCUS_GAINED );
+	MADD( SDL_WINDOWEVENT_FOCUS_LOST );
+	MADD( SDL_WINDOWEVENT_TAKE_FOCUS );
+	MADD( SDL_WINDOWEVENT_HIT_TEST );
+	MADD( SDL_WINDOWEVENT_CLOSE );
+
+	return true;
 }
 
 
+std::string GetWindowEventTypeStr( SDL_WindowEventID windowEventId ) {
+	static std::map<SDL_WindowEventID, std::string> SDL_WindowEvent2Str;
+	static bool inited = InitSDL_WindowEvent2StrMap( SDL_WindowEvent2Str );
 
+	auto it = SDL_WindowEvent2Str.find( windowEventId );
+	if ( it == SDL_WindowEvent2Str.end() )
+	{
+		ERR( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Window Event Type" );
+		return std::string("UNKNOWN_WINDOW_EVENT_TYPE");
+	}
+	else
+	{
+		return it->second;
+	}
+}
 
+//
+//bool InitSDL_EventType2StrMap( std::map<SDL_WindowEventID, std::string>& map )
+//{
+//	// iOS
+//	MADD( SDL_APP_TERMINATING );
+//	MADD( SDL_APP_LOWMEMORY );
+//	MADD( SDL_APP_WILLENTERBACKGROUND );
+//	MADD( SDL_APP_DIDENTERBACKGROUND );
+//	MADD( SDL_APP_WILLENTERFOREGROUND );
+//	MADD( SDL_APP_DIDENTERFOREGROUND );
+//}
+//
+//
+//std::string GetEventTypeStr( SDL_EventType eventType ) 
+//{
+//	static std::map<SDL_EventType, std::string> SDL_WindowEvent2Str;
+//	static bool inited = InitSDL_WindowEvent2StrMap( SDL_WindowEvent2Str );
+//
+//	auto it = SDL_WindowEvent2Str.find( windowEventId );
+//	if ( it == SDL_WindowEvent2Str.end() )
+//	{
+//		ERR( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Window Event Type" );
+//		return std::string( "UNKNOWN_WINDOW_EVENT_TYPE" );
+//	}
+//	else
+//	{
+//		return it->second;
+//	}
+//
+//
+//	// iOS
+//	if ( eventType == SDL_APP_TERMINATING )
+//	{
+//		res = "SDL_APP_TERMINATING";
+//	}
+//	else if ( eventType == SDL_APP_LOWMEMORY )
+//	{
+//		res = "SDL_APP_LOWMEMORY";
+//	}
+//	else if ( eventType == SDL_APP_WILLENTERBACKGROUND )
+//	{
+//		res = "SDL_APP_WILLENTERBACKGROUND";
+//	}
+//	else if ( eventType == SDL_APP_DIDENTERBACKGROUND )
+//	{
+//		res = "SDL_APP_DIDENTERBACKGROUND";
+//	}
+//	else if ( eventType == SDL_APP_WILLENTERFOREGROUND )
+//	{
+//		res = "SDL_APP_WILLENTERFOREGROUND";
+//	}
+//	else if ( eventType == SDL_APP_DIDENTERFOREGROUND )
+//	{
+//		res = "SDL_APP_DIDENTERFOREGROUND";
+//	}
+//
+//	if ( eventType == SDL_WINDOWEVENT )
+//	{
+//		res = "SDL_WINDOWEVENT";
+//	}
+//	else if ( eventType == SDL_SYSWMEVENT )
+//	{
+//		res = "SDL_SYSWMEVENT";
+//	}
+//
+//	else if ( eventType == SDL_KEYDOWN )
+//	{
+//		res = "SDL_KEYDOWN";
+//	}
+//	else if ( eventType == SDL_KEYUP )
+//	{
+//		res = "SDL_KEYUP";
+//	}
+//	else if ( eventType == SDL_KEYMAPCHANGED )
+//	{
+//		res = "SDL_KEYMAPCHANGED";
+//	}
+//	else if ( eventType == SDL_TEXTEDITING )
+//	{
+//		res = "SDL_TEXTEDITING";
+//	}
+//	else if ( eventType == SDL_TEXTINPUT )
+//	{
+//		res = "SDL_TEXTINPUT";
+//	}
+//
+//	else if ( eventType == SDL_MOUSEMOTION )
+//	{
+//		res = "SDL_MOUSEMOTION";
+//	}
+//	else if ( eventType == SDL_MOUSEBUTTONDOWN )
+//	{
+//		res = "SDL_MOUSEBUTTONDOWN";
+//	}
+//	else if ( eventType == SDL_MOUSEBUTTONUP )
+//	{
+//		res = "SDL_MOUSEBUTTONUP";
+//	}
+//	else if ( eventType == SDL_MOUSEWHEEL )
+//	{
+//		res = "SDL_MOUSEWHEEL";
+//	}
+//
+//	else if ( eventType == SDL_QUIT )
+//	{
+//		res = "SDL_QUIT";
+//	}
+//
+//	else if ( eventType == SDL_FINGERDOWN )
+//	{
+//		res = "SDL_FINGERDOWN";
+//	}
+//	else if ( eventType == SDL_FINGERUP )
+//	{
+//		res = "SDL_FINGERUP";
+//	}
+//	else if ( eventType == SDL_FINGERMOTION )
+//	{
+//		res = "SDL_FINGERMOTION";
+//	}
+//
+//	else if ( eventType == SDL_CLIPBOARDUPDATE )
+//	{
+//		res = "SDL_CLIPBOARDUPDATE";
+//	}
+//
+//	else if ( eventType == SDL_AUDIODEVICEADDED )
+//	{
+//		res = "SDL_AUDIODEVICEADDED";
+//	}
+//	else if ( eventType == SDL_AUDIODEVICEREMOVED )
+//	{
+//		res = "SDL_AUDIODEVICEREMOVED";
+//	}
+//
+//	else if ( eventType == SDL_RENDER_TARGETS_RESET )
+//	{
+//		res = "SDL_RENDER_TARGETS_RESET";
+//	}
+//	else if ( eventType == SDL_RENDER_DEVICE_RESET )
+//	{
+//		res = "SDL_RENDER_DEVICE_RESET";
+//	}
+//
+//	else
+//	{
+//		res = "UNKNOWN_EVENT_TYPE";
+//	}
+//
+//	return res;
+//}
