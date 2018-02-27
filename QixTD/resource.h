@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by SDL.rc
+// Used by Romeno.rc
 
 // Next default values for new objects
 // 

@@ -32,7 +32,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h">
       <Filter>__</Filter>
     </ClInclude>
@@ -108,7 +107,6 @@
     <ClInclude Include="Mechanics\Qix\QixAPI.h" />
     <ClInclude Include="Mechanics\Qix\QixCamera.h" />
     <ClInclude Include="Mechanics\Qix\QixIH.h" />
-    <ClInclude Include="QixTD\QixTD.h" />
     <ClInclude Include="Engine\Mechanics.h" />
     <ClInclude Include="Engine\Components\PhysicsComponent.h" />
     <ClInclude Include="Engine\Components\Physics\SimplePhysicsComponent.h" />
@@ -326,9 +324,6 @@
     <ClCompile Include="QixTD\main.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="QixTD\QixTD.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Mechanics.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -383,10 +378,5 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="..\..\..\..\VC\__sources\loading extensions\glew-2.1.0\build\glew.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -23,6 +23,7 @@
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>QixTD</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>Romeno</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -83,7 +84,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\$(Configuration)\;$(ROMENO_BUNDLE)glew\lib\x86\release\;$(ROMENO_BUNDLE)collisions\Box2D\lib\$(PlatformShortName)\$(Configuration)\</LibraryPath>
     <SourcePath>$(VC_SourcePath);$(ROMENO_BUNDLE)__sources\full\SDL\SDL2-2.0.5\src\;$(ROMENO_BUNDLE)collisions\Box2D\Box2D\Box2D\;</SourcePath>
   </PropertyGroup>
@@ -358,8 +359,6 @@
     <ClInclude Include="Engine\Components\PhysicsComponent.h" />
     <ClInclude Include="Engine\Components\UI\Sensors\MouseInputSensor.h" />
     <ClInclude Include="Engine\Input\Mouse.h" />
-    <ClInclude Include="QixTD\QixTD.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Engine\Components\Drawing\Sprite.h" />
     <ClInclude Include="Engine\Components\Physics\SimplePhysicsComponent.h" />
     <ClInclude Include="Engine\Components\Drawing\SpriteBase.h" />
@@ -531,8 +530,12 @@
     <ClCompile Include="Engine\Components\PhysicsComponent.cpp" />
     <ClCompile Include="Engine\Components\UI\Sensors\MouseInputSensor.cpp" />
     <ClCompile Include="Engine\Input\Mouse.cpp" />
-    <ClCompile Include="QixTD\QixTD.cpp" />
-    <ClCompile Include="QixTD\main.cpp" />
+    <ClCompile Include="QixTD\main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Engine\Components\Collision\LineCollider.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -556,9 +559,6 @@
     <ClCompile Include="Engine\Components\TextComponent.cpp" />
     <ClCompile Include="Engine\Cache\FontCache.cpp" />
     <ClCompile Include="Engine\Components\UI\Sensors\InputSensor.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="..\..\..\..\VC\__sources\loading extensions\glew-2.1.0\build\glew.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
