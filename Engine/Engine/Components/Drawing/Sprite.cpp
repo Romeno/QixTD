@@ -10,7 +10,8 @@
 Sprite::Sprite()
 	: super()
 
-	, m_data(new Data())
+	, m_originalData( new Data() )
+	, m_data( new Data() )
 {
 	
 }
@@ -24,7 +25,7 @@ Sprite::~Sprite()
 
 int Sprite::Init()
 {
-	Data* d = m_data;
+	Data* d = m_originalData;
 
 	if ( d->m_path != "" )
 	{
@@ -49,7 +50,7 @@ void Sprite::Tick(Uint32 diff)
 
 void Sprite::Render()
 {
-	Data* d = (Data*) m_data;
+	Data* d = (Data*) m_originalData;
 
 	glm::dvec3 topLeft = m_object->m_real->GetWPos();
 	topLeft = GetRectTopLeft( topLeft, m_object->m_real->GetSize() );
@@ -75,7 +76,7 @@ void Sprite::Render()
 
 void Sprite::SetImage(const std::string& spriteData)
 {
-	Data* d = (Data*) m_data;
+	Data* d = (Data*) m_originalData;
 
 	d->m_path = spriteData;
 }
@@ -83,7 +84,7 @@ void Sprite::SetImage(const std::string& spriteData)
 
 void Sprite::SetColor( const glm::ivec4& color )
 {
-	Data* d = (Data*) m_data;
+	Data* d = (Data*) m_originalData;
 
 	d->m_color = color;
 }
@@ -91,7 +92,7 @@ void Sprite::SetColor( const glm::ivec4& color )
 
 glm::drect Sprite::GetVisualAABB()
 {
-	glm::drect r = { GetBoundObject()->m_real->GetWPos() + m_data->m_offset, m_data->m_size };
+	glm::drect r = { GetBoundObject()->m_real->GetWPos() + m_originalData->m_offset, m_originalData->m_size };
 
 	return r;
 }

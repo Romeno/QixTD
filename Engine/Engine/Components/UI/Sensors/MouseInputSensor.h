@@ -25,7 +25,11 @@ public:
 	virtual void Tick( Uint32 diff ) override;
 
 	virtual UIComponent::PressData* IsPressed() override;
+
+	virtual UIComponent::BeginHoverData* BeginHover() override;
 	virtual UIComponent::HoverData* IsHovered() override;
+	virtual UIComponent::EndHoverData* EndHover() override;
+
 	virtual UIComponent::FocusData* isFocused() override;
 };
 

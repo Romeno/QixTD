@@ -155,3 +155,10 @@ void UIButton::SetUserData(void* data)
 //
 //}
 
+
+template <>
+void Entity::AddComponent( UIButton* component )
+{
+	m_ui = component;
+	component->m_object = this;
+}

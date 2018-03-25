@@ -1,7 +1,8 @@
 #pragma once
-#include "I:\Romeno\Projects\Visual Studio\Qix TD\Engine\Engine\Mechanics.h"
-class TD :
-	public Mechanics
+#include "Engine/Mechanics.h"
+
+
+class TD : public Mechanics
 {
 public:
 	TD();

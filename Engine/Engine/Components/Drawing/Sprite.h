@@ -27,6 +27,7 @@ public:
 	virtual void SetColor( const glm::ivec4& color ) override;
 	virtual glm::drect GetVisualAABB();
 
+	Data*				m_originalData;			// в случае, если она поменяется текущая data можно будет её вернуть отсюда
 	Data*				m_data;
 };
 

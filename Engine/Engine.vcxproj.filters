@@ -95,16 +95,6 @@
     <ClInclude Include="Engine\Utils\SDLUtils.h" />
     <ClInclude Include="Engine\Utils\CppUtils.h" />
     <ClInclude Include="Engine\Components\Controlling\AI.h" />
-    <ClInclude Include="Mechanics\Qix\Components\Controlling\PingPongAI.h" />
-    <ClInclude Include="Mechanics\Qix\Components\Controlling\QixPC.h" />
-    <ClInclude Include="Mechanics\Qix\Components\Controlling\TickPingPongAI.h" />
-    <ClInclude Include="Mechanics\Qix\Config\MapConfigStub.h" />
-    <ClInclude Include="Mechanics\Qix\Config\PlayerConfig.h" />
-    <ClInclude Include="Mechanics\Qix\LineCascade.h" />
-    <ClInclude Include="Mechanics\Qix\Qix.h" />
-    <ClInclude Include="Mechanics\Qix\QixAPI.h" />
-    <ClInclude Include="Mechanics\Qix\QixCamera.h" />
-    <ClInclude Include="Mechanics\Qix\QixIH.h" />
     <ClInclude Include="Engine\Mechanics.h" />
     <ClInclude Include="Engine\Components\PhysicsComponent.h" />
     <ClInclude Include="Engine\Components\Physics\SimplePhysicsComponent.h" />
@@ -125,17 +115,27 @@
     <ClInclude Include="Engine\Utils\types.h" />
     <ClInclude Include="Engine\Utils\MeasureUnits\InfoSize.h" />
     <ClInclude Include="Engine\Utils\OldLogger.h" />
-    <ClInclude Include="Mechanics\Tetris\Tetris.h" />
-    <ClInclude Include="Mechanics\Tetris\TetrisIH.h" />
-    <ClInclude Include="Mechanics\Tetris\TetrisCamera.h" />
-    <ClInclude Include="Mechanics\Tetris\TetrisAPI.h" />
-    <ClInclude Include="Mechanics\Tetris\TetrisCommon.h" />
-    <ClInclude Include="Mechanics\Tetris\Fields\TetrisField.h" />
-    <ClInclude Include="Mechanics\Tetris\Fields\FieldInt.h" />
-    <ClInclude Include="Mechanics\Menu\Menu.h" />
-    <ClInclude Include="Mechanics\VisualNovel\VisualNovel.h" />
-    <ClInclude Include="Mechanics\TD\TD.h" />
     <ClInclude Include="Engine\Components\UI\UIICon.h" />
+    <ClInclude Include="Mechanics\Menu\Menu.h" />
+    <ClInclude Include="Mechanics\Qix\Components\Controlling\PingPongAI.h" />
+    <ClInclude Include="Mechanics\Qix\Components\Controlling\QixPC.h" />
+    <ClInclude Include="Mechanics\Qix\Components\Controlling\TickPingPongAI.h" />
+    <ClInclude Include="Mechanics\Qix\Config\MapConfigStub.h" />
+    <ClInclude Include="Mechanics\Qix\Config\PlayerConfig.h" />
+    <ClInclude Include="Mechanics\Qix\LineCascade.h" />
+    <ClInclude Include="Mechanics\Qix\Qix.h" />
+    <ClInclude Include="Mechanics\Qix\QixAPI.h" />
+    <ClInclude Include="Mechanics\Qix\QixCamera.h" />
+    <ClInclude Include="Mechanics\Qix\QixIH.h" />
+    <ClInclude Include="Mechanics\TD\TD.h" />
+    <ClInclude Include="Mechanics\Tetris\Fields\FieldInt.h" />
+    <ClInclude Include="Mechanics\Tetris\Fields\TetrisField.h" />
+    <ClInclude Include="Mechanics\Tetris\Tetris.h" />
+    <ClInclude Include="Mechanics\Tetris\TetrisAPI.h" />
+    <ClInclude Include="Mechanics\Tetris\TetrisCamera.h" />
+    <ClInclude Include="Mechanics\Tetris\TetrisCommon.h" />
+    <ClInclude Include="Mechanics\Tetris\TetrisIH.h" />
+    <ClInclude Include="Mechanics\VisualNovel\VisualNovel.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -294,36 +294,6 @@
     <ClCompile Include="Engine\Components\Controlling\AI.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Mechanics\Qix\Components\Controlling\PingPongAI.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Qix\Components\Controlling\QixPC.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Qix\Components\Controlling\TickPingPongAI.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Qix\Config\MapConfigStub.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Qix\Config\PlayerConfig.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Qix\LineCascade.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Qix\Qix.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Qix\QixAPI.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Qix\QixCamera.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Qix\QixIH.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Mechanics.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
@@ -375,37 +345,64 @@
     <ClCompile Include="Engine\Utils\Logger\Sink.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Mechanics\Tetris\Tetris.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="QixTD\main.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Tetris\TetrisIH.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Tetris\TetrisCamera.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Tetris\TetrisAPI.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Tetris\Fields\TetrisField.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\Tetris\Fields\FieldInt.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Mechanics\VisualNovel\VisualNovel.cpp">
+    <ClCompile Include="Engine\Components\UI\UIICon.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Mechanics\Menu\Menu.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Mechanics\Qix\Components\Controlling\PingPongAI.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\Components\Controlling\QixPC.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\Components\Controlling\TickPingPongAI.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\Config\MapConfigStub.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\Config\PlayerConfig.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\LineCascade.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\Qix.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\QixAPI.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\QixCamera.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\QixIH.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
     <ClCompile Include="Mechanics\TD\TD.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Components\UI\UIICon.cpp">
+    <ClCompile Include="Mechanics\Tetris\Fields\FieldInt.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Tetris\Fields\TetrisField.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Tetris\Tetris.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Tetris\TetrisAPI.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Tetris\TetrisCamera.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\Tetris\TetrisIH.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Mechanics\VisualNovel\VisualNovel.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>

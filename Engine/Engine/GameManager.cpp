@@ -10,6 +10,8 @@
 #include "Engine/CoordinateSystem.h"
 #include "Engine/Game.h"
 #include "Engine/InputHandler.h"
+#include "Engine/Input/Mouse.h"
+#include "Engine/Input/Keyboard.h"
 
 
 GameManager::GameManager()
@@ -185,6 +187,15 @@ int GameManager::InitEngine()
 
 	WindowTitleManager::Inst()->Init(m_cfg->m_windowTitle);
 
+	//SDL_Cursor* c = SDL_CreateSystemCursor( SDL_SYSTEM_CURSOR_WAIT );
+
+	Mouse::Cursor::Load( "i:\\Wc3Icon1.png", 6, 4, 0 );
+
+	//SDL_Surface *img = IMG_Load("i:\\Wc3Icon1.png");
+	//SDL_Cursor* c = SDL_CreateColorCursor( img, 6, 4 );
+
+	//SDL_SetCursor( c );
+
 	return 0;
 }
 
@@ -316,10 +327,41 @@ void GameManager::MainLoop()
 	Clean();
 }
 
+bool a = false, b = false, c = false;
 
 void GameManager::Tick(Uint32 diff) 
 {
 	WindowTitleManager::Inst()->Tick(diff);
+
+	Mouse::Inst()->Tick( diff );
+
+	Keyboard::Inst()->Tick( diff );
+
+	Uint32 t = SDL_GetTicks();
+	if ( t > 1000 * 5 && !a)
+	{
+		Mouse::Inst()->SetCursor( 0 );
+		a = true;
+	}
+
+	if ( t > 1000 * 6.5 && !b)
+	{
+		SDL_Cursor* c = SDL_CreateSystemCursor( SDL_SYSTEM_CURSOR_WAIT );
+		SDL_SetCursor( c );
+		SDL_FreeCursor(c);
+		b = true;
+	}
+
+	if ( t > 1000 * 8 && !c)
+	{
+		Mouse::Inst()->SetCursor( 0 );
+		c = true;
+	}
+
+
+	INFO( "LMB %d", (int) LMB_PRESSED );
+	INFO( "MMB %d", (int) MMB_PRESSED );
+	INFO( "RMB %d", (int) RMB_PRESSED );
 
 	m_game->Tick(diff);
 }

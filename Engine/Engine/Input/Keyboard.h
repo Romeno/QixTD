@@ -1,13 +1,14 @@
 #pragma once
+#include "Engine/Utils/Singleton.h"
 
 
-class Keyboard
+class Keyboard : public Singleton<Keyboard>
 {
 public:
 	Keyboard();
 	virtual ~Keyboard();
 
-	virtual void Tick();
+	virtual void Tick( Uint32 diff );
 
 	// ALT
 	bool IsAltPressed();

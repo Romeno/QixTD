@@ -98,7 +98,7 @@ Entity* API::CreateButton(glm::dvec3 wpos, glm::dvec3 size, const std::string& t
 	real->SetWPos( wpos );
 	e->AddComponent( real );
 
-	//Drawable* malui = new Drawable();
+	//Drawable* malui = new Sprite();
 	//e->AddComponent(malui);
 
 	//UIButton* button = new UIButton();

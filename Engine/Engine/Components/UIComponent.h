@@ -43,6 +43,22 @@ public:
 		bool hovered;
 	};
 
+	struct BeginHoverData
+	{
+		BeginHoverData() {}
+		virtual ~BeginHoverData() {}
+
+		bool beginHover;
+	};
+
+	struct EndHoverData
+	{
+		EndHoverData() {}
+		virtual ~EndHoverData() {}
+
+		bool endHover;
+	};
+
 	struct FocusData
 	{
 		FocusData() {}

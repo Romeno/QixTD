@@ -24,12 +24,24 @@
     <ClInclude Include="QixTD\QixTD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="QixTD\Mechanics\Qix\QxiTDQixMechanics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QixTD\Mechanics\Qix\QixTDTDMechanics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QixTD\QixTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QixTD\Mechanics\Qix\QxiTDQixMechanics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QixTD\Mechanics\Qix\QixTDTDMechanics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

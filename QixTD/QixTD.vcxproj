@@ -138,12 +138,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="QixTD\Mechanics\Qix\QixTDTDMechanics.h" />
     <ClInclude Include="QixTD\QixTD.h" />
+    <ClInclude Include="QixTD\Mechanics\Qix\QxiTDQixMechanics.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="QixTD\Mechanics\Qix\QixTDTDMechanics.cpp" />
     <ClCompile Include="QixTD\QixTD.cpp" />
+    <ClCompile Include="QixTD\Mechanics\Qix\QxiTDQixMechanics.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
