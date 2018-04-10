@@ -4,17 +4,16 @@
 #include "Engine/Game.h"
 
 
-#define CFG GameManager::Inst()->m_cfg
+#define CFG gameManager->m_cfg
 
 
 class AppConfig;
 
 
-class GameManager : public Singleton<GameManager>
+class GameManager
 {
 public:
-	friend Singleton<GameManager>;
-
+	GameManager();
 	~GameManager();
 
 	int Init(Game* game);
@@ -27,7 +26,10 @@ public:
 	void MainLoop();
 	void Clean();
 
+	void PreTick( Uint32 diff );
 	void Tick(Uint32 diff);
+	void PostTick( Uint32 diff );
+
 	void RenderScene(Uint32 diff);
 
 	int	GetNumOpenGLDriver();
@@ -48,19 +50,14 @@ public:
 
 	AppConfig*			m_cfg;
 
-
-
-
-
 protected:
-	GameManager();
 
 	void OutputFPS();
 
 };
 
 
-
+extern GameManager* gameManager;
 
 
 

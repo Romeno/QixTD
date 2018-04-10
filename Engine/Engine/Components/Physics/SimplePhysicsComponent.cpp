@@ -7,10 +7,12 @@
 SimplePhysicsComponent::SimplePhysicsComponent()
 	: super()
 
-	, m_wPos(0, 0, 0)
+	, m_pos(0, 0, 0)
 	, m_size(0, 0, 0)
 	, m_direction(0, 0, 0)
 	, m_velocity(0.)
+
+	, m_absolutePosition(false)
 {
 
 }
@@ -30,20 +32,20 @@ int SimplePhysicsComponent::Init()
 
 void SimplePhysicsComponent::Tick( Uint32 diff )
 {
-	m_wPos += m_direction * m_velocity;
+	m_pos += m_direction * m_velocity;
 }
 
 
-glm::dvec3 SimplePhysicsComponent::GetWPos()
+glm::dvec3 SimplePhysicsComponent::GetPos()
 {
-	return GetRectCenter( m_wPos, m_size );
+	return GetRectCenter( m_pos, m_size );
 }
 
 
-void SimplePhysicsComponent::SetWPos( glm::dvec3 wPos, Pivot pivot /*= PIVOT_CENTER */ )
+void SimplePhysicsComponent::SetPos( glm::dvec3 pos, Pivot pivot /*= PIVOT_CENTER */ )
 {
 	if ( pivot == PIVOT_CENTER ) {
-		m_wPos = GetRectTopLeft( wPos, m_size );
+		m_pos = GetRectTopLeft( pos, m_size );
 	}
 	else
 	{
@@ -64,13 +66,19 @@ glm::dvec3 SimplePhysicsComponent::GetDir()
 }
 
 
-void SimplePhysicsComponent::SetDirection( glm::dvec3 dir )
+Direction SimplePhysicsComponent::GetDirEnum()
+{
+	return VecToDir( m_direction );
+}
+
+
+void SimplePhysicsComponent::SetDir( glm::dvec3 dir )
 {
 	m_direction = glm::normalize( dir );
 }
 
 
-void SimplePhysicsComponent::SetDirection( Direction dir )
+void SimplePhysicsComponent::SetDir( Direction dir )
 {
 	m_direction = DirToVec( dir );
 }
@@ -79,6 +87,18 @@ void SimplePhysicsComponent::SetDirection( Direction dir )
 void SimplePhysicsComponent::SetVelocity( double ms )
 {
 	m_velocity = ms;
+}
+
+
+bool SimplePhysicsComponent::IsAbsolutePosition()
+{
+	return m_absolutePosition;
+}
+
+
+void SimplePhysicsComponent::SetAbsolutePosition( bool absolute )
+{
+	m_absolutePosition = absolute;
 }
 
 

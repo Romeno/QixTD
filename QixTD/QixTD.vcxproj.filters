@@ -24,10 +24,22 @@
     <ClInclude Include="QixTD\QixTD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="QixTD\Mechanics\Qix\QxiTDQixMechanics.h">
+    <ClInclude Include="QixTD\QixTDTDMechanics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="QixTD\Mechanics\Qix\QixTDTDMechanics.h">
+    <ClInclude Include="QixTD\QxiTDQixMechanics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QixTD\Components\Controlling\QixTDPC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QixTD\QixTDIH.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QixTD\QixTDAPI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QixTD\Components\Drawable\LineDrawable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,10 +50,22 @@
     <ClCompile Include="QixTD\QixTD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="QixTD\Mechanics\Qix\QxiTDQixMechanics.cpp">
+    <ClCompile Include="QixTD\QixTDTDMechanics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="QixTD\Mechanics\Qix\QixTDTDMechanics.cpp">
+    <ClCompile Include="QixTD\QxiTDQixMechanics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QixTD\Components\Controlling\QixTDPC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QixTD\QixTDIH.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QixTD\QixTDAPI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QixTD\Components\Drawable\LineDrawable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

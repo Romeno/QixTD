@@ -19,7 +19,7 @@ PingPongAI::~PingPongAI()
 
 int PingPongAI::Init()
 {
-	m_object->m_real->SetDirection(GetRandomDirection());
+	m_object->m_real->SetDir(GetRandomDirection());
 
 	return AI::Init();
 }

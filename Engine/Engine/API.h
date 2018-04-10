@@ -4,14 +4,13 @@
 #include "Engine/Utils/CppUtils.h"
 
 
-
-class API
+class Api
 {
 public:
-	API();
-	virtual ~API();
+	Api();
+	virtual ~Api();
 
-	DECLARE_SINGLETON(API)
+	//DECLARE_SINGLETON(API)
 
 	// Raw
 	virtual Entity* CreateEntity();
@@ -35,6 +34,8 @@ public:
 	virtual void DrawTextBlock( glm::dvec3 pos, glm::dvec3 size, const std::string& fontPath, const std::string& str, int pointSize, SDL_Color color = { 255, 255, 255 });
 };
 
+
+extern Api* api;
 
 
 

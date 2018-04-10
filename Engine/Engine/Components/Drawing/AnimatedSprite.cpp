@@ -28,7 +28,7 @@ int AnimatedSprite::Init()
 		{
 			std::string imagePath = GetResourcePath() + (*it)->m_path;
 
-			(*it)->m_texture = TextureCache::Inst()->GetTexture( imagePath );
+			(*it)->m_texture = textureCache->GetTexture( imagePath );
 			if ( !(*it)->m_texture )
 			{
 				return 1;
@@ -59,12 +59,28 @@ void AnimatedSprite::Render()
 	size_t cadre = (diff / 1000 * m_cadrePS) % m_cadreData.size();
 	Data* d = m_cadreData[cadre];
 
-	SDL_Rect dstrect = {
-		W2Sx( m_object->m_real->GetWPos().x ),
-		W2Sy( m_object->m_real->GetWPos().y ),
-		m_object->m_real->GetSize().x,
-		m_object->m_real->GetSize().y
-	};
+	glm::dvec3 pos = m_object->m_real->GetPos();
+	pos = GetRectTopLeft( pos, m_object->m_real->GetSize() );
+
+	SDL_Rect dstrect;
+	if ( m_object->m_real->IsAbsolutePosition() )
+	{
+		dstrect = {
+			R2Sx( pos.x ),
+			R2Sy( pos.y ),
+			(int) m_object->m_real->GetSize().x,
+			(int) m_object->m_real->GetSize().y
+		};
+	}
+	else
+	{
+		dstrect = {
+			W2Sx( pos.x ),
+			W2Sy( pos.y ),
+			(int) m_object->m_real->GetSize().x,
+			(int) m_object->m_real->GetSize().y
+		};
+	}
 
 	if ( d->m_texture )
 	{

@@ -3,9 +3,13 @@
 #include "Engine/Utils/Utils.h"
 #include "Engine/Config/AppConfig.h"
 #include "Mechanics/Qix/Config/MapConfigStub.h"
-#include "Mechanics/Qix/QixAPI.h"
 #include "Engine/Components/Physics/Box2DPhysicsComponent.h"
+#include "Engine/Components/Physics/SimplePhysicsComponent.h"
 #include "Engine/Utils/SystemInfo.h"
+#include "Engine/Input/Mouse.h"
+#include "Engine/Input/Keyboard.h"
+#include "QixTD/QixTDAPI.h"
+#include "QixTD/Components/Drawable/LineDrawable.h"
 
 
 static int s_res = 0;
@@ -48,15 +52,17 @@ QixTD::~QixTD()
 
 int QixTD::Init()
 {
+	api = new QixTDAPI();
+
 	m_qixMech = new Qix();
-
-	m_camera = new QixCamera();
-
-	m_input = new QixIH();
 
 	__ic__( m_qixMech->Init() );
 
-	api->Init( m_qixMech );
+	API->Init( m_qixMech );
+
+	m_camera = new QixCamera();
+
+	m_input = new QixTDIH();
 
 	__ic__( super::Init() );
 
@@ -95,6 +101,13 @@ void QixTD::Tick( Uint32 diff )
 
 	super::Tick( diff );
 
+	Entity* hero = m_qixMech->m_hero;
+
+	//if ( hero->m_real->GetVelocity() > 0 )
+	//{
+	//	if ( hero->m_real->GetDir() )
+	//}
+
 	//ListenKeyboardH( WIN );
 }
 
@@ -116,32 +129,39 @@ int QixTD::LoadLevel( int num )
 
 	Entity* e = nullptr;
 
-	e = api->CreateSprite( "Gluka.png", m_currentMap->m_playerStartPos, glm::dvec3( 100.0, 100.0, 0 ), DIR_LEFT );
+	e = API->CreateSprite( "Gluka.png", m_currentMap->m_playerStartPos, glm::dvec3( 100.0, 100.0, 0 ), DIR_LEFT );
 	e->m_name = "hero";
-	api->Play( e );
+	API->Play( e );
 
 	m_camera->SetWPos( m_currentMap->m_playerStartPos );
 
-	e = api->CreateColoredRect( glm::ivec4( 128, 128, 128, 0 ),
+	e = API->CreateColoredRect( glm::ivec4( 128, 128, 128, 0 ),
 		glm::dvec3( 0, 0, -200 ),
 		glm::dvec3( m_currentMap->m_mapDimensions.x, m_currentMap->m_mapDimensions.y, 0 ) );
 	e->m_name = "map bg";
 
-	e = api->CreateColoredRect( glm::ivec4( 196, 196, 196, 0 ),
+	e = API->CreateColoredRect( glm::ivec4( 196, 196, 196, 0 ),
 		glm::dvec3( 0, 0, -100 ),
 		glm::dvec3( 100, 100, 0 ) );
 	e->m_name = "bg at center";
 
-	e = api->CreateButton( glm::dvec3( 100, 100, 100 ),
+	e = API->CreateButton( glm::dvec3( 100, 100, 100 ),
 		glm::dvec3( 100, 100, 0 ),
 		"Push me" );
 	e->m_name = "button";
 
-	e = api->CreateColoredRect( glm::ivec4( 255, 255, 255, 0 ),
+	e = API->CreateColoredRect( glm::ivec4( 255, 255, 255, 0 ),
 		glm::dvec3( 150, 0, 0 ),
 		glm::dvec3( 30, 30, 0 ) );
-	api->TickPingPongMonster( e );
+	API->TickPingPongMonster( e );
 	e->m_real->SetVelocity( 1 );
+
+	e = API->CreateEntity();
+	SimplePhysicsComponent* p = new SimplePhysicsComponent();
+	p->m_pos = { 0, 0, 150 };
+	e->AddComponent( p );
+	LineDrawable* d = new LineDrawable();
+	e->AddComponent( d );
 
 	return 0;
 }

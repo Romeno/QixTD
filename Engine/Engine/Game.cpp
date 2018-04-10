@@ -64,7 +64,13 @@ void Game::Render()
 
 
 
-	std::sort(m_entities.begin(), m_entities.end(), [](Entity* one, Entity* two) { return one->m_real->GetWPos().z < two->m_real->GetWPos().z; });
+	std::sort(m_entities.begin(), m_entities.end(), 
+		[](Entity* one, Entity* two) 
+		{ 
+			return (one->m_real->IsAbsolutePosition() ? one->m_real->GetPos().z + 100000 : one->m_real->GetPos().z) 
+				< (two->m_real->IsAbsolutePosition() ? two->m_real->GetPos().z  + 100000 : two->m_real->GetPos().z);
+		}
+	);
 
 	for (auto it = m_entities.begin(); it != m_entities.end(); it++)
 	{
@@ -90,6 +96,8 @@ void Game::Render()
 
 void Game::Quit()
 {
+	INFO( "Quit" );
+
 	m_quit = true;
 }
 

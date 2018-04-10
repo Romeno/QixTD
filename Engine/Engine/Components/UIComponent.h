@@ -11,6 +11,9 @@ class UIComponent : public Component
 public:
 	typedef Component super;
 
+	//////////////////////////////////////////////////////////////////////////
+
+	// Click
 	struct ClickData
 	{
 		ClickData() {}
@@ -35,6 +38,16 @@ public:
 		bool released;
 	};
 
+	//////////////////////////////////////////////////////////////////////////
+
+	// Hover
+	struct BeginHoverData
+	{
+		BeginHoverData() {}
+		virtual ~BeginHoverData() {}
+
+	};
+
 	struct HoverData
 	{
 		HoverData() {}
@@ -43,22 +56,16 @@ public:
 		bool hovered;
 	};
 
-	struct BeginHoverData
-	{
-		BeginHoverData() {}
-		virtual ~BeginHoverData() {}
-
-		bool beginHover;
-	};
-
 	struct EndHoverData
 	{
 		EndHoverData() {}
 		virtual ~EndHoverData() {}
 
-		bool endHover;
 	};
 
+	//////////////////////////////////////////////////////////////////////////
+
+	// Focus
 	struct FocusData
 	{
 		FocusData() {}
@@ -66,6 +73,7 @@ public:
 
 		bool focused;
 	};
+
 
 	UIComponent();
 	virtual ~UIComponent();

@@ -2,13 +2,21 @@
 #include "Engine/Utils/Singleton.h"
 
 
-class Keyboard : public Singleton<Keyboard>
+class Keyboard
 {
 public:
 	Keyboard();
 	virtual ~Keyboard();
 
-	virtual void Tick( Uint32 diff );
+	void Init();
+	void PreTick( Uint32 diff );
+	void Tick( Uint32 diff );
+	void PostTick( Uint32 diff );
+	
+	bool IsKeyDown( SDL_Scancode code );
+	bool IsKeyUp( SDL_Scancode code );
+	bool IsKeyClicked( SDL_Scancode code );
+	bool IsKeyReleased( SDL_Scancode code );
 
 	// ALT
 	bool IsAltPressed();
@@ -45,5 +53,12 @@ public:
 	// Scroll Lock
 	bool IsScrollLockPressed();
 	bool IsScrollLockActive();
+
+	Uint8			m_prevState[SDL_NUM_SCANCODES];
+	const Uint8*	m_state;
+	Uint8			m_clickState[SDL_NUM_SCANCODES];
+	std::string		m_text;
 };
 
+
+extern Keyboard* keyboard;

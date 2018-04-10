@@ -5,7 +5,7 @@
 
 SpriteBase::Data::Data()
 	: m_color( 0, 0, 0, 0 )
-	, m_size( 0, 0, 0 )
+	, m_visualSize( 0, 0, 0 )
 	, m_offset(0, 0, 0 )
 {
 

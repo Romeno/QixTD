@@ -4,10 +4,11 @@
 #include "Engine/Utils/Utils.h"
 
 
-WindowTitleManager::WindowTitleManager()
-	: super()
+extern WindowTitleManager* windowTitleManager = nullptr;
 
-	, m_defaultTitle("")
+
+WindowTitleManager::WindowTitleManager()
+	: m_defaultTitle("")
 	, m_currentTickTitle("")
 {
 

@@ -138,16 +138,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="QixTD\Mechanics\Qix\QixTDTDMechanics.h" />
+    <ClInclude Include="QixTD\Components\Drawable\LineDrawable.h" />
+    <ClInclude Include="QixTD\QixTDAPI.h" />
+    <ClInclude Include="QixTD\QixTDIH.h" />
+    <ClInclude Include="QixTD\Components\Controlling\QixTDPC.h" />
+    <ClInclude Include="QixTD\QixTDTDMechanics.h" />
     <ClInclude Include="QixTD\QixTD.h" />
-    <ClInclude Include="QixTD\Mechanics\Qix\QxiTDQixMechanics.h" />
+    <ClInclude Include="QixTD\QxiTDQixMechanics.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="QixTD\Mechanics\Qix\QixTDTDMechanics.cpp" />
+    <ClCompile Include="QixTD\Components\Drawable\LineDrawable.cpp" />
+    <ClCompile Include="QixTD\QixTDAPI.cpp" />
+    <ClCompile Include="QixTD\QixTDIH.cpp" />
+    <ClCompile Include="QixTD\Components\Controlling\QixTDPC.cpp" />
+    <ClCompile Include="QixTD\QixTDTDMechanics.cpp" />
     <ClCompile Include="QixTD\QixTD.cpp" />
-    <ClCompile Include="QixTD\Mechanics\Qix\QxiTDQixMechanics.cpp" />
+    <ClCompile Include="QixTD\QxiTDQixMechanics.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

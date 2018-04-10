@@ -1,10 +1,14 @@
 #include "stdafx.h"
 #include "Keyboard.h"
+#include "Engine/Utils/Utils.h"
+
+
+extern Keyboard* keyboard = nullptr;
 
 
 Keyboard::Keyboard()
 {
-
+	ZeroMemory( &m_prevState, SDL_NUM_SCANCODES );
 }
 
 
@@ -14,9 +18,70 @@ Keyboard::~Keyboard()
 }
 
 
-void Keyboard::Tick( Uint32 diff )
+void Keyboard::Init()
 {
 
+}
+
+
+void Keyboard::PreTick( Uint32 diff )
+{
+	ZeroMemory( &m_clickState, SDL_NUM_SCANCODES );
+	m_text = "";
+}
+
+
+bool InitPrevState()
+{
+	keyboard->m_state = SDL_GetKeyboardState( NULL );
+
+	return true;
+}
+
+
+void Keyboard::Tick( Uint32 diff )
+{
+	static bool init = InitPrevState();
+
+	m_state = SDL_GetKeyboardState( NULL );
+
+	if ( !m_text.empty() )
+	{
+		INFO( "TEXT %s", Str2Wstr(m_text).c_str() );
+	}
+}
+
+
+void Keyboard::PostTick( Uint32 diff )
+{
+	memcpy( keyboard->m_prevState, keyboard->m_state, SDL_NUM_SCANCODES );
+}
+
+
+bool Keyboard::IsKeyDown( SDL_Scancode code )
+{
+	return m_state[code];
+}
+
+
+bool Keyboard::IsKeyUp( SDL_Scancode code )
+{
+	return !IsKeyDown( code );
+}
+
+
+bool Keyboard::IsKeyClicked( SDL_Scancode code )
+{
+	return false;
+}
+
+
+bool Keyboard::IsKeyReleased( SDL_Scancode code )
+{
+	INFO( "PREVSTATE %d", m_prevState[code] );
+	INFO( "NOWSTATE %d", m_state[code] );
+
+	return m_prevState[code] && !m_state[code];
 }
 
 

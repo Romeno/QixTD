@@ -7,6 +7,17 @@
 b2World* Box2DPhysicsComponent::s_world = nullptr;
 
 
+bool Box2DPhysicsComponent::IsAbsolutePosition()
+{
+	return false;
+}
+
+
+void Box2DPhysicsComponent::SetAbsolutePosition( bool absolute )
+{
+
+}
+
 Box2DPhysicsComponent::Box2DPhysicsComponent()
 	: super()
 
@@ -40,7 +51,7 @@ void Box2DPhysicsComponent::Tick( Uint32 diff )
 }
 
 
-glm::dvec3 Box2DPhysicsComponent::GetWPos()
+glm::dvec3 Box2DPhysicsComponent::GetPos()
 {
 	if ( m_body )
 	{
@@ -54,7 +65,7 @@ glm::dvec3 Box2DPhysicsComponent::GetWPos()
 }
 
 
-void Box2DPhysicsComponent::SetWPos( glm::dvec3 wPos, Pivot pivot /*= PIVOT_CENTER */ )
+void Box2DPhysicsComponent::SetPos( glm::dvec3 wPos, Pivot pivot /*= PIVOT_CENTER */ )
 {
 	if ( m_body )
 	{
@@ -99,13 +110,19 @@ glm::dvec3 Box2DPhysicsComponent::GetDir()
 }
 
 
-void Box2DPhysicsComponent::SetDirection( glm::dvec3 dir )
+Direction Box2DPhysicsComponent::GetDirEnum()
+{
+	return DIR_UNKNOWN;
+}
+
+
+void Box2DPhysicsComponent::SetDir( glm::dvec3 dir )
 {
 
 }
 
 
-void Box2DPhysicsComponent::SetDirection( Direction dir )
+void Box2DPhysicsComponent::SetDir( Direction dir )
 {
 
 }

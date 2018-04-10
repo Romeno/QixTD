@@ -3,10 +3,11 @@
 #include "Engine/Utils/Utils.h"
 
 
-FontCache::FontCache()
-	: super()
+extern FontCache* fontCache = nullptr;
 
-	, m_fonts()
+
+FontCache::FontCache()
+	: m_fonts()
 {
 
 }

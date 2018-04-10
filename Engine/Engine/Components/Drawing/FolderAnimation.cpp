@@ -29,7 +29,7 @@ void FolderAnimation::LoadFolder( const std::string& path )
 		if ( s )
 		{
 			Data* d = new Data();
-			d->m_size = glm::dvec3( s->w, s->h, 0 );
+			d->m_visualSize = glm::dvec3( s->w, s->h, 0 );
 			d->m_path = Wstr2Str( std::wstring( it->path().c_str() ) );
 			d->m_offset = glm::dvec3();
 			d->m_color = glm::ivec4(0, 0, 0, 0);

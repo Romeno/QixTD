@@ -20,5 +20,6 @@ public:
 	virtual void Render() = 0;	
 
 	virtual glm::drect GetVisualAABB() = 0;
+	virtual glm::drect GetSelectionRegion() = 0;
 };
 

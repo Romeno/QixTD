@@ -25,7 +25,11 @@ public:
 
 	void SetImage(const std::string& path);
 	virtual void SetColor( const glm::ivec4& color ) override;
+
 	virtual glm::drect GetVisualAABB();
+
+	// returns drect in rPos
+	virtual glm::drect GetSelectionRegion();
 
 	Data*				m_originalData;			// в случае, если она поменяется текущая data можно будет её вернуть отсюда
 	Data*				m_data;

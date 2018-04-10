@@ -2,11 +2,9 @@
 #include "Engine/Utils/Singleton.h"
 
 
-class FontCache : public Singleton<FontCache>
+class FontCache
 {
 public:
-	typedef Singleton<FontCache> super;
-
 	FontCache();
 	virtual ~FontCache();
 
@@ -20,3 +18,5 @@ private:
 	TTF_Font* LoadFont(const std::string& path, int pointSize);
 };
 
+
+extern FontCache* fontCache;

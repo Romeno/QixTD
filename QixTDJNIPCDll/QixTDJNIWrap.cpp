@@ -11,12 +11,15 @@
 
 JNIEXPORT jint JNICALL Java_com_romeno_QixTD_Start( JNIEnv *, jclass )
 {
-	jint ret = (jint)(GameManager::Inst()->Init( new QixTD() ));
+	gameManager = new GameManager();
+	jint ret = (jint) (gameManager->Init( new QixTD() ) );
 	if ( ret )
 	{
 		return ret;
 	}
 
-	GameManager::Inst()->MainLoop();
+	gameManager->MainLoop();
+
+	return 0;
 }
 

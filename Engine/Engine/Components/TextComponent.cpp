@@ -17,10 +17,9 @@ TextComponent::TextComponent()
 	, m_fontSize( defaultFontSize )
 
 	, m_textOFfset()
-	, m_positioning( CAPTION )
-
+	, m_positioning( POS_CAPTION )
 {
-
+	
 }
 
 
@@ -47,34 +46,34 @@ void TextComponent::Render()
 	glm::dvec3 pos;
 	glm::dvec3 size;
 
-	if ( m_positioning == CAPTION ) 
+	if ( m_positioning == POS_CAPTION ) 
 	{
 		pos = GetBoundObject()->m_malui->GetVisualAABB().GetTopMiddle();
 	}
-	else if ( m_positioning == CENTER )
+	else if ( m_positioning == POS_CENTER )
 	{
 		pos = GetBoundObject()->m_malui->GetVisualAABB().GetCenter();
 	}
-	else if ( m_positioning == TOP_LEFT )
+	else if ( m_positioning == POS_TOP_LEFT )
 	{
 		pos = GetBoundObject()->m_malui->GetVisualAABB().GetTopLeft();
 	}
-	else if ( m_positioning == TOP_RIGHT )
+	else if ( m_positioning == POS_TOP_RIGHT )
 	{
 		pos = GetBoundObject()->m_malui->GetVisualAABB().GetTopRight();
 	}
-	else if ( m_positioning == BOTTOM_LEFT )
+	else if ( m_positioning == POS_BOTTOM_LEFT )
 	{
 		pos = GetBoundObject()->m_malui->GetVisualAABB().GetBottomLeft();
 	}
-	else if ( m_positioning == BOTTOM_RIGHT )
+	else if ( m_positioning == POS_BOTTOM_RIGHT )
 	{
 		pos = GetBoundObject()->m_malui->GetVisualAABB().GetBottomRight();
 	}
 	else
 	{
-
+		ERROR( "Unknown TextComponent positioning %d", (int) m_positioning );
 	}
 
-	API::Inst()->DrawTextBlock( pos, size, m_font, m_text, m_fontSize, { (Uint8) m_color.r, (Uint8) m_color.g, (Uint8) m_color.b, (Uint8) m_color.a } );
+	api->DrawTextBlock( pos, size, m_font, m_text, m_fontSize, { (Uint8) m_color.r, (Uint8) m_color.g, (Uint8) m_color.b, (Uint8) m_color.a } );
 }

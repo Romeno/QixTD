@@ -1,5 +1,11 @@
 #include "stdafx.h"
 #include "MouseInputSensor.h"
+#include "Engine/Components/UIComponent.h"
+#include "Engine/Input/Mouse.h"
+#include "Math/Math.h"
+#include "Engine/Entity.h"
+#include "Engine/Components/Drawable.h"
+#include "Engine/Utils/Utils.h"
 
 
 MouseInputSensor::MouseInputSensor(UIComponent* c)
@@ -15,23 +21,59 @@ MouseInputSensor::~MouseInputSensor()
 }
 
 
+void MouseInputSensor::Tick( Uint32 diff )
+{
+
+}
+
+
 UIComponent::PressData* MouseInputSensor::IsPressed()
 {
-	return nullptr;
+	UIComponent::PressData* d = new UIComponent::PressData();
+
+	//bool onButton = IsPointInRect( Mouse::Inst()->GetPos(), W2R( m_boundComponent->m_object->m_real->GetPos() ), m_boundComponent->m_object->m_real->GetSize() );
+	//if ( onButton )
+	//{
+	//	Mouse::Inst()->m_
+	//}
+
+	return d;
+}
+
+
+UIComponent::ClickData* MouseInputSensor::IsClicked()
+{
+	UIComponent::ClickData* d = new UIComponent::ClickData();
+
+	return d;
+}
+
+
+UIComponent::ReleaseData* MouseInputSensor::IsReleased()
+{
+	UIComponent::ReleaseData* d = new UIComponent::ReleaseData();
+
+	return d;
 }
 
 
 UIComponent::BeginHoverData* MouseInputSensor::BeginHover()
 {
-	return nullptr;
+	UIComponent::BeginHoverData* d = new UIComponent::BeginHoverData();
+
+	return d;
 }
 
 
 UIComponent::HoverData* MouseInputSensor::IsHovered()
 {
-	UIComponent::HoverData* d = new UIComponent::HoverData();
+	MouseHoverData* d = new MouseHoverData();
 
-	//d->hovered = 
+	glm::drect rect = m_boundComponent->m_object->m_malui->GetSelectionRegion();
+	d->hovered = rect.ContainsPoint( mouse->GetPos() );
+	d->pos = mouse->GetPos();
+
+	//INFO( "RECT: %f, %f, %f, %f", rect.m_topLeft.x, rect.m_topLeft.y, rect.m_size.x, rect.m_size.y );
 
 	return d;
 }
@@ -39,18 +81,36 @@ UIComponent::HoverData* MouseInputSensor::IsHovered()
 
 UIComponent::EndHoverData* MouseInputSensor::EndHover()
 {
-	return nullptr;
+	UIComponent::EndHoverData* d = new UIComponent::EndHoverData();
+
+	return d;
 }
 
 
-UIComponent::FocusData* MouseInputSensor::isFocused()
+UIComponent::FocusData* MouseInputSensor::BeginFocused()
 {
-	return nullptr;
+	UIComponent::FocusData* d = new UIComponent::FocusData();
+
+	return d;
 }
 
 
-
-void MouseInputSensor::Tick( Uint32 diff )
+UIComponent::FocusData* MouseInputSensor::IsFocused()
 {
+	UIComponent::FocusData* d = new UIComponent::FocusData();
 
+	//ReleaseData* d = IsReleased();
+
+	//FocusData* f = new FocusData();
+	//f->focused = 
+
+	return d;
+}
+
+
+UIComponent::FocusData* MouseInputSensor::EndFocused()
+{
+	UIComponent::FocusData* d = new UIComponent::FocusData();
+
+	return d;
 }

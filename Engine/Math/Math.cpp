@@ -190,3 +190,9 @@ float DistanceFromLineSegmentToPoint( glm::dvec3 v, glm::dvec3 w, glm::dvec3 p )
 
 	return 0;
 }
+
+
+bool glm::drect::ContainsPoint( glm::dvec3 point )
+{
+	return IsPointInRect( point, GetCenter(), m_size );
+}

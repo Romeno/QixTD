@@ -4,12 +4,15 @@
 #include "Mechanics/Tetris/Tetris.h"
 
 
-class TetrisAPI : public API
+#define API (TetrisAPI*)(api)
+
+
+class TetrisAPI : public Api
 {
 public:
-	typedef API super;
+	typedef Api super;
 
-	DECLARE_SINGLETON( TetrisAPI )
+	//DECLARE_SINGLETON( TetrisAPI )
 
 	TetrisAPI();
 	virtual ~TetrisAPI();

@@ -209,9 +209,9 @@ void Entity::Tick(Uint32 diff)
 	if (RemoveIfElapsed())
 		return;
 
-	REALP->Tick( diff );
-
 	ROZUM->Tick( diff );
+
+	REALP->Tick( diff );
 
 	UI->Tick( diff );
 
@@ -272,7 +272,7 @@ bool Entity::RemoveIfElapsed()
 
 glm::dvec3 Entity::GetShootPos()
 {
-	return ::GetRectShootPos(m_real->GetWPos(), m_real->GetWPos(), VecToDir(m_real->GetDir()));
+	return ::GetRectShootPos(m_real->GetPos(), m_real->GetPos(), VecToDir(m_real->GetDir()));
 }
 
 

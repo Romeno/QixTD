@@ -35,7 +35,7 @@ void TickPingPongAI::Tick(Uint32 diff)
 	if (now - m_lastChangeDirTs > m_changeDirPeriod)
 	{
 		m_lastChangeDirTs = now;
-		m_object->m_real->SetDirection(GetRandomDirection());
+		m_object->m_real->SetDir(GetRandomDirection());
 	}
 
 	PingPongAI::Tick(diff);

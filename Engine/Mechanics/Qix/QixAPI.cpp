@@ -6,7 +6,7 @@
 #include "Mechanics/Qix/Qix.h"
 
 
-DEFINE_SINGLETON(QixAPI)
+//DEFINE_SINGLETON(QixAPI)
 
 
 QixAPI::QixAPI()

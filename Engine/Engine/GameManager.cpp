@@ -12,6 +12,16 @@
 #include "Engine/InputHandler.h"
 #include "Engine/Input/Mouse.h"
 #include "Engine/Input/Keyboard.h"
+#include "Math/Math.h"
+#include "Engine/API.h"
+#include "Mechanics/Qix/LineCascade.h"
+#include "Engine/Components/Physics/SimplePhysicsComponent.h"
+#include "Engine/Components/UI/FocusManager.h"
+#include "Engine/Cache/FontCache.h"
+#include "Engine/Cache/TextureCache.h"
+
+
+extern GameManager* gameManager = nullptr;
 
 
 GameManager::GameManager()
@@ -93,14 +103,19 @@ int GameManager::InitLogger()
 {
 	int ret = 0;
 
-	BaicalSink* sink = new BaicalSink();
-	sink->SetTraceName( TM("Game") );
+	BaicalSink* baicalSink = new BaicalSink();
+	baicalSink->SetTraceName( TM("Game") );
+
+	//ConsoleSink* consoleSink = new ConsoleSink();
 
 	Logger* logger = new Logger();
-	logger->AddSink( sink );
+	logger->AddSink( baicalSink );
+	//logger->AddSink( consoleSink );
 	ret = logger->Init();
 
 	ShareLogger( logger );
+
+	LOG( "" );
 
 	return ret;
 }
@@ -185,7 +200,20 @@ int GameManager::InitEngine()
 		return 1;
 	}
 
-	WindowTitleManager::Inst()->Init(m_cfg->m_windowTitle);
+	keyboard = new Keyboard();
+	keyboard->Init();
+
+	mouse = new Mouse();
+	mouse->Init();
+
+	windowTitleManager = new WindowTitleManager();
+	windowTitleManager->Init(m_cfg->m_windowTitle);
+
+	focusManager = new FocusManager();
+
+	fontCache = new FontCache();
+
+	textureCache = new TextureCache();
 
 	//SDL_Cursor* c = SDL_CreateSystemCursor( SDL_SYSTEM_CURSOR_WAIT );
 
@@ -207,99 +235,94 @@ void GameManager::MainLoop()
 	SDL_Event e;
 	bool wasEvent = false;
 	int i = 0;
+	int tiEventCount = 0 ;
 
 	while (!m_game->m_quit) {
 		wasEvent = false;
 		i = 0;
+		tiEventCount = 0;
+
+		Uint32 newTicks = SDL_GetTicks();
+
+		PreTick( newTicks - lastTicks );
 
 		while (SDL_PollEvent(&e)) {
 			if (e.type == SDL_QUIT)
 			{
-				INFO( "Quit" );
 				m_game->Quit();
+
 				wasEvent = true;
 			}
 			else if (e.type == SDL_KEYDOWN)
 			{
-				INFO( "SDL_KEYDOWN" );
-
 				m_game->Input()->HandleKeyDown(&e.key);
 
-				//PrintKeyboardEvent(&e);
 				wasEvent = true;
 			}
 			else if (e.type == SDL_KEYUP)
 			{
-				INFO( "SDL_KEYUP" );
 				m_game->Input()->HandleKeyUp(&e.key);
 
-				//PrintKeyboardEvent(&e);
 				wasEvent = true;
 			}
 			else if (e.type == SDL_KEYMAPCHANGED)
 			{
-				INFO( "SDL_KEYMAPCHANGED" );
-				std::cout << "KeyMapChanged";
-				//PrintKeyboardEvent( &e );
+				m_game->Input()->HandleKeymapChanged( &e.key );
+
 				wasEvent = true;
 			}
 			else if (e.type == SDL_TEXTEDITING) //CJK
 			{
-				INFO( "SDL_TEXTEDITING" );
-				//PrintTextEditingEvent(&e);
+				m_game->Input()->HandleTextEditing( &e.edit );
+
 				wasEvent = true;
 			}
 			else if (e.type == SDL_TEXTINPUT)
 			{
-				INFO( "SDL_TEXTINPUT" );
-				//PrintTextInputEvent(&e);
+				m_game->Input()->HandleTextInput( &e.text );
+
+				tiEventCount++;
+
 				wasEvent = true;
 			}
 			else if (e.type == SDL_MOUSEBUTTONDOWN)
 			{
-				INFO( "SDL_MOUSEBUTTONDOWN" );
 				m_game->Input()->HandleMouseButtonDown(&e.button);
 
-				//PrintMouseButtonEvent(&e);
 				wasEvent = true;
 			}
 			else if (e.type == SDL_MOUSEBUTTONUP)
 			{
-				INFO( "SDL_MOUSEBUTTONUP" );
 				m_game->Input()->HandleMouseButtonUp(&e.button);
-
-				//PrintMouseButtonEvent(&e);
 
 				wasEvent = true;
 			}
 			else if (e.type == SDL_MOUSEWHEEL)
 			{
-				INFO( "SDL_MOUSEWHEEL" );
-				//PrintMouseWheelEvent(&e);
+				m_game->Input()->HandleMouseWheel( &e.wheel );
 
 				wasEvent = true;
 			}
 			else if (e.type == SDL_MOUSEMOTION)
 			{
-				INFO( "SDL_MOUSEMOTION" );
 				i++;
 				m_game->Input()->HandleMouseMotion(&e.motion);
-
-				//PrintMouseMotionEvent(&e);
 
 				wasEvent = true;
 			}
 			else if ( e.type == SDL_WINDOWEVENT )
 			{
 				INFO( "SDL_WINDOWEVENT" );
-				//PrintWindowEvent(&e);
+
+				PrintWindowEvent(&e);
 
 				wasEvent = true;
 			}
 			else
 			{
-				//INFO( "SDL_GENERICEVENT %s", Str2Wstr(GetEventTypeStr(e.type)).c_str() );
-				//PrintGenericEvent(&e);
+				INFO( "SDL_GENERICEVENT %s", Str2Wstr(EventType2Str((SDL_EventType)e.type)).c_str() );
+				
+				PrintGenericEvent(&e);
 
 				wasEvent = true;
 			}
@@ -312,14 +335,24 @@ void GameManager::MainLoop()
 				INFO( "TWICE" );
 			}
 			INFO( "Event handling finished" );
+
+			if( tiEventCount >= 2 )
+			{
+				INFO( "LETTERS in TICK %d", tiEventCount );
+			}
 		}
 		//std::cout << "Event handling finished" << std::endl;
 
-		Uint32 newTicks = SDL_GetTicks();
-
 		Tick(newTicks - lastTicks);
 
+		//while ( SDL_GetTicks() - lastTicks < 1000 * 3)
+		//{
+		//	
+		//}
+
 		RenderScene(newTicks - lastTicks);
+
+		PostTick( newTicks - lastTicks );
 
 		lastTicks = newTicks;
 	}
@@ -327,43 +360,74 @@ void GameManager::MainLoop()
 	Clean();
 }
 
-bool a = false, b = false, c = false;
+
+
+static glm::dvec3 lastPos;
+static glm::dvec3 curPos;
+Entity* cascade;
+
+bool InitMousePos()
+{
+	int x, y;
+	SDL_GetMouseState( &x, &y );
+
+	lastPos = glm::dvec3( S2Wx( x ), S2Wy( y ), 50 );
+
+	cascade = api->CreateEntity();
+
+	LineCascade* d = new LineCascade();
+	cascade->AddComponent( d );
+
+	SimplePhysicsComponent* real = new SimplePhysicsComponent();
+	real->SetPos(curPos);
+	cascade->AddComponent( real );
+
+	return true;
+}
+
+
+bool a = false;
+std::string te = "";
 
 void GameManager::Tick(Uint32 diff) 
 {
-	WindowTitleManager::Inst()->Tick(diff);
+	static bool inited = InitMousePos();
 
-	Mouse::Inst()->Tick( diff );
+	mouse->Tick( diff );
 
-	Keyboard::Inst()->Tick( diff );
+	keyboard->Tick( diff );
 
-	Uint32 t = SDL_GetTicks();
-	if ( t > 1000 * 5 && !a)
-	{
-		Mouse::Inst()->SetCursor( 0 );
-		a = true;
-	}
-
-	if ( t > 1000 * 6.5 && !b)
-	{
-		SDL_Cursor* c = SDL_CreateSystemCursor( SDL_SYSTEM_CURSOR_WAIT );
-		SDL_SetCursor( c );
-		SDL_FreeCursor(c);
-		b = true;
-	}
-
-	if ( t > 1000 * 8 && !c)
-	{
-		Mouse::Inst()->SetCursor( 0 );
-		c = true;
-	}
-
+	windowTitleManager->Tick( diff );
 
 	INFO( "LMB %d", (int) LMB_PRESSED );
 	INFO( "MMB %d", (int) MMB_PRESSED );
 	INFO( "RMB %d", (int) RMB_PRESSED );
 
+	Uint32 t = SDL_GetTicks();
+
+	//int x, y;
+	//SDL_GetMouseState( &x, &y );
+	//curPos = glm::dvec3( S2Wx( x ), S2Wy( y ), 50 );
+	//LineCascade* lc = (LineCascade*) (cascade->m_malui);
+	//lc->AddLine( lastPos, curPos );
+	//lastPos = curPos;
+
+	//if ( t > 1000 * 5 && !a)
+	//{
+	//	MOUSE_SET_POS( glm::dvec3( Random( -VP_WIDTH / 2, +VP_WIDTH / 2 ), Random(-VP_HEIGHT / 2, + VP_HEIGHT / 2), 0 ) );
+	//	a = true;
+	//}
+
 	m_game->Tick(diff);
+
+	te += keyboard->m_text;
+}
+
+
+void GameManager::PostTick( Uint32 diff )
+{
+	keyboard->PostTick( diff );
+	mouse->PostTick( diff );
 }
 
 
@@ -376,6 +440,16 @@ void GameManager::RenderScene(Uint32 diff)
     OutputFPS();
 
 	m_game->Render();
+
+	//API::Inst()->DrawTextBlock( glm::dvec3( 0, 0, 400 ), glm::dvec3( 300, 100, 0 ), "fonts/Snap.ttf", std::to_string(Keyboard::Inst()->IsKeyDown(SDL_SCANCODE_RETURN)), 24 );
+	api->DrawTextBlock( glm::dvec3( 0, 0, 400 ), glm::dvec3( 300, 100, 0 ), "fonts/Snap.ttf", te, 24 );
+
+
+	//SDL_SetRenderDrawColor( ren, 1, 1, 1, 0 );
+	//SDL_RenderDrawLine( REN, W2Sx( curPos.x ), W2Sy( curPos.y ), W2Sx( lastPos.x ), W2Sy( lastPos.y ) );
+	//lastPos = curPos;
+
+	//cascade->Re
 
 	SDL_RenderPresent(ren);
 }
@@ -398,8 +472,15 @@ void GameManager::OutputFPS() {
 		std::string title = ". Draw FPS: ";
 		title += std::to_string(m_fps);
 
-		WindowTitleManager::Inst()->AddToWindowTitle(title);
+		windowTitleManager->AddToWindowTitle(title);
 	}
+}
+
+
+void GameManager::PreTick( Uint32 diff )
+{
+	mouse->PreTick(diff);
+	keyboard->PreTick( diff );
 }
 
 

@@ -31,7 +31,7 @@ int Sprite::Init()
 	{
 		std::string imagePath = GetResourcePath() + d->m_path;
 
-		d->m_texture = TextureCache::Inst()->GetTexture( imagePath );
+		d->m_texture = textureCache->GetTexture( imagePath );
 		if ( !d->m_texture )
 		{
 			return 1;
@@ -52,15 +52,28 @@ void Sprite::Render()
 {
 	Data* d = (Data*) m_originalData;
 
-	glm::dvec3 topLeft = m_object->m_real->GetWPos();
-	topLeft = GetRectTopLeft( topLeft, m_object->m_real->GetSize() );
+	glm::dvec3 pos = m_object->m_real->GetPos();
+	pos = GetRectTopLeft( pos, m_object->m_real->GetSize() );
 
-	SDL_Rect dstrect = {
-		W2Sx( topLeft.x ),
-		W2Sy( topLeft.y ),
-		m_object->m_real->GetSize().x,
-		m_object->m_real->GetSize().y
-	};
+	SDL_Rect dstrect;
+	if ( m_object->m_real->IsAbsolutePosition() )
+	{
+		dstrect = {
+			R2Sx( pos.x ),
+			R2Sy( pos.y ),
+			(int) m_object->m_real->GetSize().x,
+			(int) m_object->m_real->GetSize().y
+		};
+	}
+	else
+	{
+		dstrect = {
+			W2Sx( pos.x ),
+			W2Sy( pos.y ),
+			(int) m_object->m_real->GetSize().x,
+			(int) m_object->m_real->GetSize().y
+		};
+	}
 
 	if (d->m_texture)
 	{
@@ -92,7 +105,15 @@ void Sprite::SetColor( const glm::ivec4& color )
 
 glm::drect Sprite::GetVisualAABB()
 {
-	glm::drect r = { GetBoundObject()->m_real->GetWPos() + m_originalData->m_offset, m_originalData->m_size };
+	glm::drect r = { GetBoundObject()->m_real->GetPos() + m_originalData->m_offset, m_originalData->m_visualSize };
+
+	return r;
+}
+
+
+glm::drect Sprite::GetSelectionRegion()
+{
+	glm::drect r = { GetRectTopLeft( GetBoundObject()->m_real->GetPos() + m_originalData->m_offset, m_originalData->m_visualSize ), m_originalData->m_visualSize };
 
 	return r;
 }

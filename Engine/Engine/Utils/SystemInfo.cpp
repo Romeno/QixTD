@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SystemInfo.h"
 #include "Engine/Utils/Utils.h"
+#include "Engine/Input/Mouse.h"
 
 
 using std::cout;
@@ -10,8 +11,8 @@ using std::string;
 
 
 
-void PrintInfo(SDL_Window* win, SDL_Renderer* ren) {
-
+void PrintInfo(SDL_Window* win, SDL_Renderer* ren) 
+{
 	PrintCustomInfo();
 	PrintFilesystemH();
 	//PrintVideoH(win);
@@ -27,10 +28,12 @@ void PrintInfo(SDL_Window* win, SDL_Renderer* ren) {
 	PrintSystemH();
 	PrintClipboardH();
 	PrintPlatformH();
+	PrintTTFH("i:\\Romeno\\Projects\\Visual Studio\\AllGames\\Debug\\res\\fonts\\SNAP.ttf");
 }
 
 
-void PrintCustomInfo() {
+void PrintCustomInfo() 
+{
 	cout << endl;
 	cout << "-------------     CUSTOM INFO     -------------" << endl;
 
@@ -40,7 +43,8 @@ void PrintCustomInfo() {
 }
 
 
-void PrintFilesystemH() {
+void PrintFilesystemH() 
+{
 	cout << endl;
 	cout << "-------------     FILESYSTEM     -------------" << endl;
 	cout << "SDL_GetBasePath: " << SDL_GetBasePath() << endl;
@@ -48,7 +52,8 @@ void PrintFilesystemH() {
 }
 
 
-void PrintVideoH(SDL_Window* win) {
+void PrintVideoH(SDL_Window* win) 
+{
 	cout << endl;
 	cout << "-------------     VIDEO     -------------" << endl;
 
@@ -423,7 +428,8 @@ void PrintMouseH()
 }
 
 
-void PrintTouchH() {
+void PrintTouchH() 
+{
 	cout << endl;
 	cout << "-------------     TOUCH     -------------" << endl;
 
@@ -456,7 +462,8 @@ void PrintTimerH()
 }
 
 
-void PrintEventsH() {
+void PrintEventsH() 
+{
 	cout << endl;
 	cout << "-------------     EVENTS     -------------" << endl;
 
@@ -479,7 +486,8 @@ void PrintEventsH() {
 }
 
 
-void PrintCpuinfoH() {
+void PrintCpuinfoH() 
+{
 	cout << endl;
 	cout << "-------------     CPU INFO     -------------" << endl;
 
@@ -590,7 +598,8 @@ void PrintRendererInfo(SDL_RendererInfo* info)
 }
 
 
-void PrintAudioStatus(SDL_AudioStatus s) {
+void PrintAudioStatus(SDL_AudioStatus s) 
+{
 	char* res;
 	if (s == SDL_AUDIO_STOPPED)
 	{
@@ -648,9 +657,9 @@ void PrintSDLTtfVersion()
 }
 
 
-void PrintKeyboardEvent(SDL_Event* e) {
-
-	//PrintEventType(e->type);
+void PrintKeyboardEvent(SDL_Event* e) 
+{
+	cout << EventType2Str( (SDL_EventType)e->type );
 	cout << endl;
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowId: " << e->key.windowID << endl;
@@ -661,9 +670,9 @@ void PrintKeyboardEvent(SDL_Event* e) {
 
 }
 
-void PrintTextEditingEvent(SDL_Event* e) {
-
-	//PrintEventType(e->type);
+void PrintTextEditingEvent(SDL_Event* e) 
+{
+	cout << EventType2Str( (SDL_EventType) e->type );
 	cout << endl;
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowId: " << e->edit.windowID << endl;
@@ -675,27 +684,29 @@ void PrintTextEditingEvent(SDL_Event* e) {
 }
 
 
-void PrintTextInputEvent(SDL_Event* e) {
-	//PrintEventType(e->type);
+void PrintTextInputEvent(SDL_Event* e) 
+{
+	cout << EventType2Str( (SDL_EventType) e->type );
 	cout << endl;
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowId: " << e->text.windowID << endl;
 	cout << "   text: " << e->text.text << endl;
 	cout << endl;
-
 }
 
 
-void PrintMouseButtonEvent(SDL_Event* e) {
-
-	//PrintEventType(e->type);
+void PrintMouseButtonEvent(SDL_Event* e) 
+{
+	cout << EventType2Str( (SDL_EventType) e->type );
 	cout << endl;
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowId: " << e->button.windowID << endl;
-	if (e->button.which == SDL_TOUCH_MOUSEID) {
+	if (e->button.which == SDL_TOUCH_MOUSEID) 
+	{
 		cout << "   which: touch input" << endl;
 	}
-	else {
+	else 
+	{
 		cout << "   which: " << e->button.which << endl;
 	}
 	cout << "   mouse button: ";
@@ -709,129 +720,76 @@ void PrintMouseButtonEvent(SDL_Event* e) {
 }
 
 
-void PrintMouseMotionEvent(SDL_Event* e) {
-
-	//PrintEventType(e->type);
+void PrintMouseMotionEvent(SDL_Event* e) 
+{
+	cout << EventType2Str( (SDL_EventType) e->type );
 	cout << endl;
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowId: " << e->motion.windowID << endl;
-	if (e->motion.which == SDL_TOUCH_MOUSEID) {
+	if (e->motion.which == SDL_TOUCH_MOUSEID) 
+	{
 		cout << "   which: touch input" << endl;
 	}
-	else {
+	else 
+	{
 		cout << "   which: " << e->motion.which << endl;
 	}
 	cout << "   mouse button(s) pressed: ";
-	PrintMouseButtonState(e->motion.state);
+
+	cout << Mouse::MouseState2Str( e->motion.state );
 	cout << endl;
 	cout << "   x: " << (int)e->motion.x << endl;
 	cout << "   y: " << (int)e->motion.y << endl;
 	cout << "   xrel: " << (int)e->motion.xrel << endl;
 	cout << "   yrel: " << (int)e->motion.yrel << endl;
 	cout << endl;
-
 }
 
 
-void PrintMouseWheelEvent(SDL_Event* e) {
-
-	//PrintEventType(e->type);
+void PrintMouseWheelEvent(SDL_Event* e) 
+{
+	cout << EventType2Str( (SDL_EventType) e->type );
 	cout << endl;
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowId: " << e->wheel.windowID << endl;
-	if (e->wheel.which == SDL_TOUCH_MOUSEID) {
+	if (e->wheel.which == SDL_TOUCH_MOUSEID) 
+	{
 		cout << "   which: touch input" << endl;
 	}
-	else {
+	else 
+	{
 		cout << "   which: " << e->wheel.which << endl;
 	}
 	cout << "   ";
-	PrintMouseWheelDirection(e->wheel.direction);
+	cout << Mouse::WheelDirection2Str( e->wheel.direction );
 	cout << endl;
 	cout << "   x: " << (int)e->wheel.x << endl;
 	cout << "   y: " << (int)e->wheel.y << endl;
 	cout << endl;
-
 }
 
 
 void PrintGenericEvent( SDL_Event* e )
 {
-	//PrintEventType( e->type );
+	cout << EventType2Str( (SDL_EventType) e->type );
 	cout << "   timestamp: " << e->common.timestamp << endl;
 }
 
 
 void PrintWindowEvent( SDL_Event* e )
 {
-	//PrintEventType( e->type );
+	cout << EventType2Str( (SDL_EventType) e->type );
 	cout << "   timestamp: " << e->common.timestamp << endl;
 	cout << "   windowEvent: ";
-	//PrintWindowEventType( (SDL_WindowEventID)(e->window.event) );
+	cout << WindowEventType2Str( (SDL_WindowEventID) e->window.event );
 	cout << endl;
 	cout << "   data1: " << e->window.data1 << endl;
 	cout << "   data2: " << e->window.data2 << endl;
 }
 
 
-void PrintMouseWheelDirection(Uint32 mouseWheelDirection) {
-	char* res;
-	if (mouseWheelDirection == SDL_MOUSEWHEEL_NORMAL)
-	{
-		res = "SDL_MOUSEWHEEL_NORMAL";
-	}
-	else if (mouseWheelDirection == SDL_MOUSEWHEEL_FLIPPED)
-	{
-		res = "SDL_MOUSEWHEEL_FLIPPED";
-	}
-	else
-	{
-		res = "UNKNOWN_MOUSEWHEEL_DIRECTION";
-	}
-	cout << res;
-}
-
-
-void PrintMouseButtonState(Uint32 state) {
-	string res = "";
-	if (state & SDL_BUTTON_LMASK)
-	{
-		res += " & LEFT";
-	}
-
-	if (state & SDL_BUTTON_MMASK)
-	{
-		res += " & MIDDLE";
-	}
-
-	if (state & SDL_BUTTON_RMASK)
-	{
-		res += " & RIGHT";
-	}
-
-	if (state & SDL_BUTTON_X1MASK)
-	{
-		res += " & X1";
-	}
-
-	if (state & SDL_BUTTON_X2MASK)
-	{
-		res += " & X2";
-	}
-
-	if (!res.empty()) {
-		res = res.substr(3);
-	} 
-	else 
-	{
-		res = "none";
-	}
-
-	cout << res;
-}
-
-
-void PrintMouseButtonNum(Uint8 mouseButton) {
+void PrintMouseButtonNum(Uint8 mouseButton) 
+{
 	char* res;
 	if (mouseButton == SDL_BUTTON_LEFT)
 	{
@@ -890,12 +848,14 @@ bool InitSDL_WindowEvent2StrMap( std::map<SDL_WindowEventID, std::string>& map)
 }
 
 
-std::string GetWindowEventTypeStr( SDL_WindowEventID windowEventId ) {
-	static std::map<SDL_WindowEventID, std::string> SDL_WindowEvent2Str;
-	static bool inited = InitSDL_WindowEvent2StrMap( SDL_WindowEvent2Str );
+std::string WindowEventType2Str( SDL_WindowEventID windowEventId ) 
+{
+	typedef SDL_WindowEventID keytype;
+	static std::map<keytype, std::string> map;
+	static bool inited = InitSDL_WindowEvent2StrMap( map );
 
-	auto it = SDL_WindowEvent2Str.find( windowEventId );
-	if ( it == SDL_WindowEvent2Str.end() )
+	auto it = map.find( windowEventId );
+	if ( it == map.end() )
 	{
 		ERR( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Window Event Type" );
 		return std::string("UNKNOWN_WINDOW_EVENT_TYPE");
@@ -906,154 +866,225 @@ std::string GetWindowEventTypeStr( SDL_WindowEventID windowEventId ) {
 	}
 }
 
-//
-//bool InitSDL_EventType2StrMap( std::map<SDL_WindowEventID, std::string>& map )
-//{
-//	// iOS
-//	MADD( SDL_APP_TERMINATING );
-//	MADD( SDL_APP_LOWMEMORY );
-//	MADD( SDL_APP_WILLENTERBACKGROUND );
-//	MADD( SDL_APP_DIDENTERBACKGROUND );
-//	MADD( SDL_APP_WILLENTERFOREGROUND );
-//	MADD( SDL_APP_DIDENTERFOREGROUND );
-//}
-//
-//
-//std::string GetEventTypeStr( SDL_EventType eventType ) 
-//{
-//	static std::map<SDL_EventType, std::string> SDL_WindowEvent2Str;
-//	static bool inited = InitSDL_WindowEvent2StrMap( SDL_WindowEvent2Str );
-//
-//	auto it = SDL_WindowEvent2Str.find( windowEventId );
-//	if ( it == SDL_WindowEvent2Str.end() )
-//	{
-//		ERR( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Window Event Type" );
-//		return std::string( "UNKNOWN_WINDOW_EVENT_TYPE" );
-//	}
-//	else
-//	{
-//		return it->second;
-//	}
-//
-//
-//	// iOS
-//	if ( eventType == SDL_APP_TERMINATING )
-//	{
-//		res = "SDL_APP_TERMINATING";
-//	}
-//	else if ( eventType == SDL_APP_LOWMEMORY )
-//	{
-//		res = "SDL_APP_LOWMEMORY";
-//	}
-//	else if ( eventType == SDL_APP_WILLENTERBACKGROUND )
-//	{
-//		res = "SDL_APP_WILLENTERBACKGROUND";
-//	}
-//	else if ( eventType == SDL_APP_DIDENTERBACKGROUND )
-//	{
-//		res = "SDL_APP_DIDENTERBACKGROUND";
-//	}
-//	else if ( eventType == SDL_APP_WILLENTERFOREGROUND )
-//	{
-//		res = "SDL_APP_WILLENTERFOREGROUND";
-//	}
-//	else if ( eventType == SDL_APP_DIDENTERFOREGROUND )
-//	{
-//		res = "SDL_APP_DIDENTERFOREGROUND";
-//	}
-//
-//	if ( eventType == SDL_WINDOWEVENT )
-//	{
-//		res = "SDL_WINDOWEVENT";
-//	}
-//	else if ( eventType == SDL_SYSWMEVENT )
-//	{
-//		res = "SDL_SYSWMEVENT";
-//	}
-//
-//	else if ( eventType == SDL_KEYDOWN )
-//	{
-//		res = "SDL_KEYDOWN";
-//	}
-//	else if ( eventType == SDL_KEYUP )
-//	{
-//		res = "SDL_KEYUP";
-//	}
-//	else if ( eventType == SDL_KEYMAPCHANGED )
-//	{
-//		res = "SDL_KEYMAPCHANGED";
-//	}
-//	else if ( eventType == SDL_TEXTEDITING )
-//	{
-//		res = "SDL_TEXTEDITING";
-//	}
-//	else if ( eventType == SDL_TEXTINPUT )
-//	{
-//		res = "SDL_TEXTINPUT";
-//	}
-//
-//	else if ( eventType == SDL_MOUSEMOTION )
-//	{
-//		res = "SDL_MOUSEMOTION";
-//	}
-//	else if ( eventType == SDL_MOUSEBUTTONDOWN )
-//	{
-//		res = "SDL_MOUSEBUTTONDOWN";
-//	}
-//	else if ( eventType == SDL_MOUSEBUTTONUP )
-//	{
-//		res = "SDL_MOUSEBUTTONUP";
-//	}
-//	else if ( eventType == SDL_MOUSEWHEEL )
-//	{
-//		res = "SDL_MOUSEWHEEL";
-//	}
-//
-//	else if ( eventType == SDL_QUIT )
-//	{
-//		res = "SDL_QUIT";
-//	}
-//
-//	else if ( eventType == SDL_FINGERDOWN )
-//	{
-//		res = "SDL_FINGERDOWN";
-//	}
-//	else if ( eventType == SDL_FINGERUP )
-//	{
-//		res = "SDL_FINGERUP";
-//	}
-//	else if ( eventType == SDL_FINGERMOTION )
-//	{
-//		res = "SDL_FINGERMOTION";
-//	}
-//
-//	else if ( eventType == SDL_CLIPBOARDUPDATE )
-//	{
-//		res = "SDL_CLIPBOARDUPDATE";
-//	}
-//
-//	else if ( eventType == SDL_AUDIODEVICEADDED )
-//	{
-//		res = "SDL_AUDIODEVICEADDED";
-//	}
-//	else if ( eventType == SDL_AUDIODEVICEREMOVED )
-//	{
-//		res = "SDL_AUDIODEVICEREMOVED";
-//	}
-//
-//	else if ( eventType == SDL_RENDER_TARGETS_RESET )
-//	{
-//		res = "SDL_RENDER_TARGETS_RESET";
-//	}
-//	else if ( eventType == SDL_RENDER_DEVICE_RESET )
-//	{
-//		res = "SDL_RENDER_DEVICE_RESET";
-//	}
-//
-//	else
-//	{
-//		res = "UNKNOWN_EVENT_TYPE";
-//	}
-//
-//	return res;
-//}
+
+bool InitSDL_EventType2StrMap( std::map<SDL_EventType, std::string>& map )
+{
+	MADD( SDL_QUIT );
+
+	/* iOS */
+	MADD( SDL_APP_TERMINATING );
+	MADD( SDL_APP_LOWMEMORY );
+	MADD( SDL_APP_WILLENTERBACKGROUND );
+	MADD( SDL_APP_DIDENTERBACKGROUND );
+	MADD( SDL_APP_WILLENTERFOREGROUND );
+	MADD( SDL_APP_DIDENTERFOREGROUND );
+							
+	/* Window events */
+	MADD( SDL_WINDOWEVENT );
+	MADD( SDL_SYSWMEVENT );
+				
+	/* Keyboard events */
+	MADD( SDL_KEYDOWN );
+	MADD( SDL_KEYUP );
+	MADD( SDL_TEXTEDITING );
+	MADD( SDL_TEXTINPUT );
+	MADD( SDL_KEYMAPCHANGED );
+			
+	/* Mouse events */
+	MADD( SDL_MOUSEMOTION );
+	MADD( SDL_MOUSEBUTTONDOWN );
+	MADD( SDL_MOUSEBUTTONUP );
+	MADD( SDL_MOUSEWHEEL );
+                         
+	/* Joystick events */
+	MADD( SDL_JOYAXISMOTION );
+	MADD( SDL_JOYBALLMOTION );
+	MADD( SDL_JOYHATMOTION );
+	MADD( SDL_JOYBUTTONDOWN );
+	MADD( SDL_JOYBUTTONUP );
+	MADD( SDL_JOYDEVICEADDED );
+	MADD( SDL_JOYDEVICEREMOVED );
+                              
+	/* Game controller events */
+	MADD( SDL_CONTROLLERAXISMOTION );
+	MADD( SDL_CONTROLLERBUTTONDOWN );
+	MADD( SDL_CONTROLLERBUTTONUP );
+	MADD( SDL_CONTROLLERDEVICEADDED );
+	MADD( SDL_CONTROLLERDEVICEREMOVED );
+	MADD( SDL_CONTROLLERDEVICEREMAPPED );
+                 
+	/* Touch events */
+	MADD( SDL_FINGERDOWN );
+	MADD( SDL_FINGERUP );
+	MADD( SDL_FINGERMOTION );
+                                     
+	/* Gesture events */             
+	MADD( SDL_DOLLARGESTURE );
+	MADD( SDL_DOLLARRECORD );
+	MADD( SDL_MULTIGESTURE );
+                                     
+	/* Clipboard events */           
+	MADD( SDL_CLIPBOARDUPDATE );
+                                     
+	/* Drag and drop events */
+	MADD( SDL_DROPFILE );
+	MADD( SDL_DROPTEXT );
+	MADD( SDL_DROPBEGIN );
+	MADD( SDL_DROPCOMPLETE );
+					
+	/* Audio hotplug events */
+	MADD( SDL_AUDIODEVICEADDED );
+	MADD( SDL_AUDIODEVICEREMOVED );
+                                     
+	/* Render events */
+	MADD( SDL_RENDER_TARGETS_RESET );
+	MADD( SDL_RENDER_DEVICE_RESET );
+
+	MADD( SDL_USEREVENT);
+
+	return true;
+}
+
+
+std::string EventType2Str( SDL_EventType eventType ) 
+{
+	typedef SDL_EventType keytype;
+	static std::map<keytype, std::string> map;
+	static bool inited = InitSDL_EventType2StrMap( map );
+
+	auto it = map.find( eventType );
+	if ( it == map.end() )
+	{
+		ERR( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Event Type" );
+		return std::string( "UNKNOWN_EVENT_TYPE" );
+	}
+	else
+	{
+		return it->second;
+	}
+}
+
+
+std::string SDLVersion2Str(const SDL_version* ver)
+{
+	return std::to_string( ver->major ) + "." + std::to_string( ver->minor ) + "." + std::to_string( ver->patch );
+}
+
+
+void PrintTTFH(const std::string& fontPath)
+{
+	const SDL_version* v = TTF_Linked_Version();
+	INFO( "SDL_TTF version: %s", Str2Wstr( SDLVersion2Str( v ) ).c_str() );
+
+	TTF_Font * font = TTF_OpenFont( fontPath.c_str(), 14 );
+	if ( font )
+	{
+		INFO( "Opened font %s", Str2Wstr( fontPath ).c_str() );
+	}
+
+	int style  = TTF_GetFontStyle( font );
+	INFO( "Font style is %s", Str2Wstr( FontStyle2Str( style ) ).c_str() );
+
+	int outline = TTF_GetFontOutline( font );
+	INFO( "the font outline width is %d pixels", outline );
+	
+	int fontHinting = TTF_GetFontHinting( font );
+	INFO( "FreeType hinter settings: %s", Str2Wstr( FontHintning2Str( fontHinting ) ).c_str() );
+
+	int height = TTF_FontHeight( font );
+	INFO( "Font height: %d", height );
+
+	int ascent = TTF_FontAscent( font );
+	INFO( "Font ascent: %d", ascent );
+
+	int descent = TTF_FontDescent( font );
+	INFO( "Font descent: %d", descent );
+
+	int lineSkip = TTF_FontLineSkip( font );
+	INFO( "Font recommended lineSkip: %d", lineSkip );
+
+	int kerningAllowed = TTF_GetFontKerning( font );
+	INFO( "Font kerning allowed: %d", kerningAllowed );
+
+	long fontFaceNumber = TTF_FontFaces( font );
+	INFO( "Number of fontFaces: %d", fontFaceNumber );
+
+	int isFixedWidth = TTF_FontFaceIsFixedWidth( font );
+	INFO( "Is fixed width: %d", isFixedWidth );
+
+	char* fontFamily = TTF_FontFaceFamilyName( font );
+	INFO( "Font family name: %s", Str2Wstr( fontFamily ).c_str() );
+
+	char* fontFaceStyle = TTF_FontFaceStyleName( font );
+	INFO( "Font face style: %s", Str2Wstr( fontFaceStyle ).c_str() );
+
+	//int glyphIsProvided = TTF_GlyphIsProvided( font );
+	//INFO( "Glyph is provided: %d", glyphIsProvided );
+
+	//int res = TTF_GlyphMetrics( font );
+
+	int w, h;
+	int res = TTF_SizeText( font, "sample text", &w, &h);
+	INFO( "If text 'sample text' is to be rendered it will occupy %d, %d pixels rectangle", w, h );
+}
+
+
+bool InitFontStyle2StrMap( std::map<int, std::string>& map )
+{
+	MADD( TTF_STYLE_NORMAL );
+	MADD( TTF_STYLE_BOLD );
+	MADD( TTF_STYLE_ITALIC );
+	MADD( TTF_STYLE_UNDERLINE );
+	MADD( TTF_STYLE_STRIKETHROUGH );
+
+	return true;
+}
+
+
+std::string FontStyle2Str( int style )
+{
+	typedef int keytype;
+	static std::map<keytype, std::string> map;
+	static bool inited = InitFontStyle2StrMap( map );
+
+	auto it = map.find( style );
+	if ( it == map.end() )
+	{
+		ERR( ERR_TYPE_PROGRAMMING_ERROR, "Unknown font style" );
+		return std::string( "UNKNOWN_FONT_STYLE" );
+	}
+	else
+	{
+		return it->second;
+	}
+}
+
+
+bool InitFontHintning2StrMap( std::map<int, std::string>& map )
+{
+	MADD( TTF_HINTING_NORMAL );
+	MADD( TTF_HINTING_LIGHT );
+	MADD( TTF_HINTING_MONO );
+	MADD( TTF_HINTING_NONE );
+
+	return true;
+}
+
+
+std::string FontHintning2Str( int hinting )
+{
+	typedef int keytype;
+	static std::map<keytype, std::string> map;
+	static bool inited = InitFontHintning2StrMap( map );
+
+	auto it = map.find( hinting );
+	if ( it == map.end() )
+	{
+		ERR( ERR_TYPE_PROGRAMMING_ERROR, "Unknown font hinting" );
+		return std::string( "UNKNOWN_FONT_HINTING" );
+	}
+	else
+	{
+		return it->second;
+	}
+}

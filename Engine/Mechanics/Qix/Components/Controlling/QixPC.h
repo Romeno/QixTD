@@ -15,17 +15,19 @@ public:
 	virtual void Tick(Uint32 diff) override;
 	virtual void Clear();
 
-	int RequestStartMoveLeft();
-	int RequestStopMoveLeft();
-	int RequestStartMoveRight();
-	int RequestStopMoveRight();
-	int RequestStartMoveUp();
-	int RequestStopMoveUp();
-	int RequestStartMoveDown();
-	int RequestStopMoveDown();
-	int RequestShoot();
+	virtual int RequestStartMoveLeft();
+	virtual int RequestStopMoveLeft();
+	virtual int RequestStartMoveRight();
+	virtual int RequestStopMoveRight();
+	virtual int RequestStartMoveUp();
+	virtual int RequestStopMoveUp();
+	virtual int RequestStartMoveDown();
+	virtual int RequestStopMoveDown();
+	virtual int RequestShoot();
 
-	void StartNewBorder();
+	virtual void StartNewBorder();
+
+	static const double PLAYER_VELOCITY;
 
 // 	bool			m_tryingToMove;
 // 	Uint32			m_facing;

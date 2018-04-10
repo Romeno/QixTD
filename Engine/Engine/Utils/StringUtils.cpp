@@ -8,7 +8,7 @@
 // длинное полотно и чтиво https://habrahabr.ru/company/xakep/blog/257895/
 
 
-std::wstring Str2Wstr(std::string& narrow)
+std::wstring Str2Wstr(const std::string& narrow)
 {
 	// тут простая реализация только для английских букв
 	return std::wstring(narrow.begin(), narrow.end());
@@ -22,7 +22,7 @@ std::wstring Str2Wstr( char* narrow )
 
 
 // обратно не работает
-std::string Wstr2Str(std::wstring& wide)
+std::string Wstr2Str(const std::wstring& wide)
 {
 	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
 	std::string narrow = converter.to_bytes(wide);

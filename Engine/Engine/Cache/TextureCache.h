@@ -5,11 +5,9 @@
 #include <map>
 
 
-class TextureCache : public Singleton<TextureCache>
+class TextureCache
 {
 public:
-	typedef Singleton<TextureCache> super;
-
 	TextureCache();
 	~TextureCache();
 
@@ -23,6 +21,9 @@ private:
 	SDL_Texture* LoadTexture(const std::string& path);
 
 };
+
+
+extern TextureCache* textureCache;
 
 
 /********************************************************************

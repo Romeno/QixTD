@@ -29,6 +29,7 @@
 #include <string>
 #include <map>
 #include <filesystem>
+#include <limits>
 
 #include <GL/glew.h>
 

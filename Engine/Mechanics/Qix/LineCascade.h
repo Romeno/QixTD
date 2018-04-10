@@ -1,10 +1,13 @@
 #pragma once
+#include "Engine/Components/Drawable.h"
 
 
 class LineCascade : public Drawable
 {
 public:
-	LineCascade(const std::string& name);
+	typedef Drawable super;
+
+	LineCascade();
 	//LineCascade(const LineCascade& other);
 	////LineCascade(LineCascade&& other);
 	//LineCascade& operator=(const LineCascade& other);
@@ -13,6 +16,8 @@ public:
 	virtual int Init() override;
 	virtual void Tick(Uint32 diff) override;
 	virtual void Render() override;
+	virtual glm::drect GetVisualAABB() override;
+	virtual glm::drect GetSelectionRegion() override;
 
 	void NotifyMovement(glm::dvec3 to);
 
@@ -24,6 +29,5 @@ public:
 	glm::ivec4			m_color;
 
 	const int		m_borderZ;
-
 };
 

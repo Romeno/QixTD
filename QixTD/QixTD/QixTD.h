@@ -1,12 +1,12 @@
 #pragma once
 #include "Mechanics/Qix/Qix.h"
 #include "Engine/Game.h"
-#include "Mechanics/Qix/QixIH.h"
+#include "QixTDIH.h"
 #include "Mechanics/Qix/QixCamera.h"
 #include "Mechanics/Qix/Config/MapConfigStub.h"
 
 
-#define GAME ((QixTD*)(GameManager::Inst()->m_game))
+#define GAME ((QixTD*)(gameManager->m_game))
 
 
 class b2World;
@@ -33,15 +33,21 @@ public:
 
 	virtual Entity* GetHero();
 
+
+
 	Qix*					m_qixMech;
 	//TD*						m_tdMech;
 
-	QixIH*					m_input;
+	QixTDIH*				m_input;
 	QixCamera*				m_camera;
 
 	std::vector<MapConfigStub*>		m_mapConfigs;
 	int 							m_mapNumber;
 	MapConfigStub*					m_currentMap;
+
+	glm::dvec3						m_dir;
+
+	std::vector< std::pair<glm::dvec3, glm::dvec3> >	m_borders;
 };
 
 

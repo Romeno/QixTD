@@ -39,6 +39,8 @@ namespace glm
 		glm::dvec3 GetBottomLeft() { return glm::dvec3( m_topLeft.x, m_topLeft.y + m_size.y, 0 ); }
 		glm::dvec3 GetBottomRight() { return glm::dvec3( m_topLeft.x + m_size.x, m_topLeft.y + m_size.y, 0 ); }
 		glm::dvec3 GetTopMiddle() { return glm::dvec3( m_topLeft.x + m_size.x / 2.0, m_topLeft.y, 0 ); }
+
+		bool ContainsPoint(glm::dvec3 point);
 	};
 }
 
@@ -59,13 +61,12 @@ void FindPointsOnDistFromPointOnLine2(float angle, float xfrom, float yfrom, flo
 
 template <typename T>
 T Random(T min2, T max2) {
-	static auto& w = std::cout << "init" << std::endl;
 	static std::random_device rd;
-	static T max1 = rd.max();
-	static T min1 = rd.min();
-	static T diff = abs(max1 - min1);
+	static std::random_device::result_type max1 = rd.max();
+	static std::random_device::result_type min1 = rd.min();
+	static std::random_device::result_type diff = abs((long long)(max1 - min1));
 
-	T q = min2 + (abs(max2 - min2) / diff * (T)rd());
+	T q = min2 + ((double)abs((long long)(max2 - min2)) / (double)diff * (T)rd());
 	return q;
 }
 glm::dvec3 GetRandomDirection();

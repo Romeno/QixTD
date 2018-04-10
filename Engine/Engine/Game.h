@@ -1,7 +1,7 @@
 #pragma once
 
 
-#define CAMERA GameManager::Inst()->m_game->Camera_()
+#define CAMERA gameManager->m_game->Camera_()
 
 
 class Camera;

@@ -3,6 +3,12 @@
 #include "StringUtils.h"
 
 
+void DebugOutput( const std::string& text )
+{
+
+}
+
+
 /*
 * Get the resource path for resources located in res/subDir
 * It's assumed the project directory is structured like:

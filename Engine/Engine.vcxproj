@@ -190,6 +190,7 @@
     <Text Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Utils\DebugOutputManager.h" />
     <ClInclude Include="Engine\Config\AnimationConfig.h" />
     <ClInclude Include="Engine\Components\Drawing\ConfigAnimation.h" />
     <ClInclude Include="Engine\Components\Drawing\AnimatedSprite.h" />
@@ -268,12 +269,14 @@
     </ClInclude>
     <ClInclude Include="Engine\Utils\Logger\Logger.h" />
     <ClInclude Include="Engine\Utils\MeasureUnits\InfoSize.h" />
+    <ClInclude Include="Engine\Utils\PreprocessorUtils.h" />
     <ClInclude Include="Engine\Utils\SDLUtils.h" />
     <ClInclude Include="Engine\Mechanics.h" />
     <ClInclude Include="Engine\Components\Drawing\FolderAnimation.h" />
     <ClInclude Include="Engine\Components\UI\Sensors\EntityPositionSensor.h" />
     <ClInclude Include="Engine\Input\Keyboard.h" />
     <ClInclude Include="Engine\Utils\types.h" />
+    <ClInclude Include="Engine\Components\UI\FocusManager.h" />
     <ClInclude Include="Mechanics\Tetris\Fields\FieldInt.h" />
     <ClInclude Include="Mechanics\Qix\Components\Controlling\PingPongAI.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -306,12 +309,7 @@
     <ClInclude Include="Engine\Utils\Utils.h" />
     <ClInclude Include="Engine\Utils\WindowTitleManager.h" />
     <ClInclude Include="Engine\Game.h" />
-    <ClInclude Include="Mechanics\Qix\LineCascade.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="Mechanics\Qix\LineCascade.h" />
     <ClInclude Include="Mechanics\Qix\QixIH.h" />
     <ClInclude Include="Mechanics\Qix\Components\Controlling\QixPC.h" />
     <ClInclude Include="Mechanics\Qix\QixCamera.h" />
@@ -361,6 +359,7 @@
     <ClInclude Include="Mechanics\TD\TD.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Utils\DebugOutputManager.cpp" />
     <ClCompile Include="Engine\Config\AnimationConfig.cpp" />
     <ClCompile Include="Engine\Components\Drawing\ConfigAnimation.cpp" />
     <ClCompile Include="Engine\Components\Drawing\AnimatedSprite.cpp" />
@@ -445,6 +444,7 @@
     <ClCompile Include="Engine\Components\Drawing\FolderAnimation.cpp" />
     <ClCompile Include="Engine\Components\UI\Sensors\EntityPositionSensor.cpp" />
     <ClCompile Include="Engine\Input\Keyboard.cpp" />
+    <ClCompile Include="Engine\Components\UI\FocusManager.cpp" />
     <ClCompile Include="Mechanics\Tetris\Fields\FieldInt.cpp" />
     <ClCompile Include="Mechanics\Qix\Components\Controlling\PingPongAI.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -474,12 +474,7 @@
     <ClCompile Include="Engine\Utils\CppUtils.cpp" />
     <ClCompile Include="Engine\Utils\WindowTitleManager.cpp" />
     <ClCompile Include="Engine\Game.cpp" />
-    <ClCompile Include="Mechanics\Qix\LineCascade.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
+    <ClCompile Include="Mechanics\Qix\LineCascade.cpp" />
     <ClCompile Include="Mechanics\Qix\QixIH.cpp" />
     <ClCompile Include="Mechanics\Qix\Components\Controlling\QixPC.cpp" />
     <ClCompile Include="Mechanics\Qix\QixCamera.cpp" />

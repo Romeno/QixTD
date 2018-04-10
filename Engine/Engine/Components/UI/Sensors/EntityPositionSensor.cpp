@@ -45,7 +45,31 @@ UIComponent::EndHoverData* EntityPositionSensor::EndHover()
 }
 
 
-UIComponent::FocusData* EntityPositionSensor::isFocused()
+UIComponent::ClickData* EntityPositionSensor::IsClicked()
+{
+	return nullptr;
+}
+
+
+UIComponent::ReleaseData* EntityPositionSensor::IsReleased()
+{
+	return nullptr;
+}
+
+
+UIComponent::FocusData* EntityPositionSensor::BeginFocused()
+{
+	return nullptr;
+}
+
+
+UIComponent::FocusData* EntityPositionSensor::EndFocused()
+{
+	return nullptr;
+}
+
+
+UIComponent::FocusData* EntityPositionSensor::IsFocused()
 {
 	return nullptr;
 }

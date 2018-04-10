@@ -2,11 +2,9 @@
 #include "Engine/Utils/Singleton.h"
 
 
-class WindowTitleManager : public Singleton<WindowTitleManager>
+class WindowTitleManager
 {
 public:
-	typedef Singleton<WindowTitleManager> super;
-
 	WindowTitleManager();
 	~WindowTitleManager();
 
@@ -21,3 +19,5 @@ public:
 	std::string		m_currentTickTitle;
 };
 
+
+extern WindowTitleManager* windowTitleManager;

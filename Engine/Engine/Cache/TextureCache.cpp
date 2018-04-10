@@ -4,10 +4,11 @@
 #include "Engine/Utils/Utils.h"
 
 
-TextureCache::TextureCache()
-	: super()
+extern TextureCache* textureCache = nullptr;
 
-	, m_textures()
+
+TextureCache::TextureCache()
+	: m_textures()
 {
 
 }

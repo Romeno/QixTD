@@ -5,7 +5,8 @@
 #include "Math/Math.h"
 
 
-const double PLAYER_VELOCITY = 3.;
+
+const double QixPC::PLAYER_VELOCITY = 3.;
 
 
 QixPC::QixPC()
@@ -97,8 +98,14 @@ void QixPC::Clear()
 
 int QixPC::RequestStartMoveLeft()
 {
-	m_object->m_real->SetVelocity( PLAYER_VELOCITY );
-	m_object->m_real->SetDirection( Direction::DIR_LEFT );
+	if ( m_object->m_real->GetVelocity() < std::numeric_limits<double>::epsilon() && m_object->m_real->GetDirEnum() == DIR_LEFT )
+	{
+		m_object->m_real->SetVelocity( PLAYER_VELOCITY );
+		m_object->m_real->SetDir( Direction::DIR_LEFT );
+
+		StartNewBorder();
+	}
+
 
 	//if (m_moving) 
 	//{
@@ -135,7 +142,7 @@ int QixPC::RequestStopMoveLeft()
 int QixPC::RequestStartMoveRight()
 {
 	m_object->m_real->SetVelocity( PLAYER_VELOCITY );
-	m_object->m_real->SetDirection( Direction::DIR_RIGHT );
+	m_object->m_real->SetDir( Direction::DIR_RIGHT );
 
 	//if (!(m_facing & Direction::DIR_LEFT))
 	//{
@@ -179,7 +186,7 @@ int QixPC::RequestStopMoveRight()
 int QixPC::RequestStartMoveUp()
 {
 	m_object->m_real->SetVelocity( PLAYER_VELOCITY );
-	m_object->m_real->SetDirection( Direction::DIR_TOP );
+	m_object->m_real->SetDir( Direction::DIR_TOP );
 
 	//if (m_facing != Direction::DIR_TOP)
 	//{
@@ -220,7 +227,7 @@ int QixPC::RequestStopMoveUp()
 int QixPC::RequestStartMoveDown()
 {
 	m_object->m_real->SetVelocity(PLAYER_VELOCITY );
-	m_object->m_real->SetDirection( Direction::DIR_BOTTOM );
+	m_object->m_real->SetDir( Direction::DIR_BOTTOM );
 
 	//if (m_facing != Direction::DIR_BOTTOM)
 	//{
@@ -267,8 +274,10 @@ int QixPC::RequestStopMoveDown()
 
 void QixPC::StartNewBorder()
 {
+	//GAME->m_borders.push_back( { {0,0,0}, {0,0,0} } );
 //	GameManager::Inst()->m_borderController->AddLine(m_lastTurnPos, m_sprite->GetRectCenter());
 }
+
 
 
 int QixPC::RequestShoot()

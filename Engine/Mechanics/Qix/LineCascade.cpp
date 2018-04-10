@@ -3,8 +3,8 @@
 #include "Engine/Utils/Utils.h"
 
 
-LineCascade::LineCascade(const std::string& name)
-	: Drawable(name)
+LineCascade::LineCascade()
+	: Drawable()
 	, m_lines()
 	, m_color(0, 0, 0, 0)
 	, m_borderZ(50)
@@ -43,6 +43,18 @@ void LineCascade::AddLine(glm::dvec3 wPos1, glm::dvec3 wPos2)
 }
 
 
+glm::drect LineCascade::GetVisualAABB()
+{
+	return glm::drect();
+}
+
+
+glm::drect LineCascade::GetSelectionRegion()
+{
+	return glm::drect();
+}
+
+
 void LineCascade::NotifyMovement(glm::dvec3 to)
 {
 	m_lines.back().second = glm::dvec3(to.x, to.y, m_borderZ);
@@ -69,4 +81,11 @@ void LineCascade::Render()
 	{
 		SDL_RenderDrawLine(REN, W2Sx(it->first.x), W2Sy(it->first.y), W2Sx(it->second.x), W2Sy(it->second.y));
 	}
+}
+
+template <>
+void Entity::AddComponent( LineCascade* component )
+{
+	m_malui = component;
+	component->m_object = this;
 }

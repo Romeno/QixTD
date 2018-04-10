@@ -20,5 +20,5 @@ QixCamera::~QixCamera()
 
 void QixCamera::Tick(Uint32 diff)
 {
-	SetWPos( HERO->m_real->GetWPos() );
+	SetWPos( HERO->m_real->GetPos() );
 }

@@ -15,7 +15,7 @@ public:
 
 		glm::ivec4			m_color;
 
-		glm::dvec3			m_size;
+		glm::dvec3			m_visualSize;
 
 		glm::dvec3			m_offset;
 	};

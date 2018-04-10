@@ -136,6 +136,9 @@
     <ClInclude Include="Mechanics\Tetris\TetrisCommon.h" />
     <ClInclude Include="Mechanics\Tetris\TetrisIH.h" />
     <ClInclude Include="Mechanics\VisualNovel\VisualNovel.h" />
+    <ClInclude Include="Engine\Components\UI\FocusManager.h" />
+    <ClInclude Include="Engine\Utils\DebugOutputManager.h" />
+    <ClInclude Include="Engine\Utils\PreprocessorUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -403,6 +406,12 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Mechanics\VisualNovel\VisualNovel.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Components\UI\FocusManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\DebugOutputManager.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>

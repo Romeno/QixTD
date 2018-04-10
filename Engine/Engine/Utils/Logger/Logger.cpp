@@ -2,6 +2,9 @@
 #include "Logger.h"
 
 
+//extern LoggerManager* loggerManager = nullptr;
+
+
 static Logger* s_logger = nullptr;
 void ShareLogger( Logger* logger )
 {
@@ -68,6 +71,12 @@ void INFO_F(tUINT16 line, const char *i_pFile, const char *i_pFunction, const wc
 	}
 	
 	va_end(args);
+}
+
+
+void Log( eP7Trace_Level verbosity, const std::string& loggerName, const std::string& moduleName, tUINT16 line, const char *i_pFile, const char *i_pFunction, const wchar_t* fmt... )
+{
+	std::cout << loggerName << " " << moduleName << std::endl;
 }
 
 

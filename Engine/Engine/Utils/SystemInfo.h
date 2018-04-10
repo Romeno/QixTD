@@ -20,6 +20,7 @@ void PrintPowerH();
 void PrintSystemH();
 void PrintClipboardH();
 void PrintPlatformH();
+void PrintTTFH( const std::string& fontPath );
 
 void PrintKeyboardEvent(SDL_Event* e);
 void PrintTextEditingEvent(SDL_Event* e);
@@ -33,8 +34,6 @@ void PrintWindowEvent( SDL_Event* e );
 void PrintMouseButtonNum(Uint8 mouseButton);
 //void PrintEventType(Uint32 eventType);
 //void PrintWindowEventType( SDL_WindowEventID windowEventId );
-void PrintMouseWheelDirection(Uint32 mouseWheelDirection);
-void PrintMouseButtonState(Uint32 state);
 
 void PrintDisplayModeInfo(SDL_DisplayMode& mode);
 void PrintPixelFormatInfo(Uint32 pixelFormat);
@@ -45,6 +44,11 @@ void PrintPowerState(SDL_PowerState s);
 
 void PrintSDLTtfVersion();
 
-//char* GetEventTypeStr( Uint32 eventType );
+std::string EventType2Str( SDL_EventType eventType );
+std::string WindowEventType2Str( SDL_WindowEventID windowEventId );
+std::string FontStyle2Str( int style );
+std::string FontHintning2Str( int hinting );
+
+std::string SDLVersion2Str( const SDL_version* ver );
 
 #endif // __SYSTEM_INFO__H__

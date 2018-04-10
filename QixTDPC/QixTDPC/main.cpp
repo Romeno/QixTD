@@ -7,6 +7,7 @@
 #include "Mechanics/Qix/Qix.h"
 #include "QixTD/QixTD.h"
 #include "conio.h"
+#include <limits>
 
 #undef main
 
@@ -19,13 +20,14 @@ using std::string;
 
 int main()
 {
-	int ret = GameManager::Inst()->Init( new QixTD() );
+	gameManager = new GameManager();
+	int ret = gameManager->Init( new QixTD() );
 	if ( ret )
 	{
 		return ret;
 	}
 
-	GameManager::Inst()->MainLoop();
+	gameManager->MainLoop();
 
 	return 0;
 }

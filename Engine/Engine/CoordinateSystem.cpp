@@ -36,13 +36,13 @@
 
 double S2Rx(int x)
 {
-	return x - GameManager::Inst()->vpWidth / 2;
+	return x - VP_WIDTH / 2;
 }
 
 
 double S2Ry(int y)
 {
-	return GameManager::Inst()->vpHeight / 2 - y;
+	return VP_HEIGHT / 2 - y;
 }
 
 
@@ -58,13 +58,13 @@ glm::dvec3 S2R(SDL_Point& sdlPoint)
 
 int R2Sx(double x)
 {
-	return round(x + GameManager::Inst()->vpWidth / 2);
+	return round(x + VP_WIDTH / 2);
 }
 
 
 int R2Sy(double y)
 {
-	return round(GameManager::Inst()->vpHeight / 2 - y);
+	return round(VP_HEIGHT / 2 - y);
 }
 
 
@@ -213,6 +213,25 @@ glm::dvec3 DirToVec(Direction dir)
 
 Direction VecToDir(glm::dvec3 vec)
 {
-	return DIR_LEFT;
+	if ( vec.x < std::numeric_limits<double>::epsilon() && vec.y > 0 )
+	{
+		return DIR_TOP;
+	}
+	else if ( vec.x < std::numeric_limits<double>::epsilon() && vec.y < 0 )
+	{
+		return DIR_BOTTOM;
+	}
+	else if ( vec.x > 0 && vec.y < std::numeric_limits<double>::epsilon() )
+	{
+		return DIR_RIGHT;
+	}
+	else if ( vec.x < 0 && vec.y < std::numeric_limits<double>::epsilon() )
+	{
+		return DIR_LEFT;
+	}
+	else 
+	{
+		return DIR_UNKNOWN;
+	}
 }
 
