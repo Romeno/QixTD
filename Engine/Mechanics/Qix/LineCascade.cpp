@@ -86,6 +86,8 @@ void LineCascade::Render()
 template <>
 void Entity::AddComponent( LineCascade* component )
 {
+	//SafeDelete( m_malui );
+
 	m_malui = component;
 	component->m_object = this;
 }

@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="QixTD\Components\Physics\QixPhysComponent.h" />
     <ClInclude Include="QixTD\Components\Drawable\LineDrawable.h" />
     <ClInclude Include="QixTD\QixTDAPI.h" />
     <ClInclude Include="QixTD\QixTDIH.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="QixTD\Components\Physics\QixPhysComponent.cpp" />
     <ClCompile Include="QixTD\Components\Drawable\LineDrawable.cpp" />
     <ClCompile Include="QixTD\QixTDAPI.cpp" />
     <ClCompile Include="QixTD\QixTDIH.cpp" />

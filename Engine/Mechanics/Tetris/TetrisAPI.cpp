@@ -41,7 +41,7 @@ void TetrisAPI::SetFallSpeed( double fallSpeed )
 
 void TetrisAPI::SetFallDirection( Direction dir )
 {
-	m_fallDir = DirToVec( dir );
+	m_fallDir = Dir2Vec( dir );
 }
 
 

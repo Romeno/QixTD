@@ -93,6 +93,7 @@ enum Pivot {
 };
 
 
+
 enum Direction {
 	DIR_TOP = 1,
 	DIR_RIGHT = 2,
@@ -102,6 +103,5 @@ enum Direction {
 };
 
 
-glm::dvec3 DirToVec(Direction dir);
-Direction VecToDir(glm::dvec3 vec);
-
+glm::dvec3 Dir2Vec( Direction dir );
+Direction Vec2Dir( glm::dvec3 vec );

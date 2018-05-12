@@ -114,7 +114,6 @@
     <ClInclude Include="Engine\Utils\Logger\Sink.h" />
     <ClInclude Include="Engine\Utils\types.h" />
     <ClInclude Include="Engine\Utils\MeasureUnits\InfoSize.h" />
-    <ClInclude Include="Engine\Utils\OldLogger.h" />
     <ClInclude Include="Engine\Components\UI\UIICon.h" />
     <ClInclude Include="Mechanics\Menu\Menu.h" />
     <ClInclude Include="Mechanics\Qix\Components\Controlling\PingPongAI.h" />
@@ -139,6 +138,8 @@
     <ClInclude Include="Engine\Components\UI\FocusManager.h" />
     <ClInclude Include="Engine\Utils\DebugOutputManager.h" />
     <ClInclude Include="Engine\Utils\PreprocessorUtils.h" />
+    <ClInclude Include="Engine\Utils\Logger\Loggers.h" />
+    <ClInclude Include="Engine\Utils\TextUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -412,6 +413,9 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utils\DebugOutputManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Utils\TextUtils.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>

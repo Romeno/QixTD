@@ -25,7 +25,7 @@ ConfigError Config::Read()
 
 	if (ifstrm.fail()) 
 	{
-		ERR(ERR_TYPE_ENGINE_ERROR, "Config %s could not be read", Str2Wstr(path).c_str());
+		ELOGB(ERR_TYPE_ENGINE_ERROR, "Config %s could not be read", Str2Wstr(path).c_str());
 		return CONFIG_ERROR_FAIL;
 	}
 	else 

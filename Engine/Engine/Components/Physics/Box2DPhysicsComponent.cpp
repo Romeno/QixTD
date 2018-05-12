@@ -143,6 +143,8 @@ void Box2DPhysicsComponent::SetVelocity( double ms )
 template <>
 void Entity::AddComponent( Box2DPhysicsComponent* component )
 {
+	//SafeDelete( m_real );
+
 	m_real = component;
 	component->m_object = this;
 }

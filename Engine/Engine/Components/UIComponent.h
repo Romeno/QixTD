@@ -46,6 +46,7 @@ public:
 		BeginHoverData() {}
 		virtual ~BeginHoverData() {}
 
+		bool beginHovered;
 	};
 
 	struct HoverData
@@ -61,6 +62,7 @@ public:
 		EndHoverData() {}
 		virtual ~EndHoverData() {}
 
+		bool endHovered;
 	};
 
 	//////////////////////////////////////////////////////////////////////////
@@ -78,6 +80,16 @@ public:
 	UIComponent();
 	virtual ~UIComponent();
 
+	//virtual void SetText( const std::string& text );
+
+	bool				m_focused;
+
+	bool				m_beginHovered;
+	bool				m_hovered;
+	bool				m_endHovered;
+
+	bool				m_pressed;
+	bool				m_clicked;
 
 	//virtual void SetClickSize( glm::dvec3 size );
 

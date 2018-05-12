@@ -24,9 +24,17 @@ public:
 	virtual int RequestStartMoveDown() override;
 	virtual int RequestStopMoveDown() override;
 
+	virtual void CheckIfPointOnBorder( const glm::dvec3& point );
+	bool CheckIfPointOnBorderSimple( const glm::dvec3& point );
+
 	virtual int RequestShoot() override;
 
 	virtual void StartNewBorder() override;
+	virtual glm::dvec3 PredictFuturePos( double velocity, Direction dir );
 
+	bool	m_onBorder;
+	bool	m_haveBeenOnBorderOnce;
+	bool	m_firstTick;
+	bool	m_drawingBorder;
 };
 

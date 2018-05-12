@@ -44,6 +44,24 @@ void Mouse::Init()
 }
 
 
+void Mouse::PreTick( Uint32 diff )
+{
+	m_lmbPressed = false;
+	m_mmbPressed = false;
+	m_rmbPressed = false;
+
+	m_lmbClick = false;
+	m_mmbClick = false;
+	m_rmbClick = false;
+
+	m_lmbDblClick = false;
+	m_mmbDblClick = false;
+	m_rmbDblClick = false;
+
+	m_wheelDelta = 0;
+}
+
+
 void Mouse::Tick( Uint32 diff )
 {
 	m_state = SDL_GetMouseState( m_x, m_y );
@@ -51,15 +69,19 @@ void Mouse::Tick( Uint32 diff )
 	// debug consistency check
 	if ( (isLMBPressed() && !m_lmbDown) || (isMMBPressed() && !m_mmbDown) || (isRMBPressed() && !m_rmbDown) )
 	{
-		ERROR( "INCONSISTENT MOUSE STATE for button(s) %s", MouseState2Str(m_state).c_str() );
+		ELOGAM(MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "INCONSISTENT MOUSE STATE for button(s) %s", Str2Wstr( MouseState2Str(m_state) ).c_str() );
 	}
 
-	INFO( "MOUSE: %f, %f", mouse->GetPos().x, mouse->GetPos().y );
+	ILOGBM( MODULE_MOUSE, "MOUSE: %f, %f", mouse->GetPos().x, mouse->GetPos().y );
 
-	//INFO( "MOUSE STATE d %d", state );
-	//INFO( "LMOUSE %d", (int) (bool) (m_state & SDL_BUTTON_LMASK) );
-	//INFO( "MMOUSE %d", (int) (bool) (m_state & SDL_BUTTON_MMASK) );
-	//INFO( "RMOUSE %d", (int) (bool) (m_state & SDL_BUTTON_RMASK) );
+	ILOGBM( MODULE_MOUSE, "LMB %d", (int) LMB_PRESSED );
+	ILOGBM( MODULE_MOUSE, "MMB %d", (int) MMB_PRESSED );
+	ILOGBM( MODULE_MOUSE, "RMB %d", (int) RMB_PRESSED );
+
+	//ILOGB( "MOUSE STATE d %d", state );
+	//ILOGB( "LMOUSE %d", (int) (bool) (m_state & SDL_BUTTON_LMASK) );
+	//ILOGB( "MMOUSE %d", (int) (bool) (m_state & SDL_BUTTON_MMASK) );
+	//ILOGB( "RMOUSE %d", (int) (bool) (m_state & SDL_BUTTON_RMASK) );
 }
 
 
@@ -99,6 +121,39 @@ bool Mouse::isRMBPressed()
 {
 	return m_rmbDown;
 	//return m_state & SDL_BUTTON_RMASK;
+}
+
+
+std::string Mouse::MouseButtonNum2Str( Uint8 mouseButton )
+{
+	std::string res;
+
+	if ( mouseButton == SDL_BUTTON_LEFT )
+	{
+		res = "LEFT";
+	}
+	else if ( mouseButton == SDL_BUTTON_MIDDLE )
+	{
+		res = "MIDDLE";
+	}
+	else if ( mouseButton == SDL_BUTTON_RIGHT )
+	{
+		res = "RIGHT";
+	}
+	else if ( mouseButton == SDL_BUTTON_X1 )
+	{
+		res = "X1";
+	}
+	else if ( mouseButton == SDL_BUTTON_X2 )
+	{
+		res = "X2";
+	}
+	else
+	{
+		res = "UNKNOWN_MOUSE_BUTTON";
+	}
+
+	return res;
 }
 
 
@@ -171,20 +226,6 @@ void Mouse::SetCursor( int id )
 	{
 		m_cursors[id]->Enable();
 	}
-}
-
-
-void Mouse::PreTick( Uint32 diff )
-{
-	m_lmbClick = false;
-	m_mmbClick = false;
-	m_rmbClick = false;
-
-	m_lmbDblClick = false;
-	m_mmbDblClick = false;
-	m_rmbDblClick = false;
-
-	m_wheelDelta = 0;
 }
 
 

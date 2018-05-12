@@ -15,7 +15,7 @@ EntityPositionSensor::~EntityPositionSensor()
 }
 
 
-UIComponent::PressData* EntityPositionSensor::IsPressed()
+UIComponent::PressData* EntityPositionSensor::WasPressed()
 {
 	return nullptr;
 }
@@ -45,13 +45,13 @@ UIComponent::EndHoverData* EntityPositionSensor::EndHover()
 }
 
 
-UIComponent::ClickData* EntityPositionSensor::IsClicked()
+UIComponent::ClickData* EntityPositionSensor::WasClicked()
 {
 	return nullptr;
 }
 
 
-UIComponent::ReleaseData* EntityPositionSensor::IsReleased()
+UIComponent::ReleaseData* EntityPositionSensor::WasReleased()
 {
 	return nullptr;
 }

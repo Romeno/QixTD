@@ -51,6 +51,8 @@ void TickPingPongAI::SetPeriod(int period)
 template <>
 void Entity::AddComponent( TickPingPongAI* component )
 {
+	//SafeDelete( m_rozum );
+
 	m_rozum = component;
 	component->m_object = this;
 }

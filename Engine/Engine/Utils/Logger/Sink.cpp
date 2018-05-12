@@ -149,6 +149,7 @@ ConsoleSink::ConsoleSink()
 	: super()
 
 	, m_format()
+	, m_useCout(false)
 {
 
 }

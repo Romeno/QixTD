@@ -33,13 +33,17 @@ public:
 	// TODO: drag n drop
 	// TODO: rectangle selection
 	// TODO: dbl clicks
-	// TODO: is clicked
 	// TODO: click cursor change support
 	// TODO: rectangle select cursor change support
 
 	int*	m_x;
 	int*	m_y;
 	Uint32	m_state;
+
+	// показатели, что на данном тике только что произошло нажатие кнопки
+	bool m_lmbPressed;
+	bool m_mmbPressed;
+	bool m_rmbPressed;
 
 	// показатели, что на данном тике произошёл клик
 	bool m_lmbClick;
@@ -51,13 +55,15 @@ public:
 	bool m_mmbDblClick;
 	bool m_rmbDblClick;
 
-	// эти для проверки, что оба способа считывания положения нажатий мыши работают одинаково
+	// показатели, что на данном тике такая-то кнопка нажата
+	// и m_state, и эти показатели для проверки, что оба способа считывания положения нажатий мыши работают одинаково
 	bool m_lmbDown;
 	bool m_mmbDown;
 	bool m_rmbDown;
 
 	int m_wheelDelta;
 
+	static std::string MouseButtonNum2Str( Uint8 mouseButton );
 	static std::string MouseState2Str( Uint32 state );
 	static std::string WheelDirection2Str( Uint32 direction );
 

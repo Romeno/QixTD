@@ -27,66 +27,6 @@ void MouseInputSensor::Tick( Uint32 diff )
 }
 
 
-UIComponent::PressData* MouseInputSensor::IsPressed()
-{
-	UIComponent::PressData* d = new UIComponent::PressData();
-
-	//bool onButton = IsPointInRect( Mouse::Inst()->GetPos(), W2R( m_boundComponent->m_object->m_real->GetPos() ), m_boundComponent->m_object->m_real->GetSize() );
-	//if ( onButton )
-	//{
-	//	Mouse::Inst()->m_
-	//}
-
-	return d;
-}
-
-
-UIComponent::ClickData* MouseInputSensor::IsClicked()
-{
-	UIComponent::ClickData* d = new UIComponent::ClickData();
-
-	return d;
-}
-
-
-UIComponent::ReleaseData* MouseInputSensor::IsReleased()
-{
-	UIComponent::ReleaseData* d = new UIComponent::ReleaseData();
-
-	return d;
-}
-
-
-UIComponent::BeginHoverData* MouseInputSensor::BeginHover()
-{
-	UIComponent::BeginHoverData* d = new UIComponent::BeginHoverData();
-
-	return d;
-}
-
-
-UIComponent::HoverData* MouseInputSensor::IsHovered()
-{
-	MouseHoverData* d = new MouseHoverData();
-
-	glm::drect rect = m_boundComponent->m_object->m_malui->GetSelectionRegion();
-	d->hovered = rect.ContainsPoint( mouse->GetPos() );
-	d->pos = mouse->GetPos();
-
-	//INFO( "RECT: %f, %f, %f, %f", rect.m_topLeft.x, rect.m_topLeft.y, rect.m_size.x, rect.m_size.y );
-
-	return d;
-}
-
-
-UIComponent::EndHoverData* MouseInputSensor::EndHover()
-{
-	UIComponent::EndHoverData* d = new UIComponent::EndHoverData();
-
-	return d;
-}
-
-
 UIComponent::FocusData* MouseInputSensor::BeginFocused()
 {
 	UIComponent::FocusData* d = new UIComponent::FocusData();
@@ -111,6 +51,83 @@ UIComponent::FocusData* MouseInputSensor::IsFocused()
 UIComponent::FocusData* MouseInputSensor::EndFocused()
 {
 	UIComponent::FocusData* d = new UIComponent::FocusData();
+
+	return d;
+}
+
+
+UIComponent::BeginHoverData* MouseInputSensor::BeginHover()
+{
+	MouseBeginHoverData* d = new MouseBeginHoverData();
+
+	glm::drect rect = m_boundComponent->m_object->m_malui->GetSelectionRegion();
+	d->beginHovered = rect.ContainsPoint( mouse->GetPos() ) && !m_boundComponent->m_object->m_ui->m_hovered;
+	d->pos = mouse->GetPos();
+
+	return d;
+}
+
+
+UIComponent::HoverData* MouseInputSensor::IsHovered()
+{
+	MouseHoverData* d = new MouseHoverData();
+
+	glm::drect rect = m_boundComponent->m_object->m_malui->GetSelectionRegion();
+	d->hovered = rect.ContainsPoint( mouse->GetPos() );
+	d->pos = mouse->GetPos();
+
+	//ILOGBM( MODULE_MOUSE "RECT: %f, %f, %f, %f", rect.m_topLeft.x, rect.m_topLeft.y, rect.m_size.x, rect.m_size.y );
+
+	return d;
+}
+
+
+UIComponent::EndHoverData* MouseInputSensor::EndHover()
+{
+	MouseEndHoverData* d = new MouseEndHoverData();
+
+	glm::drect rect = m_boundComponent->m_object->m_malui->GetSelectionRegion();
+	d->endHovered = !rect.ContainsPoint( mouse->GetPos() ) && m_boundComponent->m_object->m_ui->m_hovered;
+	d->pos = mouse->GetPos();
+
+	return d;
+}
+
+
+UIComponent::PressData* MouseInputSensor::WasPressed()
+{
+	MousePressData* d = new MousePressData();
+
+	glm::drect rect = m_boundComponent->m_object->m_malui->GetSelectionRegion();
+	d->pressed = rect.ContainsPoint( mouse->GetPos() ) && mouse->m_lmbPressed;
+	d->button = SDL_BUTTON_LEFT;
+	d->pos = mouse->GetPos();
+
+	return d;
+}
+
+
+UIComponent::ReleaseData* MouseInputSensor::WasReleased()
+{
+	MouseReleaseData* d = new MouseReleaseData();
+
+	glm::drect rect = m_boundComponent->m_object->m_malui->GetSelectionRegion();
+	d->released = !rect.ContainsPoint( mouse->GetPos() ) && mouse->m_lmbClick && m_boundComponent->m_pressed;
+	d->button = SDL_BUTTON_LEFT;
+	d->pos = mouse->GetPos();
+
+	return d;
+}
+
+
+UIComponent::ClickData* MouseInputSensor::WasClicked()
+{
+	MouseClickData* d = new MouseClickData();
+
+	glm::drect rect = m_boundComponent->m_object->m_malui->GetSelectionRegion();
+	d->clicked = rect.ContainsPoint( mouse->GetPos() ) && mouse->m_lmbClick && m_boundComponent->m_pressed;
+	d->button = SDL_BUTTON_LEFT;
+	d->pos = mouse->GetPos();
 
 	return d;
 }

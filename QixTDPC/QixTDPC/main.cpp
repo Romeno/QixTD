@@ -7,7 +7,9 @@
 #include "Mechanics/Qix/Qix.h"
 #include "QixTD/QixTD.h"
 #include "conio.h"
-#include <limits>
+#include "Engine/Utils/Utils.h"
+#include "Tests/TestLogger.h"
+
 
 #undef main
 
@@ -18,7 +20,19 @@ using std::cin;
 using std::string;
 
 
+void runTests();
+int runGame();
+
+
 int main()
+{
+	//runTests();
+
+	return runGame();
+}
+
+
+int runGame()
 {
 	gameManager = new GameManager();
 	int ret = gameManager->Init( new QixTD() );
@@ -31,3 +45,17 @@ int main()
 
 	return 0;
 }
+
+
+void runTests()
+{
+	testLogger();
+}
+
+
+
+
+
+
+
+

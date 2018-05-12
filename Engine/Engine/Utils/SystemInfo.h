@@ -1,49 +1,49 @@
 #pragma once
 #ifndef __SYSTEM_INFO__H__
+#include "Engine/Utils/Utils.h"
 
 
-void PrintInfo(SDL_Window* win, SDL_Renderer* ren);
+void LogInfo(SDL_Window* win, SDL_Renderer* ren, const char* logger = LOGGER_BAICAL, const wchar_t* loggerModule = MODULE_GENERIC_INFO );
 
-void PrintCustomInfo();
-void PrintFilesystemH();
-void PrintVideoH(SDL_Window* win);
-void PrintRenderH(SDL_Window* win, SDL_Renderer* ren);
-void PrintAudioH();
-void PrintKeyboardH(SDL_Window* win);
-void ListenKeyboardH( SDL_Window* win );
-void PrintMouseH();
-void PrintTouchH();
-void PrintTimerH();
-void PrintEventsH();
-void PrintCpuinfoH();
-void PrintPowerH();
-void PrintSystemH();
-void PrintClipboardH();
-void PrintPlatformH();
-void PrintTTFH( const std::string& fontPath );
+void LogCustomInfo( const char* logger, const wchar_t* loggerModule );
+void LogFilesystemH( const char* logger, const wchar_t* loggerModule );
+void LogVideoH(SDL_Window* win, const char* logger, const wchar_t* loggerModule );
+void LogRenderH(SDL_Window* win, SDL_Renderer* ren, const char* logger, const wchar_t* loggerModule );
+void LogAudioH( const char* logger, const wchar_t* loggerModule );
+void LogKeyboardH(SDL_Window* win, const char* logger, const wchar_t* loggerModule );
+void ListenKeyboardH( SDL_Window* win, const char* logger, const wchar_t* loggerModule );
+void LogMouseH( const char* logger, const wchar_t* loggerModule );
+void LogTouchH( const char* logger, const wchar_t* loggerModule );
+void LogTimerH( const char* logger, const wchar_t* loggerModule );
+void LogEventsH( const char* logger, const wchar_t* loggerModule );
+void LogCpuinfoH( const char* logger, const wchar_t* loggerModule );
+void LogPowerH( const char* logger, const wchar_t* loggerModule );
+void LogSystemH( const char* logger, const wchar_t* loggerModule );
+void LogClipboardH( const char* logger, const wchar_t* loggerModule );
+void LogPlatformH( const char* logger, const wchar_t* loggerModule );
+void LogTTFH( const std::string& fontPath, const char* logger, const wchar_t* loggerModule );
 
-void PrintKeyboardEvent(SDL_Event* e);
-void PrintTextEditingEvent(SDL_Event* e);
-void PrintTextInputEvent(SDL_Event* e);
-void PrintMouseButtonEvent(SDL_Event* e);
-void PrintMouseWheelEvent(SDL_Event* e);
-void PrintMouseMotionEvent(SDL_Event* e);
-void PrintGenericEvent( SDL_Event* e );
-void PrintWindowEvent( SDL_Event* e );
+void LogKeyboardEvent(SDL_Event* e, const char* logger, const wchar_t* loggerModule );
+void LogTextEditingEvent(SDL_Event* e, const char* logger, const wchar_t* loggerModule );
+void LogTextInputEvent(SDL_Event* e, const char* logger, const wchar_t* loggerModule );
+void LogMouseButtonEvent(SDL_Event* e, const char* logger, const wchar_t* loggerModule );
+void LogMouseWheelEvent(SDL_Event* e, const char* logger, const wchar_t* loggerModule );
+void LogMouseMotionEvent(SDL_Event* e, const char* logger, const wchar_t* loggerModule );
+void LogGenericEvent( SDL_Event* e, const char* logger, const wchar_t* loggerModule );
+void LogWindowEvent( SDL_Event* e, const char* logger, const wchar_t* loggerModule );
 
-void PrintMouseButtonNum(Uint8 mouseButton);
-//void PrintEventType(Uint32 eventType);
-//void PrintWindowEventType( SDL_WindowEventID windowEventId );
+//void LogEventType(Uint32 eventType, const char* logger, const wchar_t* loggerModule);
+//void LogWindowEventType( SDL_WindowEventID windowEventId, const char* logger, const wchar_t* loggerModule );
 
-void PrintDisplayModeInfo(SDL_DisplayMode& mode);
-void PrintPixelFormatInfo(Uint32 pixelFormat);
-void PrintWindowFlags(Uint32 flags);
-void PrintRendererInfo(SDL_RendererInfo* info);
-void PrintAudioStatus(SDL_AudioStatus s);
-void PrintPowerState(SDL_PowerState s);
+void LogDisplayModeInfo(SDL_DisplayMode& mode, const char* logger, const wchar_t* loggerModule );
+void LogPixelFormatInfo(Uint32 pixelFormat, const char* logger, const wchar_t* loggerModule );
+void LogWindowFlags(Uint32 flags, const char* logger, const wchar_t* loggerModule );
+void LogRendererInfo(SDL_RendererInfo* info, const char* logger, const wchar_t* loggerModule );
 
-void PrintSDLTtfVersion();
+void LogSDLTtfVersion( const char* logger, const wchar_t* loggerModule );
 
+std::string AudioStatus2Str( SDL_AudioStatus s );
+std::string PowerState2Str( SDL_PowerState s );
 std::string EventType2Str( SDL_EventType eventType );
 std::string WindowEventType2Str( SDL_WindowEventID windowEventId );
 std::string FontStyle2Str( int style );

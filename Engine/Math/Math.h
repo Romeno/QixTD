@@ -22,6 +22,8 @@ glm::dvec3 GetRectTopLeft( glm::dvec3 center, glm::dvec3 size );
 glm::dvec3 GetRectTopLeft( glm::dvec3 center, double width, double height );
 
 bool IsPointInRect( glm::dvec3 pos, glm::dvec3 center, glm::dvec3 size );
+bool IsPointOnLine_VectorMath( glm::dvec3 first, glm::dvec3 last, glm::dvec3 point, double epsilon = std::numeric_limits<double>::epsilon() );
+bool IsPointOn90DegreeAlignedLine( glm::dvec3 first, glm::dvec3 last, glm::dvec3 point, double epsilon );
 
 glm::dvec3 GetRectShootPos( glm::dvec3 center, glm::dvec3 size, Direction dir );
 
@@ -33,14 +35,16 @@ namespace glm
 		glm::dvec3 m_topLeft;
 		glm::dvec3 m_size;
 
-		glm::dvec3 GetCenter() { return GetRectCenter( m_topLeft, m_size ); }
-		glm::dvec3 GetTopLeft() { return m_topLeft; }
-		glm::dvec3 GetTopRight() { return glm::dvec3( m_topLeft.x + m_size.x, m_topLeft.y, 0 ); }
-		glm::dvec3 GetBottomLeft() { return glm::dvec3( m_topLeft.x, m_topLeft.y + m_size.y, 0 ); }
-		glm::dvec3 GetBottomRight() { return glm::dvec3( m_topLeft.x + m_size.x, m_topLeft.y + m_size.y, 0 ); }
-		glm::dvec3 GetTopMiddle() { return glm::dvec3( m_topLeft.x + m_size.x / 2.0, m_topLeft.y, 0 ); }
+		glm::dvec3 GetCenter() const { return GetRectCenter( m_topLeft, m_size ); }
+		glm::dvec3 GetTopLeft() const { return m_topLeft; }
+		glm::dvec3 GetTopRight() const { return glm::dvec3( m_topLeft.x + m_size.x, m_topLeft.y, 0 ); }
+		glm::dvec3 GetBottomLeft() const { return glm::dvec3( m_topLeft.x, m_topLeft.y - m_size.y, 0 ); }
+		glm::dvec3 GetBottomRight() const { return glm::dvec3( m_topLeft.x + m_size.x, m_topLeft.y - m_size.y, 0 ); }
+		glm::dvec3 GetTopMiddle() const { return glm::dvec3( m_topLeft.x + m_size.x / 2.0, m_topLeft.y, 0 ); }
 
-		bool ContainsPoint(glm::dvec3 point);
+		bool ContainsPoint( const glm::dvec3& point );
+		bool ContainsRect( const glm::drect& another );
+		glm::drect ClosestRectOfSameSizeInsideThisRect(const glm::drect& another);
 	};
 }
 

@@ -3,6 +3,7 @@
 #include "Engine/Utils/Utils.h"
 #include "Engine/Components/Drawable.h"
 #include "Engine/Components/Controlling/Playable.h"
+#include "Engine/Components/TextComponent.h"
 #include "Engine/InputHandler.h"
 #include "Engine/Camera.h"
 
@@ -35,15 +36,33 @@ int Game::Init()
 }
 
 
+void Game::PreTick( Uint32 diff )
+{
+	for ( auto it = m_entities.begin(); it != m_entities.end(); it++ )
+	{
+		(*it)->PreTick( diff );
+	}
+}
+
+
 void Game::Tick(Uint32 diff)
 {
 	Input()->Tick(diff);
 
-	Camera_()->Tick(diff);
-
 	for (auto it = m_entities.begin(); it != m_entities.end(); it++)
 	{
 		(*it)->Tick(diff);
+	}
+
+	Camera_()->Tick( diff );
+}
+
+
+void Game::PostTick( Uint32 diff )
+{
+	for ( auto it = m_entities.begin(); it != m_entities.end(); it++ )
+	{
+		(*it)->PostTick( diff );
 	}
 }
 
@@ -78,6 +97,11 @@ void Game::Render()
 		{
 			(*it)->m_malui->Render();
 		}
+
+		if ( (*it)->m_nadpis )
+		{
+			(*it)->m_nadpis->Render();
+		}
 	}
 
 	// 	DrawTextBlock("fonts/Snap.ttf", "Hello World", 24);
@@ -96,7 +120,7 @@ void Game::Render()
 
 void Game::Quit()
 {
-	INFO( "Quit" );
+	ILOGB( "Quit" );
 
 	m_quit = true;
 }

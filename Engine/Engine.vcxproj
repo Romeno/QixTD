@@ -75,6 +75,8 @@
     <IncludePath>$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\$(Configuration)\;$(ROMENO_BUNDLE)glew\lib\x86\debug\;$(ROMENO_BUNDLE)collisions\Box2D\lib\$(PlatformShortName)\$(Configuration)\</LibraryPath>
     <SourcePath>$(VC_SourcePath);$(ROMENO_BUNDLE)__sources\full\SDL\SDL2-2.0.5\src\;$(ROMENO_BUNDLE)collisions\Box2D\Box2D\Box2D\;</SourcePath>
+    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -101,6 +103,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <EnablePREfast>false</EnablePREfast>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -268,6 +271,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Engine\Utils\Logger\Logger.h" />
+    <ClInclude Include="Engine\Utils\Logger\Loggers.h" />
     <ClInclude Include="Engine\Utils\MeasureUnits\InfoSize.h" />
     <ClInclude Include="Engine\Utils\PreprocessorUtils.h" />
     <ClInclude Include="Engine\Utils\SDLUtils.h" />
@@ -300,7 +304,6 @@
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Cache\TextureCache.h" />
     <ClInclude Include="Engine\Utils\EngiUtils.h" />
-    <ClInclude Include="Engine\Utils\OldLogger.h" />
     <ClInclude Include="Engine\Utils\pystring.h" />
     <ClInclude Include="Engine\Utils\Singleton.h" />
     <ClInclude Include="Engine\Utils\StringUtils.h" />
@@ -357,6 +360,7 @@
     <ClInclude Include="Mechanics\Tetris\Fields\TetrisField.h" />
     <ClInclude Include="Mechanics\VisualNovel\VisualNovel.h" />
     <ClInclude Include="Mechanics\TD\TD.h" />
+    <ClInclude Include="Engine\Utils\TextUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Utils\DebugOutputManager.cpp" />
@@ -503,7 +507,9 @@
     </ClCompile>
     <ClCompile Include="Mechanics\Qix\Qix.cpp" />
     <ClCompile Include="Engine\Components\Drawing\Sprite.cpp" />
-    <ClCompile Include="Mechanics\Qix\QixAPI.cpp" />
+    <ClCompile Include="Mechanics\Qix\QixAPI.cpp">
+      <PreprocessToFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</PreprocessToFile>
+    </ClCompile>
     <ClCompile Include="Engine\Components\Physics\SimplePhysicsComponent.cpp" />
     <ClCompile Include="Engine\Components\Drawing\SpriteBase.cpp" />
     <ClCompile Include="Engine\Config\Animation\RomenoAnimConfig.cpp" />
@@ -525,6 +531,7 @@
     <ClCompile Include="Mechanics\Tetris\Fields\TetrisField.cpp" />
     <ClCompile Include="Mechanics\VisualNovel\VisualNovel.cpp" />
     <ClCompile Include="Mechanics\TD\TD.cpp" />
+    <ClCompile Include="Engine\Utils\TextUtils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

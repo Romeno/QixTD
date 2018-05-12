@@ -26,7 +26,17 @@ public:
 		int			button;
 	};
 
+	struct MouseBeginHoverData : public UIComponent::BeginHoverData
+	{
+		glm::dvec3	pos;
+	};
+
 	struct MouseHoverData : public UIComponent::HoverData
+	{
+		glm::dvec3	pos;
+	};
+
+	struct MouseEndHoverData : public UIComponent::EndHoverData
 	{
 		glm::dvec3	pos;
 	};
@@ -42,16 +52,17 @@ public:
 
 	virtual void Tick( Uint32 diff ) override;
 
-	virtual UIComponent::PressData* IsPressed() override;
-	virtual UIComponent::ClickData* IsClicked() override;
-	virtual UIComponent::ReleaseData* IsReleased() override;
+
+	virtual UIComponent::FocusData* BeginFocused() override;
+	virtual UIComponent::FocusData* IsFocused() override;
+	virtual UIComponent::FocusData* EndFocused() override;
 
 	virtual UIComponent::BeginHoverData* BeginHover() override;
 	virtual UIComponent::HoverData* IsHovered() override;
 	virtual UIComponent::EndHoverData* EndHover() override;
 
-	virtual UIComponent::FocusData* BeginFocused() override;
-	virtual UIComponent::FocusData* IsFocused() override;
-	virtual UIComponent::FocusData* EndFocused() override;
+	virtual UIComponent::PressData* WasPressed() override;
+	virtual UIComponent::ReleaseData* WasReleased() override;
+	virtual UIComponent::ClickData* WasClicked() override;
 };
 

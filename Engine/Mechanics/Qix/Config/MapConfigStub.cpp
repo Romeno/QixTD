@@ -40,6 +40,7 @@ void MapConfigStub::Parse(std::ifstream& strm)
         	parts[1] = pys::strip(parts[1]);
 
             m_mapDimensions = ParseVector2(parts[1]);
+			m_mapRect = { GetRectTopLeft( {0, 0, 0}, m_mapDimensions ), m_mapDimensions };
         }
         else if (parts[0] == m_playerStartPosKey) {
             parts[1] = pys::strip(parts[1]);

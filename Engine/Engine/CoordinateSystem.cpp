@@ -185,33 +185,33 @@ SDL_Rect ToSDLRect(glm::dvec3 center, glm::dvec3 size)
 }
 
 
-glm::dvec3 DirToVec(Direction dir)
+glm::dvec3 Dir2Vec( Direction dir )
 {
-	switch (dir)
+	switch ( dir )
 	{
 	case DIR_TOP:
-		return glm::dvec3(0, 1, 0);
+		return glm::dvec3( 0, 1, 0 );
 		break;
 	case DIR_RIGHT:
-		return glm::dvec3(1, 0, 0);
+		return glm::dvec3( 1, 0, 0 );
 		break;
 	case DIR_BOTTOM:
-		return glm::dvec3(0, -1, 0);
+		return glm::dvec3( 0, -1, 0 );
 		break;
 	case DIR_LEFT:
-		return glm::dvec3(-1, 0, 0);
+		return glm::dvec3( -1, 0, 0 );
 		break;
 	case DIR_UNKNOWN:
-		return glm::dvec3(0, 0, 0);
+		return glm::dvec3( 0, 0, 0 );
 		break;
 	default:
-		return glm::dvec3(0, 0, 0);
+		return glm::dvec3( 0, 0, 0 );
 		break;
 	}
 }
 
 
-Direction VecToDir(glm::dvec3 vec)
+Direction Vec2Dir( glm::dvec3 vec )
 {
 	if ( vec.x < std::numeric_limits<double>::epsilon() && vec.y > 0 )
 	{
@@ -229,9 +229,8 @@ Direction VecToDir(glm::dvec3 vec)
 	{
 		return DIR_LEFT;
 	}
-	else 
+	else
 	{
 		return DIR_UNKNOWN;
 	}
 }
-

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "SystemInfo.h"
-#include "Engine/Utils/Utils.h"
 #include "Engine/Input/Mouse.h"
 
 
@@ -9,161 +8,168 @@ using std::endl;
 using std::cin;
 using std::string;
 
+#define LTO(fmt, ...) ILOGTOM( logger, loggerModule, fmt, __VA_ARGS__ )
 
 
-void PrintInfo(SDL_Window* win, SDL_Renderer* ren) 
+void LogInfo( SDL_Window* win, SDL_Renderer* ren, const char* logger, const wchar_t* loggerModule )
 {
-	PrintCustomInfo();
-	PrintFilesystemH();
-	//PrintVideoH(win);
-	PrintRenderH(win, ren);
-	PrintAudioH();
-	PrintKeyboardH(win);
-	PrintMouseH();
-	PrintTouchH();
-	PrintTimerH();
-	PrintEventsH();
-	PrintCpuinfoH();
-	PrintPowerH();
-	PrintSystemH();
-	PrintClipboardH();
-	PrintPlatformH();
-	PrintTTFH("i:\\Romeno\\Projects\\Visual Studio\\AllGames\\Debug\\res\\fonts\\SNAP.ttf");
+	LogCustomInfo(logger, loggerModule);
+	LogFilesystemH( logger, loggerModule );
+	//LogVideoH(win, logger, loggerModule);
+	LogRenderH(win, ren, logger, loggerModule );
+	LogAudioH( logger, loggerModule );
+	LogKeyboardH(win, logger, loggerModule );
+	LogMouseH( logger, loggerModule );
+	LogTouchH( logger, loggerModule );
+	LogTimerH( logger, loggerModule );
+	LogEventsH( logger, loggerModule );
+	LogCpuinfoH( logger, loggerModule );
+	LogPowerH( logger, loggerModule );
+	LogSystemH( logger, loggerModule );
+	LogClipboardH( logger, loggerModule );
+	LogPlatformH( logger, loggerModule );
+	LogTTFH("i:\\Romeno\\Projects\\VisualStudio\\AllGames\\Debug\\res\\fonts\\SNAP.ttf", logger, loggerModule );
 }
 
 
-void PrintCustomInfo() 
+void LogCustomInfo( const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     CUSTOM INFO     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     CUSTOM INFO     -------------" );
 
 	string resPath = GetResourcePath();
 
-	cout << "Resource path is: " << resPath << endl;
+	LTO( "Resource path is: %s", Str2Wstr( resPath ).c_str() );
 }
 
 
-void PrintFilesystemH() 
+void LogFilesystemH( const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     FILESYSTEM     -------------" << endl;
-	cout << "SDL_GetBasePath: " << SDL_GetBasePath() << endl;
-	cout << "SDL_GetPrefPath(\"RomenoCo\", \"SDL\"): " << SDL_GetPrefPath("RomenoCo", "SDL") << endl;
+	LTO( " " );
+	LTO( "-------------     FILESYSTEM     -------------" );
+	LTO( "SDL_GetBasePath: %s", Str2Wstr( SDL_GetBasePath() ).c_str() );
+	LTO( "SDL_GetPrefPath(\"RomenoCo\", \"SDL\"): %s", Str2Wstr( SDL_GetPrefPath( "RomenoCo", "SDL" ) ).c_str() );
 }
 
 
-void PrintVideoH(SDL_Window* win) 
+void LogVideoH(SDL_Window* win, const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     VIDEO     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     VIDEO     -------------" );
 
 	int numVideoDrivers = SDL_GetNumVideoDrivers();
-	cout << "SDL_GetNumVideoDrivers(): " << numVideoDrivers << endl;
-	for (int i = 0; i < numVideoDrivers; ++i) {
-		cout << "SDL_GetVideoDriver(" << i << "): " << SDL_GetVideoDriver(i) << endl;
+	LTO( "SDL_GetNumVideoDrivers(): %d", numVideoDrivers );
+	for (int i = 0; i < numVideoDrivers; ++i) 
+	{
+		LTO( "SDL_GetVideoDriver(%d)", SDL_GetVideoDriver( i ) );
 	}
 	//SDL_VideoInit
 	//SDL_VideoQuit
-	cout << "SDL_GetCurrentVideoDriver(): " << SDL_GetCurrentVideoDriver() << endl;
+	LTO( "SDL_GetCurrentVideoDriver(): %s", Str2Wstr( SDL_GetCurrentVideoDriver() ).c_str() );
 
 	int numDisplays = SDL_GetNumVideoDisplays();
-	cout << "SDL_GetNumVideoDisplays(): " << numDisplays << endl;
+	LTO( "SDL_GetNumVideoDisplays(): %d", numDisplays );
 
-	cout << endl;
+	LTO( " " );
 	for (size_t d = 0; d < numDisplays; d++)
 	{
-		cout << "SDL_GetDisplayName(" << d << "): " << SDL_GetDisplayName(d) << endl;
+		LTO( "SDL_GetDisplayName(%d): %s", d, Str2Wstr( SDL_GetDisplayName( d ) ).c_str() );
 	}
 
-	cout << endl;
+	LTO( " " );
 	SDL_Rect r;
-	for (size_t d = 0; d < numDisplays; d++) {
+	for (size_t d = 0; d < numDisplays; d++) 
+	{
 		SDL_GetDisplayBounds(d, &r);
-		cout << "SDL_GetDisplayBounds(" << d << "): (x, y, w, h): " << r.x << ", " << r.y << ", " << r.w << ", " << r.h << endl;
+		LTO( "SDL_GetDisplayBounds(%d): (x, y, w, h): %d, %d, %d, %d", d, r.x, r.y, r.w, r.h );
 	}
 
-	cout << endl;
+	LTO( " " );
 	float ddpi, hdpi, vdpi;
-	for (size_t d = 0; d < numDisplays; d++) {
+	for (size_t d = 0; d < numDisplays; d++) 
+	{
 		SDL_GetDisplayDPI(d, &ddpi, &hdpi, &vdpi);
-		cout << "SDL_GetDisplayDPI(" << d << "): (ddpi, hdpi, vdpi): " << ddpi << ", " << hdpi << ", " << vdpi << endl;
+		LTO( "SDL_GetDisplayDPI(%d): (ddpi, hdpi, vdpi): %f, %f, %f", d, ddpi, hdpi, vdpi );
 	}
 
-	cout << endl;
-	for (size_t d = 0; d < numDisplays; d++) {
+	LTO( " " );
+	for (size_t d = 0; d < numDisplays; d++) 
+	{
 		SDL_GetDisplayUsableBounds(d, &r);
-		cout << "SDL_GetDisplayUsableBounds(" << d << "): (x, y, w, h): " << r.x << ", " << r.y << ", " << r.w << ", " << r.h << endl;
+		LTO( "SDL_GetDisplayUsableBounds(%d): (x, y, w, h): %d, %d, %d, %d" , d, r.x, r.y, r.w, r.h );
 	}
 
-	cout << endl;
+	LTO( " " );
 	SDL_DisplayMode mode;
 	int numDisplayModes;
-	for (int d = 0; d < numDisplays; d++) {
+	for (int d = 0; d < numDisplays; d++) 
+	{
 		numDisplayModes = SDL_GetNumDisplayModes(d);
-		cout << "SDL_GetNumDisplayModes(" << d << "): " << numDisplayModes << endl;
+		LTO( "SDL_GetNumDisplayModes(%d): %d", d, numDisplayModes );
 
-		for (int dm = 0; dm < numDisplayModes; ++dm) {
+		for (int dm = 0; dm < numDisplayModes; ++dm) 
+		{
 			SDL_GetDisplayMode(d, dm, &mode);
-			cout << "Display " << d << " mode " << dm << " info:" << endl;
-			PrintDisplayModeInfo(mode);
-			cout << endl;
+			LTO( "Display %d mode %d info:", d, dm );
+			LogDisplayModeInfo( mode, logger, loggerModule);
+			LTO( " " );
 		}
 	}
 
-	cout << endl;
+	LTO( " " );
 	for (size_t d = 0; d < numDisplays; d++)
 	{
 		SDL_GetDesktopDisplayMode(d, &mode);
-		cout << "SDL_GetDesktopDisplayMode(" << d << "): " << endl;
-		PrintDisplayModeInfo(mode);
-		cout << endl;
+		LTO( "SDL_GetDesktopDisplayMode(%d):", d );
+		LogDisplayModeInfo( mode, logger, loggerModule );
+		LTO( " " );
 	}
 
 
-	cout << endl;
+	LTO( " " );
 	for (size_t d = 0; d < numDisplays; d++)
 	{
 		SDL_GetCurrentDisplayMode(d, &mode);
-		cout << "SDL_GetCurrentDisplayMode(" << d << "): " << endl;
-		PrintDisplayModeInfo(mode);
-		cout << endl;
+		LTO( "SDL_GetCurrentDisplayMode(%d):", d );
+		LogDisplayModeInfo( mode, logger, loggerModule );
+		LTO( " " );
 	}
 
-	cout << endl;
+	LTO( " " );
 	//SDL_GetClosestDisplayMode
-	cout << "SDL_GetWindowDisplayIndex(): " << SDL_GetWindowDisplayIndex(win) << endl;
+	LTO( "SDL_GetWindowDisplayIndex(): %d", SDL_GetWindowDisplayIndex( win ) );
 	//SDL_SetWindowDisplayMode
 
-	cout << endl;
+	LTO( " " );
 	SDL_GetWindowDisplayMode(win, &mode);
-	cout << "SDL_GetWindowDisplayMode(): " << endl;
-	PrintDisplayModeInfo(mode);
+	LTO( "SDL_GetWindowDisplayMode(): " );
+	LogDisplayModeInfo( mode, logger, loggerModule );
 
-	cout << endl;
+	LTO( " " );
 	Uint32 pixelFormat = SDL_GetWindowPixelFormat(win);
-	cout << "SDL_GetWindowPixelFormat(): " << endl;
-	PrintPixelFormatInfo(pixelFormat);
+	LTO( "SDL_GetWindowPixelFormat(): " );
+	LogPixelFormatInfo( pixelFormat, logger, loggerModule );
 
 	//SDL_CreateWindow
 	//SDL_CreateWindowFrom
 
-	cout << endl;
+	LTO( " " );
 	Uint32 windowId = SDL_GetWindowID(win);
-	cout << "SDL_GetWindowID(): " << windowId << endl;
+	LTO( "SDL_GetWindowID(): %d", windowId );
 
-	cout << endl;
+	LTO( " " );
 	SDL_Window* w = SDL_GetWindowFromID(windowId);
-	cout << "SDL_GetWindowFromID(" << windowId << "): 0x" << std::hex << (Uint32)w << std::dec << endl;
-	cout << "win = 0x" << std::hex << (Uint32)win << std::dec << endl;
+	LTO( "SDL_GetWindowFromID(%d): ", windowId, w );
+	LTO( "win = ", win );
 
-	cout << endl;
+	LTO( " " );
 	Uint32 flags = SDL_GetWindowFlags(win);
-	PrintWindowFlags(flags);
+	LogWindowFlags( flags, logger, loggerModule );
 
-	cout << endl;
-	cout << "SDL_GetWindowTitle()" << SDL_GetWindowTitle(win) << endl;
+	LTO( " " );
+	LTO( "SDL_GetWindowTitle(): %s", Str2Wstr( SDL_GetWindowTitle( win ) ).c_str() );
 	SDL_SetWindowTitle(win, "Test1");
-	cout << "SDL_GetWindowTitle()" << SDL_GetWindowTitle(win) << endl;
+	LTO( "SDL_GetWindowTitle(): %s", Str2Wstr( SDL_GetWindowTitle( win ) ).c_str() );
 
 	//SDL_SetWindowData
 	//SDL_GetWindowData
@@ -172,19 +178,19 @@ void PrintVideoH(SDL_Window* win)
 	//SDL_SetWindowSize
 	//SDL_GetWindowSize
 
-	cout << endl;
+	LTO( " " );
 	int top, left, bottom, right;
 	SDL_GetWindowBordersSize(win, &top, &left, &bottom, &right);
-	cout << "SDL_GetWindowBordersSize(): (top, right, bottom ,left): " << top << ", " << right << ", " << bottom << ", " << left << endl;
+	LTO( "SDL_GetWindowBordersSize(): (top, right, bottom ,left): %d, %d, %d, %d", top, right, bottom, left );
 
-	cout << endl;
+	LTO( " " );
 	int width, height;
 	SDL_GetWindowMinimumSize(win, &width, &height);
-	cout << "SDL_GetWindowMinimumSize(): (w, h): " << width << ", " << height << endl;
+	LTO( "SDL_GetWindowMinimumSize(): (w, h): %d, %d", width, height );
 
 	//SDL_SetWindowMaximumSize
 	SDL_GetWindowMaximumSize(win, &width, &height);
-	cout << "SDL_GetWindowMaximumSize(): (w, h): " << width << ", " << height << endl;
+	LTO( "SDL_GetWindowMaximumSize(): (w, h): %d, %d", width, height );
 
 	//SDL_SetWindowBordered
 	//SDL_SetWindowResizable
@@ -198,41 +204,41 @@ void PrintVideoH(SDL_Window* win)
 }
 
 
-void PrintRenderH(SDL_Window* win, SDL_Renderer* ren)
+void LogRenderH(SDL_Window* win, SDL_Renderer* ren, const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     RENDER     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     RENDER     -------------" );
 
 	int numRenderDrivers = SDL_GetNumRenderDrivers();
-	cout << "SDL_GetNumRenderDrivers(): " << numRenderDrivers << endl;
+	LTO( "SDL_GetNumRenderDrivers(): %d", numRenderDrivers );
 
 	SDL_RendererInfo rdrinfo;
 	for (size_t rdr = 0; rdr < numRenderDrivers; rdr++)
 	{
-		cout << endl;
+		LTO( " " );
 		SDL_GetRenderDriverInfo(rdr, &rdrinfo);
-		cout << "SDL_GetRenderDriverInfo(" << rdr << "): " << endl;
-		PrintRendererInfo(&rdrinfo);
+		LTO( "SDL_GetRenderDriverInfo(%d)", rdr );
+		LogRendererInfo( &rdrinfo, logger, loggerModule );
 	}
 
 	//SDL_CreateWindowAndRenderer
 	//SDL_CreateRenderer
 	//SDL_CreateSoftwareRenderer
 
-	cout << endl;
+	LTO( " " );
 	SDL_Renderer* r = SDL_GetRenderer(win);
-	cout << "SDL_GetRenderer(): 0x" << std::hex << (Uint32)r << std::dec << endl;
-	cout << "ren = 0x" << std::hex << (Uint32)ren << std::dec << endl;
+	LTO( "SDL_GetRenderer(): %p", r );
+	LTO( "ren = %p", ren );
 
-	cout << endl;
+	LTO( " " );
 	SDL_GetRendererInfo(r, &rdrinfo);
-	cout << "SDL_GetRendererInfo(): " << endl;
-	PrintRendererInfo(&rdrinfo);
+	LTO( "SDL_GetRendererInfo():" );
+	LogRendererInfo( &rdrinfo, logger, loggerModule );
 
-	cout << endl;
+	LTO( " " );
 	int w, h;
 	SDL_GetRendererOutputSize(ren, &w, &h);
-	cout << "SDL_GetRendererOutputSize(): (w, h): " << w << ", " << h;
+	LTO( "SDL_GetRendererOutputSize(): (w, h): %d, %d", w, h );
 
 	//SDL_CreateTexture
 	//SDL_CreateTextureFromSurface
@@ -250,14 +256,14 @@ void PrintRenderH(SDL_Window* win, SDL_Renderer* ren)
 	//SDL_RenderTargetSupported
 	//SDL_SetRenderTarget
 
-	cout << endl;
-	cout << "SDL_GetRenderTarget(): " << SDL_GetRenderTarget(ren) << endl;
+	LTO( " " );
+	LTO( "SDL_GetRenderTarget(): %p", SDL_GetRenderTarget( ren ) );
 
 	//SDL_RenderSetLogicalSize
 
-	cout << endl;
+	LTO( " " );
 	SDL_RenderGetLogicalSize(ren, &w, &h);
-	cout << "SDL_RenderGetLogicalSize(): (w, h)" << w << ", " << h << endl;
+	LTO( "SDL_RenderGetLogicalSize(): (w, h): %d, %d", w, h );
 
 	//SDL_RenderSetIntegerScale
 	//SDL_RenderGetIntegerScale
@@ -292,46 +298,45 @@ void PrintRenderH(SDL_Window* win, SDL_Renderer* ren)
 }
 
 
-void PrintAudioH()
+void LogAudioH( const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     AUDIO     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     AUDIO     -------------" );
 	int numAudioDrivers = SDL_GetNumAudioDrivers();
-	cout << "SDL_GetNumAudioDrivers(): " << SDL_GetNumAudioDrivers() << endl;
+	LTO( "SDL_GetNumAudioDrivers(): %d", SDL_GetNumAudioDrivers() );
 
 	for (size_t a = 0; a < numAudioDrivers; a++)
 	{
-		cout << "SDL_GetAudioDriver(" << a << "): " << SDL_GetAudioDriver(a) << endl;
+		LTO( "SDL_GetAudioDriver(%d): %s", a, Str2Wstr( SDL_GetAudioDriver( a ) ).c_str() );
 	}
 
 	//SDL_AudioInit
 	//SDL_AudioQuit
-	cout << endl;
-	cout << "SDL_GetCurrentAudioDriver(): " << SDL_GetCurrentAudioDriver() << endl;
+	LTO( " " );
+	LTO( "SDL_GetCurrentAudioDriver(): %s", Str2Wstr( SDL_GetCurrentAudioDriver() ).c_str() );
 
-	cout << endl;
+	LTO( " " );
 	int numAudioDevices0 = SDL_GetNumAudioDevices(0);
-	cout << "SDL_GetNumAudioDevices(0): " << numAudioDevices0 << endl;
+	LTO( "SDL_GetNumAudioDevices(0): %d", numAudioDevices0 );
 
 	int numAudioDevices1 = SDL_GetNumAudioDevices(1);
-	cout << "SDL_GetNumAudioDevices(1): " << numAudioDevices1 << endl;
+	LTO( "SDL_GetNumAudioDevices(1): %d", numAudioDevices1 );
 
 	for (size_t a = 0; a < numAudioDevices0; a++)
 	{
-		cout << "SDL_GetAudioDeviceName(" << a << ", 0): " << SDL_GetAudioDeviceName(a, 0) << endl;
+		LTO( "SDL_GetAudioDeviceName(%d): %s", a, Str2Wstr( SDL_GetAudioDeviceName( a, 0 ) ).c_str() );
 	}
 
 	for (size_t a = 0; a < numAudioDevices1; a++)
 	{
-		cout << "SDL_GetAudioDeviceName(" << a << ", 1): " << SDL_GetAudioDeviceName(a, 1) << endl;
+		LTO( "SDL_GetAudioDeviceName(%d, 1)", a, Str2Wstr( SDL_GetAudioDeviceName( a, 1 ) ).c_str() );
 	}
 
 	//SDL_OpenAudioDevice
 
-	cout << endl;
+	LTO( " " );
 	SDL_AudioStatus s = SDL_GetAudioStatus();
-	cout << "SDL_GetAudioStatus(): ";
-	PrintAudioStatus(s);
+	LTO( "SDL_GetAudioStatus(): %s", Str2Wstr( AudioStatus2Str( s ) ).c_str() );
 
 	//SDL_GetAudioDeviceStatus
 	//SDL_PauseAudio
@@ -354,20 +359,19 @@ void PrintAudioH()
 }
 
 
-void PrintKeyboardH(SDL_Window* win) 
+void LogKeyboardH(SDL_Window* win, const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     KEYBOARD     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     KEYBOARD     -------------" );
 	SDL_Window* w = SDL_GetKeyboardFocus();
-	cout << "SDL_GetKeyboardFocus(): 0x" << std::hex << (Uint32)w << std::dec << endl;
+	LTO( "SDL_GetKeyboardFocus(): %p", w );
 
-	cout << endl;
-	cout << "SDL_HasScreenKeyboardSupport(): " << SDL_HasScreenKeyboardSupport() << endl;
-	cout << "SDL_IsScreenKeyboardShown(): " << SDL_IsScreenKeyboardShown(win) << endl;
+	LTO( "SDL_HasScreenKeyboardSupport(): %d", SDL_HasScreenKeyboardSupport() );
+	LTO( "SDL_IsScreenKeyboardShown(): %d", SDL_IsScreenKeyboardShown( win ) );
 }
 
 
-void ListenKeyboardH( SDL_Window* win ) 
+void ListenKeyboardH( SDL_Window* win, const char* logger, const wchar_t* loggerModule )
 {
 	const Uint8* keyboardKeys;
 	int numkeys;
@@ -378,35 +382,35 @@ void ListenKeyboardH( SDL_Window* win )
 		{
 			SDL_Scancode scancode = (SDL_Scancode) i;
 
-			cout << "Scancode: " << scancode << endl;
+			LTO( "Scancode: %d", (int)scancode );
 
 			const char* name = SDL_GetScancodeName( scancode );
-			cout << "Scancode name: " << name << endl;
+			LTO( "Scancode name: %s", Str2Wstr( name ).c_str() );
 			
 			SDL_Keycode keyCode = SDL_GetKeyFromScancode( scancode );
-			cout << "Keycode: " << keyCode << endl;
+			LTO( "Keycode: %d", (int)keyCode );
 
 			const char* keyCodeName = SDL_GetKeyName( keyCode );
-			cout << "Keycode name: " << keyCodeName << endl;
-
+			LTO( "Keycode name: %s", Str2Wstr( keyCodeName ).c_str() );
 		}
 	}
 
 	SDL_Keymod mods = SDL_GetModState();
 	if ( mods & KMOD_LSHIFT == KMOD_LSHIFT )
 	{
-		cout << "LSHIFT pressed" << endl;
+		LTO( "LSHIFT pressed" );
 	}
 }
 
 
-void PrintMouseH() 
+void LogMouseH( const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     MOUSE     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     MOUSE     -------------" );
 
 	SDL_Window* w = SDL_GetMouseFocus();
-	cout << "SDL_GetMouseFocus(): 0x" << std::hex << (Uint32)w << std::dec << endl;
+	LTO( "SDL_GetMouseFocus(): %p", w );
+
 	//SDL_GetMouseState
 	//SDL_GetGlobalMouseState
 	//SDL_GetRelativeMouseState
@@ -415,7 +419,7 @@ void PrintMouseH()
 	//SDL_SetRelativeMouseMode
 	//SDL_CaptureMouse
 
-	cout << "SDL_GetRelativeMouseMode(): " << SDL_GetRelativeMouseMode() << endl;
+	LTO( "SDL_GetRelativeMouseMode(): %d", SDL_GetRelativeMouseMode() );
 
 	//SDL_CreateCursor
 	//SDL_CreateColorCursor
@@ -428,30 +432,30 @@ void PrintMouseH()
 }
 
 
-void PrintTouchH() 
+void LogTouchH( const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     TOUCH     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     TOUCH     -------------" );
 
 	int numTouchDevices = SDL_GetNumTouchDevices();
-	cout << "SDL_GetNumTouchDevices(): " << numTouchDevices << endl;
+	LTO( "SDL_GetNumTouchDevices(): %d", numTouchDevices );
 
 	SDL_TouchID touchDeviceId;
 	for (size_t t = 0; t < numTouchDevices; t++)
 	{
 		touchDeviceId = SDL_GetTouchDevice(t);
-		cout << "SDL_GetTouchDevice(" << t << "): " << touchDeviceId << endl;
-		cout << "SDL_GetNumTouchFingers(" << touchDeviceId << "): " << SDL_GetNumTouchFingers(touchDeviceId) << endl;
+		LTO( "SDL_GetTouchDevice(%d): %d", t, touchDeviceId );
+		LTO( "SDL_GetNumTouchFingers(%d): %d", touchDeviceId, SDL_GetNumTouchFingers( touchDeviceId ) );
 	}
 
 	//SDL_GetTouchFinger
 }
 
 
-void PrintTimerH()
+void LogTimerH( const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     TIMER     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     TIMER     -------------" );
 
 	//SDL_GetTicks
 	//SDL_GetPerformanceCounter
@@ -462,10 +466,10 @@ void PrintTimerH()
 }
 
 
-void PrintEventsH() 
+void LogEventsH( const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     EVENTS     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     EVENTS     -------------" );
 
 	//SDL_PeepEvents
 	//SDL_HasEvent
@@ -486,48 +490,48 @@ void PrintEventsH()
 }
 
 
-void PrintCpuinfoH() 
+void LogCpuinfoH( const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     CPU INFO     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     CPU INFO     -------------" );
 
-	cout << "SDL_GetCPUCount(): " << SDL_GetCPUCount() << endl;
-	cout << "SDL_GetCPUCacheLineSize(): " << SDL_GetCPUCacheLineSize() << endl;
-	cout << "SDL_HasRDTSC(): " << SDL_HasRDTSC() << endl;
-	cout << "SDL_HasAltiVec(): " << SDL_HasAltiVec() << endl;
-	cout << "SDL_HasMMX(): " << SDL_HasMMX() << endl;
-	cout << "SDL_Has3DNow(): " << SDL_Has3DNow() << endl;
-	cout << "SDL_HasSSE(): " << SDL_HasSSE() << endl;
-	cout << "SDL_HasSSE2(): " << SDL_HasSSE2() << endl;
-	cout << "SDL_HasSSE3(): " << SDL_HasSSE3() << endl;
-	cout << "SDL_HasSSE41(): " << SDL_HasSSE41() << endl;
-	cout << "SDL_HasSSE42(): " << SDL_HasSSE42() << endl;
-	cout << "SDL_HasAVX(): " << SDL_HasAVX() << endl;
-	cout << "SDL_HasAVX2(): " << SDL_HasAVX2() << endl;
-	cout << "SDL_GetSystemRAM(): " << SDL_GetSystemRAM() << endl;
+	LTO( "SDL_GetCPUCount(): %d", SDL_GetCPUCount() );
+	LTO( "SDL_GetCPUCacheLineSize(): %d", SDL_GetCPUCacheLineSize() );
+	LTO( "SDL_HasRDTSC(): %d", SDL_HasRDTSC() );
+	LTO( "SDL_HasAltiVec(): %d", SDL_HasAltiVec() );
+	LTO( "SDL_HasMMX(): %d", SDL_HasMMX() );
+	LTO( "SDL_Has3DNow(): %d", SDL_Has3DNow() );
+	LTO( "SDL_HasSSE(): %d", SDL_HasSSE() );
+	LTO( "SDL_HasSSE2(): %d", SDL_HasSSE2() );
+	LTO( "SDL_HasSSE3(): %d", SDL_HasSSE3() );
+	LTO( "SDL_HasSSE41(): %d", SDL_HasSSE41() );
+	LTO( "SDL_HasSSE42(): %d", SDL_HasSSE42() );
+	LTO( "SDL_HasAVX(): %d", SDL_HasAVX() );
+	LTO( "SDL_HasAVX2(): %d", SDL_HasAVX2() );
+	LTO( "SDL_GetSystemRAM(): %d", SDL_GetSystemRAM() );
 }
 
 
-void PrintPowerH()
+void LogPowerH( const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     POWER     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     POWER     -------------" );
+
 	int sec, percent;
 	SDL_PowerState state = SDL_GetPowerInfo(&sec, &percent);
-	cout << "SDL_GetPowerInfo(): (PowerState, secondsLeft, percentLeft): ";
-	PrintPowerState(state);
-	cout << ", " << sec << ", " << percent << endl;
+	LTO( "SDL_GetPowerInfo(): (PowerState, secondsLeft, percentLeft): %s, %d, %d", Str2Wstr( PowerState2Str( state ) ).c_str(), sec, percent );
 }
 
 
-void PrintSystemH()
+void LogSystemH( const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     SYSTEM     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     SYSTEM     -------------" );
+
 	//SDL_SetWindowsMessageHook
 
-	cout << "SDL_Direct3D9GetAdapterIndex(0): " << SDL_Direct3D9GetAdapterIndex(0) << endl;
-	cout << "SDL_Direct3D9GetAdapterIndex(1): " << SDL_Direct3D9GetAdapterIndex(1) << endl;
+	LTO( "SDL_Direct3D9GetAdapterIndex(0): %d", SDL_Direct3D9GetAdapterIndex( 0 ) );
+	LTO( "SDL_Direct3D9GetAdapterIndex(1): %d", SDL_Direct3D9GetAdapterIndex( 1 ) );
 
 	//SDL_RenderGetD3D9Device
 	//SDL_DXGIGetOutputInfo
@@ -546,281 +550,306 @@ void PrintSystemH()
 }
 
 
-void PrintClipboardH()
+void LogClipboardH( const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     CLIPBOARD     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     CLIPBOARD     -------------" );
 
 	//SDL_SetClipboardText
-	cout << "SDL_GetClipboardText(): " << SDL_GetClipboardText() << endl;
-	cout << "SDL_HasClipboardText(): " << SDL_HasClipboardText() << endl;
+	LTO( "SDL_GetClipboardText(): %s", Str2Wstr( SDL_GetClipboardText() ).c_str() );
+	LTO( "SDL_HasClipboardText(): %d", SDL_HasClipboardText() );
 }
 
 
-void PrintPlatformH()
+void LogPlatformH( const char* logger, const wchar_t* loggerModule )
 {
-	cout << endl;
-	cout << "-------------     PALTFORM     -------------" << endl;
+	LTO( " " );
+	LTO( "-------------     PALTFORM     -------------" );
 
-	cout << "SDL_GetPlatform(): " << SDL_GetPlatform() << endl;
+	LTO( "SDL_GetPlatform(): %s", Str2Wstr( SDL_GetPlatform() ).c_str() );
 }
 
 
-void PrintDisplayModeInfo(SDL_DisplayMode& mode)
+void LogDisplayModeInfo(SDL_DisplayMode& mode, const char* logger, const wchar_t* loggerModule )
 {
-	cout << "Pixel format: " << mode.format << endl;
-	cout << "Width: " << mode.w << endl;
-	cout << "Height: " << mode.h << endl;
-	cout << "Refresh rate: " << mode.refresh_rate << endl;
-	cout << "Driver data: " << std::hex << "0x" << mode.driverdata << std::dec << endl;
+	LTO( "Pixel format: %d", mode.format );
+	LTO( "Width: %d", mode.w );
+	LTO( "Height: %d", mode.h );
+	LTO( "Refresh rate: %d", mode.refresh_rate );
+	LTO( "Driver data: ", mode.driverdata );
 }
 
 
-void PrintPixelFormatInfo(Uint32 pixelFormat)
+void LogPixelFormatInfo(Uint32 pixelFormat, const char* logger, const wchar_t* loggerModule )
 {
-	cout << "Raw pixel format: " << pixelFormat << endl;
+	LTO( "Raw pixel format: %d", pixelFormat );
 }
 
 
-void PrintWindowFlags(Uint32 flags)
+void LogWindowFlags(Uint32 flags, const char* logger, const wchar_t* loggerModule )
 {
-	cout << "Raw window flags: " << flags << endl;
+	LTO( "Raw window flags: %d", flags );
 }
 
 
-void PrintRendererInfo(SDL_RendererInfo* info)
+void LogRendererInfo(SDL_RendererInfo* info, const char* logger, const wchar_t* loggerModule )
 {
-	cout << "	name: " << info->name << endl;
-	cout << "	flags: " << info->flags << endl;
-	cout << "	num_texture_formats: " << info->num_texture_formats << endl;
-	cout << "	max_texture_height: " << info->max_texture_height << endl;
-	cout << "	max_texture_width: " << info->max_texture_width << endl;
+	LTO( "	name: %s", Str2Wstr( info->name ).c_str() );
+	LTO( "	flags: %d", info->flags );
+	LTO( "	num_texture_formats: %d", info->num_texture_formats );
+	LTO( "	max_texture_height: %d", info->max_texture_height );
+	LTO( "	max_texture_width: %d", info->max_texture_width );
 }
 
 
-void PrintAudioStatus(SDL_AudioStatus s) 
+void LogSDLTtfVersion( const char* logger, const wchar_t* loggerModule )
 {
-	char* res;
-	if (s == SDL_AUDIO_STOPPED)
-	{
-		res = "SDL_AUDIO_STOPPED";
-	}
-	else if (s == SDL_AUDIO_PLAYING)
-	{
-		res = "SDL_AUDIO_PLAYING";
-	}
-	else if (s == SDL_AUDIO_PAUSED)
-	{
-		res = "SDL_AUDIO_PAUSED";
-	}
-	else {
-		res = "UNKN0WN_AUDIO_STATUS";
-	}
-	cout << res << endl;
+	LTO("SDL_ttf version: %d.%d.%d", SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL);
 }
 
 
-void PrintPowerState(SDL_PowerState s)
+void LogKeyboardEvent(SDL_Event* e, const char* logger, const wchar_t* loggerModule )
 {
-	char* res;
-	if (s == SDL_POWERSTATE_UNKNOWN)
-	{
-		res = "SDL_POWERSTATE_UNKNOWN";
-	}
-	else if (s == SDL_POWERSTATE_ON_BATTERY)
-	{
-		res = "SDL_POWERSTATE_ON_BATTERY";
-	}
-	else if (s == SDL_POWERSTATE_NO_BATTERY)
-	{
-		res = "SDL_POWERSTATE_NO_BATTERY";
-	}
-	else if (s == SDL_POWERSTATE_CHARGING)
-	{
-		res = "SDL_POWERSTATE_CHARGING";
-	}
-	else if (s == SDL_POWERSTATE_CHARGED)
-	{
-		res = "SDL_POWERSTATE_CHARGED";
-	}
-	else
-	{
-		res = "UNKNOWN_POWER_STATE";
-	}
-	cout << res;
+	LTO( "%s", Str2Wstr( EventType2Str( (SDL_EventType) e->type ) ).c_str() );
+	LTO( " " );
+	LTO( "   timestamp: %d", e->common.timestamp );
+	LTO( "   windowId: %d", e->key.windowID );
+	LTO( "   state: %s", (e->key.state == SDL_PRESSED ? L"PRESSED" : L"RELEASED") );
+	LTO( "   repeat: %s", (e->key.repeat ? L"yes" : L"no") );
+	LTO( "   symbol: ", Str2Wstr( SDL_GetScancodeName( e->key.keysym.scancode ) ).c_str() );
+	LTO( " " );
+}
+
+void LogTextEditingEvent(SDL_Event* e, const char* logger, const wchar_t* loggerModule )
+{
+	LTO( "%s", Str2Wstr( EventType2Str( (SDL_EventType) e->type ) ).c_str() );
+	LTO( "   timestamp: %d", e->common.timestamp );
+	LTO( "   windowId: %d", e->edit.windowID );
+	LTO( "   text: %s", e->edit.text );
+	LTO( "   start: %d", e->edit.start );
+	LTO( "   length: %d", e->edit.length );
+	LTO( " " );
 }
 
 
-void PrintSDLTtfVersion()
+void LogTextInputEvent(SDL_Event* e, const char* logger, const wchar_t* loggerModule )
 {
-	INFO("SDL_ttf version: %d.%d.%d", SDL_TTF_MAJOR_VERSION, SDL_TTF_MINOR_VERSION, SDL_TTF_PATCHLEVEL);
+	LTO( "%s", Str2Wstr( EventType2Str( (SDL_EventType) e->type ) ).c_str() );
+	LTO( " " );
+	LTO( "   timestamp: %d", e->common.timestamp );
+	LTO( "   windowId: %d", e->text.windowID );
+	LTO( "   text: %s", e->text.text );
+	LTO( " " );
 }
 
 
-void PrintKeyboardEvent(SDL_Event* e) 
+void LogMouseButtonEvent(SDL_Event* e, const char* logger, const wchar_t* loggerModule )
 {
-	cout << EventType2Str( (SDL_EventType)e->type );
-	cout << endl;
-	cout << "   timestamp: " << e->common.timestamp << endl;
-	cout << "   windowId: " << e->key.windowID << endl;
-	cout << "   state: " << (e->key.state == SDL_PRESSED ? "PRESSED" : "RELEASED") << endl;
-	cout << "   repeat: " << (e->key.repeat ? "yes" : "no") << endl;
-	cout << "   symbol: " << SDL_GetScancodeName(e->key.keysym.scancode) << endl;
-	cout << endl;
+	LTO( "%s", Str2Wstr( EventType2Str( (SDL_EventType) e->type ) ).c_str() );
+	LTO( " " );
 
-}
-
-void PrintTextEditingEvent(SDL_Event* e) 
-{
-	cout << EventType2Str( (SDL_EventType) e->type );
-	cout << endl;
-	cout << "   timestamp: " << e->common.timestamp << endl;
-	cout << "   windowId: " << e->edit.windowID << endl;
-	cout << "   text: " << e->edit.text << endl;
-	cout << "   start: " << e->edit.start << endl;
-	cout << "   length: " << e->edit.length << endl;
-	cout << endl;
-
-}
-
-
-void PrintTextInputEvent(SDL_Event* e) 
-{
-	cout << EventType2Str( (SDL_EventType) e->type );
-	cout << endl;
-	cout << "   timestamp: " << e->common.timestamp << endl;
-	cout << "   windowId: " << e->text.windowID << endl;
-	cout << "   text: " << e->text.text << endl;
-	cout << endl;
-}
-
-
-void PrintMouseButtonEvent(SDL_Event* e) 
-{
-	cout << EventType2Str( (SDL_EventType) e->type );
-	cout << endl;
-	cout << "   timestamp: " << e->common.timestamp << endl;
-	cout << "   windowId: " << e->button.windowID << endl;
+	LTO( "   timestamp: %d", e->common.timestamp );
+	LTO( "   windowId:  %d", e->button.windowID );
 	if (e->button.which == SDL_TOUCH_MOUSEID) 
 	{
-		cout << "   which: touch input" << endl;
+		LTO( "   which: touch input" );
 	}
 	else 
 	{
-		cout << "   which: " << e->button.which << endl;
+		LTO( "   which: %d", e->button.which );
 	}
-	cout << "   mouse button: ";
-	PrintMouseButtonNum(e->button.button);
-	cout << " is " << (e->button.state == SDL_PRESSED ? "PRESSED" : "RELEASED") << endl;
-	cout << "   clicks: " << (int)e->button.clicks << endl;
-	cout << "   x: " << (int)e->button.x << endl;
-	cout << "   y: " << (int)e->button.y << endl;
-	cout << endl;
-
+	LTO( "   mouse button: %s", Str2Wstr( Mouse::MouseButtonNum2Str( e->button.button ) ).c_str() );
+	LTO( "   is %s", (e->button.state == SDL_PRESSED ? L"PRESSED" : L"RELEASED") );
+	LTO( "   clicks: %d", (int) e->button.clicks );
+	LTO( "   x: ", (int) e->button.x );
+	LTO( "   y: ", (int) e->button.y );
+	LTO( " " );
 }
 
 
-void PrintMouseMotionEvent(SDL_Event* e) 
+void LogMouseMotionEvent(SDL_Event* e, const char* logger, const wchar_t* loggerModule )
 {
-	cout << EventType2Str( (SDL_EventType) e->type );
-	cout << endl;
-	cout << "   timestamp: " << e->common.timestamp << endl;
-	cout << "   windowId: " << e->motion.windowID << endl;
+	LTO( "%s", Str2Wstr( EventType2Str( (SDL_EventType) e->type ) ).c_str() );
+	LTO( " " );
+	LTO( "   timestamp: %d", e->common.timestamp );
+	LTO( "   windowId: %d", e->motion.windowID );
 	if (e->motion.which == SDL_TOUCH_MOUSEID) 
 	{
-		cout << "   which: touch input" << endl;
+		LTO( "   which: touch input");
 	}
 	else 
 	{
-		cout << "   which: " << e->motion.which << endl;
+		LTO( "   which: %d", e->motion.which );
 	}
-	cout << "   mouse button(s) pressed: ";
-
-	cout << Mouse::MouseState2Str( e->motion.state );
-	cout << endl;
-	cout << "   x: " << (int)e->motion.x << endl;
-	cout << "   y: " << (int)e->motion.y << endl;
-	cout << "   xrel: " << (int)e->motion.xrel << endl;
-	cout << "   yrel: " << (int)e->motion.yrel << endl;
-	cout << endl;
+	LTO( "   mouse button(s) pressed: %s", Str2Wstr( Mouse::MouseState2Str( e->motion.state ) ) );
+	LTO( " " );
+	LTO( "   x: %d", (int) e->motion.x );
+	LTO( "   y: %d", (int) e->motion.y );
+	LTO( "   xrel: %d", (int) e->motion.xrel );
+	LTO( "   yrel: %d", (int) e->motion.yrel );
+	LTO( " " );
 }
 
 
-void PrintMouseWheelEvent(SDL_Event* e) 
+void LogMouseWheelEvent(SDL_Event* e, const char* logger, const wchar_t* loggerModule )
 {
-	cout << EventType2Str( (SDL_EventType) e->type );
-	cout << endl;
-	cout << "   timestamp: " << e->common.timestamp << endl;
-	cout << "   windowId: " << e->wheel.windowID << endl;
+	LTO( "%s", Str2Wstr( EventType2Str( (SDL_EventType) e->type ) ).c_str() );
+	LTO( " " );
+	LTO( "   timestamp: %d", e->common.timestamp );
+	LTO( "   windowId: %d", e->wheel.windowID );
 	if (e->wheel.which == SDL_TOUCH_MOUSEID) 
 	{
-		cout << "   which: touch input" << endl;
+		LTO( "   which: touch input" );
 	}
 	else 
 	{
-		cout << "   which: " << e->wheel.which << endl;
+		LTO( "   which: %d", e->wheel.which );
 	}
-	cout << "   ";
-	cout << Mouse::WheelDirection2Str( e->wheel.direction );
-	cout << endl;
-	cout << "   x: " << (int)e->wheel.x << endl;
-	cout << "   y: " << (int)e->wheel.y << endl;
-	cout << endl;
+	LTO( " " );
+	LTO( "%s", Str2Wstr( Mouse::WheelDirection2Str( e->wheel.direction ) ).c_str() );
+	LTO( " " );
+	LTO( "   x: %d", (int) e->wheel.x );
+	LTO( "   y: %d", (int) e->wheel.y );
+	LTO( " " );
 }
 
 
-void PrintGenericEvent( SDL_Event* e )
+void LogGenericEvent( SDL_Event* e, const char* logger, const wchar_t* loggerModule )
 {
-	cout << EventType2Str( (SDL_EventType) e->type );
-	cout << "   timestamp: " << e->common.timestamp << endl;
+	LTO( "%s", Str2Wstr( EventType2Str( (SDL_EventType) e->type ) ).c_str() );
+	LTO( "   timestamp: %d", e->common.timestamp );
 }
 
 
-void PrintWindowEvent( SDL_Event* e )
+void LogWindowEvent( SDL_Event* e, const char* logger, const wchar_t* loggerModule )
 {
-	cout << EventType2Str( (SDL_EventType) e->type );
-	cout << "   timestamp: " << e->common.timestamp << endl;
-	cout << "   windowEvent: ";
-	cout << WindowEventType2Str( (SDL_WindowEventID) e->window.event );
-	cout << endl;
-	cout << "   data1: " << e->window.data1 << endl;
-	cout << "   data2: " << e->window.data2 << endl;
+	LogGenericEvent( e, logger, loggerModule );
+
+	LTO( "   windowEvent: %s", Str2Wstr( WindowEventType2Str( (SDL_WindowEventID) e->window.event ) ).c_str() );
+	LTO( "   data1: %d", e->window.data1 );
+	LTO( "   data2: %d", e->window.data2 );
 }
 
 
-void PrintMouseButtonNum(Uint8 mouseButton) 
+void LogTTFH( const std::string& fontPath, const char* logger, const wchar_t* loggerModule )
 {
-	char* res;
-	if (mouseButton == SDL_BUTTON_LEFT)
+	const SDL_version* v = TTF_Linked_Version();
+	LTO( "SDL_TTF version: %s", Str2Wstr( SDLVersion2Str( v ) ).c_str() );
+
+	TTF_Font * font = TTF_OpenFont( fontPath.c_str(), 14 );
+	if ( font )
 	{
-		res = "LEFT";
-	}
-	else if (mouseButton == SDL_BUTTON_MIDDLE)
-	{
-		res = "MIDDLE";
+		LTO( "Opened font %s", Str2Wstr( fontPath ).c_str() );
 	}
 
-	else if (mouseButton == SDL_BUTTON_RIGHT)
-	{
-		res = "RIGHT";
-	}
-	else if (mouseButton == SDL_BUTTON_X1)
-	{
-		res = "X1";
-	}
-	else if (mouseButton == SDL_BUTTON_X2)
-	{
-		res = "X2";
-	}
-	else
-	{
-		res = "UNKNOWN_MOUSE_BUTTON";
-	}
-	cout << res;
+	int style = TTF_GetFontStyle( font );
+	LTO( "Font style is %s", Str2Wstr( FontStyle2Str( style ) ).c_str() );
+
+	int outline = TTF_GetFontOutline( font );
+	LTO( "the font outline width is %d pixels", outline );
+
+	int fontHinting = TTF_GetFontHinting( font );
+	LTO( "FreeType hinter settings: %s", Str2Wstr( FontHintning2Str( fontHinting ) ).c_str() );
+
+	int height = TTF_FontHeight( font );
+	LTO( "Font height: %d", height );
+
+	int ascent = TTF_FontAscent( font );
+	LTO( "Font ascent: %d", ascent );
+
+	int descent = TTF_FontDescent( font );
+	LTO( "Font descent: %d", descent );
+
+	int lineSkip = TTF_FontLineSkip( font );
+	LTO( "Font recommended lineSkip: %d", lineSkip );
+
+	int kerningAllowed = TTF_GetFontKerning( font );
+	LTO( "Font kerning allowed: %d", kerningAllowed );
+
+	long fontFaceNumber = TTF_FontFaces( font );
+	LTO( "Number of fontFaces: %d", fontFaceNumber );
+
+	int isFixedWidth = TTF_FontFaceIsFixedWidth( font );
+	LTO( "Is fixed width: %d", isFixedWidth );
+
+	char* fontFamily = TTF_FontFaceFamilyName( font );
+	LTO( "Font family name: %s", Str2Wstr( fontFamily ).c_str() );
+
+	char* fontFaceStyle = TTF_FontFaceStyleName( font );
+	LTO( "Font face style: %s", Str2Wstr( fontFaceStyle ).c_str() );
+
+	//int glyphIsProvided = TTF_GlyphIsProvided( font );
+	//ILOGB( "Glyph is provided: %d", glyphIsProvided );
+
+	//int res = TTF_GlyphMetrics( font );
+
+	int w, h;
+	int res = TTF_SizeText( font, "sample text", &w, &h );
+	LTO( "If text 'sample text' is to be rendered it will occupy %d, %d pixels rectangle", w, h );
 }
 
 
 #define ENUM2STR(enumType, funcName, ...)
+
+bool InitSDL_AudioStatus2StrMap( std::map<SDL_AudioStatus, std::string>& map )
+{
+	MADD( SDL_AUDIO_STOPPED );
+	MADD( SDL_AUDIO_PLAYING );
+	MADD( SDL_AUDIO_PAUSED );
+
+	return true;
+}
+
+
+std::string AudioStatus2Str( SDL_AudioStatus s )
+{
+	typedef SDL_AudioStatus keytype;
+	static std::map<keytype, std::string> map;
+	static bool inited = InitSDL_AudioStatus2StrMap( map );
+
+	auto it = map.find( s );
+	if ( it == map.end() )
+	{
+		ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "Unknown AudioStatus" );
+		return std::string( "UNKNOWN_AUDIO_STATUS" );
+	}
+	else
+	{
+		return it->second;
+	}
+}
+
+
+bool InitSDL_PowerState2StrMap( std::map<SDL_PowerState, std::string>& map )
+{
+	MADD( SDL_POWERSTATE_UNKNOWN );
+	MADD( SDL_POWERSTATE_ON_BATTERY );
+	MADD( SDL_POWERSTATE_NO_BATTERY );
+	MADD( SDL_POWERSTATE_CHARGING );
+	MADD( SDL_POWERSTATE_CHARGED );
+
+	return true;
+}
+
+
+std::string PowerState2Str( SDL_PowerState s )
+{
+	typedef SDL_PowerState keytype;
+	static std::map<keytype, std::string> map;
+	static bool inited = InitSDL_PowerState2StrMap( map );
+
+	auto it = map.find( s );
+	if ( it == map.end() )
+	{
+		ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "Unknown PowerState" );
+		return std::string( "UNKNOWN_POWER_STATE" );
+	}
+	else
+	{
+		return it->second;
+	}
+}
+
 
 bool InitSDL_WindowEvent2StrMap( std::map<SDL_WindowEventID, std::string>& map)
 {
@@ -857,7 +886,7 @@ std::string WindowEventType2Str( SDL_WindowEventID windowEventId )
 	auto it = map.find( windowEventId );
 	if ( it == map.end() )
 	{
-		ERR( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Window Event Type" );
+		ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Window Event Type" );
 		return std::string("UNKNOWN_WINDOW_EVENT_TYPE");
 	}
 	else
@@ -955,7 +984,7 @@ std::string EventType2Str( SDL_EventType eventType )
 	auto it = map.find( eventType );
 	if ( it == map.end() )
 	{
-		ERR( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Event Type" );
+		ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Event Type" );
 		return std::string( "UNKNOWN_EVENT_TYPE" );
 	}
 	else
@@ -968,64 +997,6 @@ std::string EventType2Str( SDL_EventType eventType )
 std::string SDLVersion2Str(const SDL_version* ver)
 {
 	return std::to_string( ver->major ) + "." + std::to_string( ver->minor ) + "." + std::to_string( ver->patch );
-}
-
-
-void PrintTTFH(const std::string& fontPath)
-{
-	const SDL_version* v = TTF_Linked_Version();
-	INFO( "SDL_TTF version: %s", Str2Wstr( SDLVersion2Str( v ) ).c_str() );
-
-	TTF_Font * font = TTF_OpenFont( fontPath.c_str(), 14 );
-	if ( font )
-	{
-		INFO( "Opened font %s", Str2Wstr( fontPath ).c_str() );
-	}
-
-	int style  = TTF_GetFontStyle( font );
-	INFO( "Font style is %s", Str2Wstr( FontStyle2Str( style ) ).c_str() );
-
-	int outline = TTF_GetFontOutline( font );
-	INFO( "the font outline width is %d pixels", outline );
-	
-	int fontHinting = TTF_GetFontHinting( font );
-	INFO( "FreeType hinter settings: %s", Str2Wstr( FontHintning2Str( fontHinting ) ).c_str() );
-
-	int height = TTF_FontHeight( font );
-	INFO( "Font height: %d", height );
-
-	int ascent = TTF_FontAscent( font );
-	INFO( "Font ascent: %d", ascent );
-
-	int descent = TTF_FontDescent( font );
-	INFO( "Font descent: %d", descent );
-
-	int lineSkip = TTF_FontLineSkip( font );
-	INFO( "Font recommended lineSkip: %d", lineSkip );
-
-	int kerningAllowed = TTF_GetFontKerning( font );
-	INFO( "Font kerning allowed: %d", kerningAllowed );
-
-	long fontFaceNumber = TTF_FontFaces( font );
-	INFO( "Number of fontFaces: %d", fontFaceNumber );
-
-	int isFixedWidth = TTF_FontFaceIsFixedWidth( font );
-	INFO( "Is fixed width: %d", isFixedWidth );
-
-	char* fontFamily = TTF_FontFaceFamilyName( font );
-	INFO( "Font family name: %s", Str2Wstr( fontFamily ).c_str() );
-
-	char* fontFaceStyle = TTF_FontFaceStyleName( font );
-	INFO( "Font face style: %s", Str2Wstr( fontFaceStyle ).c_str() );
-
-	//int glyphIsProvided = TTF_GlyphIsProvided( font );
-	//INFO( "Glyph is provided: %d", glyphIsProvided );
-
-	//int res = TTF_GlyphMetrics( font );
-
-	int w, h;
-	int res = TTF_SizeText( font, "sample text", &w, &h);
-	INFO( "If text 'sample text' is to be rendered it will occupy %d, %d pixels rectangle", w, h );
 }
 
 
@@ -1050,7 +1021,7 @@ std::string FontStyle2Str( int style )
 	auto it = map.find( style );
 	if ( it == map.end() )
 	{
-		ERR( ERR_TYPE_PROGRAMMING_ERROR, "Unknown font style" );
+		ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "Unknown font style" );
 		return std::string( "UNKNOWN_FONT_STYLE" );
 	}
 	else
@@ -1080,7 +1051,7 @@ std::string FontHintning2Str( int hinting )
 	auto it = map.find( hinting );
 	if ( it == map.end() )
 	{
-		ERR( ERR_TYPE_PROGRAMMING_ERROR, "Unknown font hinting" );
+		ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "Unknown font hinting" );
 		return std::string( "UNKNOWN_FONT_HINTING" );
 	}
 	else

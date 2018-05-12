@@ -24,10 +24,14 @@ public:
 
 	//void Init( Qix* mech );
 
+	virtual Entity* CreateSprite( const std::string& path, glm::dvec3 wpos, glm::dvec3 size, Direction dir ) override;
+
 	virtual void Play( Entity* e );
 	//virtual TickPingPongAI* TickPingPongMonster( Entity* e );
 
 	//Qix*			qixMech;
+
+
 };
 
 

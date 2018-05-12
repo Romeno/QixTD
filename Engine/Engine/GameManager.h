@@ -50,6 +50,8 @@ public:
 
 	AppConfig*			m_cfg;
 
+	std::string te;
+
 protected:
 
 	void OutputFPS();

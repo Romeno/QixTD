@@ -40,6 +40,8 @@
 #include <SDL_opengl_glext.h>
 
 #include <glm/glm.hpp>
+#include <glm/gtx/norm.hpp>
+#include <glm/gtx/perpendicular.hpp>
 
 #include "Engine/Utils/pystring.h"
 

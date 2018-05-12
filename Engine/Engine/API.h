@@ -2,6 +2,7 @@
 #include "Engine/Entity.h"
 #include "Engine/Utils/Singleton.h"
 #include "Engine/Utils/CppUtils.h"
+#include "Engine/Components/TextComponent.h"
 
 
 class Api
@@ -31,7 +32,7 @@ public:
 
 
 
-	virtual void DrawTextBlock( glm::dvec3 pos, glm::dvec3 size, const std::string& fontPath, const std::string& str, int pointSize, SDL_Color color = { 255, 255, 255 });
+	virtual void DrawTextBlock( glm::dvec3 wPos, TextComponent::Alignment align, const std::string& fontPath, const std::string& str, int pointSize, SDL_Color color = { 255, 255, 255 });
 };
 
 

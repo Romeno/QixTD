@@ -204,14 +204,33 @@ int Entity::Init_Miaja()
 }
 
 
-void Entity::Tick(Uint32 diff)
+void Entity::PreTick( Uint32 diff )
 {
-	if (RemoveIfElapsed())
+	if ( RemoveIfElapsed() )
 		return;
 
-	ROZUM->Tick( diff );
+	REALP->PreTick( diff );
+
+	ROZUM->PreTick( diff );
+
+	UI->PreTick( diff );
+
+	MIAJA->PreTick( diff );
+
+	NADPIS->PreTick( diff );
+
+	MALUI->PreTick( diff );
+}
+
+
+void Entity::Tick(Uint32 diff)
+{
+	if ( RemoveIfElapsed() )
+		return;
 
 	REALP->Tick( diff );
+
+	ROZUM->Tick( diff );
 
 	UI->Tick( diff );
 
@@ -220,6 +239,25 @@ void Entity::Tick(Uint32 diff)
 	NADPIS->Tick( diff );
 
 	MALUI->Tick( diff );
+}
+
+
+void Entity::PostTick( Uint32 diff )
+{
+	if ( RemoveIfElapsed() )
+		return;
+
+	REALP->PostTick( diff );
+
+	ROZUM->PostTick( diff );
+
+	UI->PostTick( diff );
+
+	MIAJA->PostTick( diff );
+
+	NADPIS->PostTick( diff );
+
+	MALUI->PostTick( diff );
 }
 
 
@@ -272,13 +310,15 @@ bool Entity::RemoveIfElapsed()
 
 glm::dvec3 Entity::GetShootPos()
 {
-	return ::GetRectShootPos(m_real->GetPos(), m_real->GetPos(), VecToDir(m_real->GetDir()));
+	return ::GetRectShootPos(m_real->GetPos(), m_real->GetPos(), Vec2Dir(m_real->GetDir()));
 }
 
 
 template <>
 void Entity::AddComponent(Drawable* component)
 {
+	//SafeDelete( m_malui );
+
 	m_malui = component;
 	component->m_object = this;
 }
@@ -287,6 +327,8 @@ void Entity::AddComponent(Drawable* component)
 template <>
 void Entity::AddComponent(TextComponent* component)
 {
+	//SafeDelete( m_nadpis );
+
 	m_nadpis = component;
 	component->m_object = this;
 }
@@ -295,6 +337,8 @@ void Entity::AddComponent(TextComponent* component)
 template <>
 void Entity::AddComponent(Controllable* component)
 {
+	//SafeDelete( m_rozum );
+
 	m_rozum = component;
 	component->m_object = this;
 }
@@ -303,6 +347,8 @@ void Entity::AddComponent(Controllable* component)
 template <>
 void Entity::AddComponent(Playable* component)
 {
+	//SafeDelete( m_rozum );
+
 	m_rozum = component;
 	component->m_object = this;
 }
@@ -311,6 +357,8 @@ void Entity::AddComponent(Playable* component)
 template <>
 void Entity::AddComponent(UIComponent* component)
 {
+	//SafeDelete( m_ui );
+
 	m_ui = component;
 	component->m_object = this;
 }
@@ -319,6 +367,8 @@ void Entity::AddComponent(UIComponent* component)
 template <>
 void Entity::AddComponent(Collidable* component)
 {
+	//SafeDelete( m_miaja );
+
 	m_miaja = component;
 	component->m_object = this;
 }

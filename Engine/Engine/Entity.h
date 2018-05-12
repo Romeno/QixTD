@@ -36,7 +36,10 @@ public:
 	int Init_Miaja();
 #pragma endregion
 
+	virtual void PreTick( Uint32 diff );
 	virtual void Tick(Uint32 diff);
+	virtual void PostTick( Uint32 diff );
+
 	virtual void Remove();
 	//virtual void Clear();
 

@@ -19,10 +19,6 @@ public:
 
 	virtual void SetEntity( Entity* e ) { m_entity = e; }
 
-	virtual UIComponent::PressData* IsPressed() override;
-	virtual UIComponent::ReleaseData* IsReleased() override;
-	virtual UIComponent::ClickData* IsClicked() override;
-
 	virtual UIComponent::FocusData* BeginFocused() override;
 	virtual UIComponent::FocusData* IsFocused() override;
 	virtual UIComponent::FocusData* EndFocused() override;
@@ -30,6 +26,10 @@ public:
 	virtual UIComponent::BeginHoverData* BeginHover() override;
 	virtual UIComponent::HoverData* IsHovered() override;
 	virtual UIComponent::EndHoverData* EndHover() override;
+
+	virtual UIComponent::PressData* WasPressed() override;
+	virtual UIComponent::ReleaseData* WasReleased() override;
+	virtual UIComponent::ClickData* WasClicked() override;
 
 	Entity*	m_entity;
 

@@ -3,9 +3,11 @@
 #include "Engine/API.h"
 #include "Engine/Entity.h"
 #include "Math/Math.h"
+#include "Engine/Utils/Utils.h"
 
 
 const int TextComponent::defaultFontSize = 10;
+const std::string TextComponent::defaultFont = "fonts/snap.ttf";
 
 
 TextComponent::TextComponent()
@@ -13,7 +15,7 @@ TextComponent::TextComponent()
 
 	, m_text( "" )
 
-	, m_font( "" )
+	, m_font( defaultFont )
 	, m_fontSize( defaultFontSize )
 
 	, m_textOFfset()
@@ -45,6 +47,9 @@ void TextComponent::Render()
 {
 	glm::dvec3 pos;
 	glm::dvec3 size;
+	Alignment align;
+	align.xal = XALIGN_CENTER;
+	align.yal = YALIGN_CENTER;
 
 	if ( m_positioning == POS_CAPTION ) 
 	{
@@ -72,8 +77,25 @@ void TextComponent::Render()
 	}
 	else
 	{
-		ERROR( "Unknown TextComponent positioning %d", (int) m_positioning );
+		ELOGAM(MODULE_TEXT, ERR_TYPE_PROGRAMMING_ERROR, "Unknown TextComponent positioning %d", (int) m_positioning );
 	}
 
-	api->DrawTextBlock( pos, size, m_font, m_text, m_fontSize, { (Uint8) m_color.r, (Uint8) m_color.g, (Uint8) m_color.b, (Uint8) m_color.a } );
+	if ( GetBoundObject()->m_real->IsAbsolutePosition() )
+	{
+		pos = R2W( pos );
+	}
+
+	api->DrawTextBlock( pos, align, m_font, m_text, m_fontSize, { (Uint8) m_color.r, (Uint8) m_color.g, (Uint8) m_color.b, (Uint8) m_color.a } );
+}
+
+
+glm::drect TextComponent::GetVisualAABB()
+{
+	return glm::drect();
+}
+
+
+glm::drect TextComponent::GetSelectionRegion()
+{
+	return glm::drect();
 }

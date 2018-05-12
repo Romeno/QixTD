@@ -16,14 +16,16 @@ public:
 	/*
 	 * if m_absolutePosition is set then position returned is rPos 
 	 * else it is wPos
+	 * Returns position of center of the object
 	 */
 	virtual glm::dvec3 GetPos() override;				
 
 	/* if m_absolutePosition is set then pos is rPos 
 	 * else pos is wPos
+	 * Returns position of center of the object
 	 */
 	virtual void SetPos( glm::dvec3 pos, Pivot pivot = PIVOT_CENTER ) override;
-
+	
 	virtual glm::dvec3 GetSize() override;
 	virtual void SetSize( glm::dvec3 size ) override;
 

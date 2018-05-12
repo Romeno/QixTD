@@ -297,6 +297,8 @@ int QixPC::RequestShoot()
 template <>
 void Entity::AddComponent(QixPC* component)
 {
+	//SafeDelete( m_rozum );
+
 	m_rozum = component;
 	component->m_object = this;
 }

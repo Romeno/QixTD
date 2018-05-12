@@ -77,6 +77,11 @@ void Sprite::Render()
 
 	if (d->m_texture)
 	{
+		if ( prev_pos != pos )
+		{
+			ILOGBM( MODULE_RENDER, "pos: %f, %f", (float) W2Sx( pos.x ), (float) W2Sy( pos.y ) );
+		}
+
 		SDL_RenderCopy(REN, d->m_texture, NULL, &dstrect);
 	}
 	else
@@ -84,6 +89,8 @@ void Sprite::Render()
 		SDL_SetRenderDrawColor(REN, d->m_color.r, d->m_color.g, d->m_color.b, d->m_color.a);
 		SDL_RenderFillRect(REN, &dstrect);
 	}
+
+	prev_pos = pos;
 }
 
 
@@ -105,7 +112,7 @@ void Sprite::SetColor( const glm::ivec4& color )
 
 glm::drect Sprite::GetVisualAABB()
 {
-	glm::drect r = { GetBoundObject()->m_real->GetPos() + m_originalData->m_offset, m_originalData->m_visualSize };
+	glm::drect r = { GetRectTopLeft( GetBoundObject()->m_real->GetPos() + m_originalData->m_offset, m_originalData->m_visualSize), m_originalData->m_visualSize };
 
 	return r;
 }
@@ -122,6 +129,8 @@ glm::drect Sprite::GetSelectionRegion()
 template <>
 void Entity::AddComponent( Sprite* component )
 {
+	//SafeDelete( m_malui );
+
 	m_malui = component;
 	component->m_object = this;
 }

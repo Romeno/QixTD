@@ -22,7 +22,19 @@ int Component::Init()
 }
 
 
+void Component::PreTick( Uint32 diff )
+{
+
+}
+
+
 void Component::Tick(Uint32 diff)
+{
+
+}
+
+
+void Component::PostTick( Uint32 diff )
 {
 
 }

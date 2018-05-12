@@ -50,12 +50,12 @@ void FindPointsOnDistFromPointOnLine(double angle,
 }
 
 
-void FindPointsOnDistFromPointOnLine2(float angle, float xfrom, float yfrom, float distance, float viewportLength,
-	Pointf* p1, Pointf* p2)
+void FindPointsOnDistFromPointOnLine2( float angle, float xfrom, float yfrom, float distance, float viewportLength,
+	Pointf* p1, Pointf* p2 )
 {
-	float tana = tan(angle);
+	float tana = tan( angle );
 
-	if (distance < MY_DISTANCE_EPSILON)
+	if ( distance < MY_DISTANCE_EPSILON )
 	{
 		p1->x = xfrom;
 		p1->y = yfrom;
@@ -65,7 +65,7 @@ void FindPointsOnDistFromPointOnLine2(float angle, float xfrom, float yfrom, flo
 	}
 	else
 	{
-		if (abs(abs(angle) - M_PI / 2) < MY_ANGLE_EPSILON) {
+		if ( abs( abs( angle ) - M_PI / 2 ) < MY_ANGLE_EPSILON ) {
 			p1->x = xfrom;
 			p1->y = yfrom + distance;
 
@@ -82,12 +82,12 @@ void FindPointsOnDistFromPointOnLine2(float angle, float xfrom, float yfrom, flo
 			float a = 1 + tana*tana;
 			float p = bb / a * 2 * tana - xfrom / a * 2 - tana / a * 2 * yfrom;
 			float q = xfrom / a * xfrom + bb / a * bb - bb / a * 2 * yfrom + yfrom / a * yfrom - distance / a * distance;
-			float x = -p / 2 + sqrt((p / 2) * (p / 2) - q);
+			float x = -p / 2 + sqrt( (p / 2) * (p / 2) - q );
 
 			p1->x = x * viewportLength;
 			p1->y = (tana * x + bb) * viewportLength;
 
-			x = -p / 2 - sqrt((p / 2) * (p / 2) - q);
+			x = -p / 2 - sqrt( (p / 2) * (p / 2) - q );
 			p2->x = x * viewportLength;
 			p2->y = (tana * x + bb) * viewportLength;
 		}
@@ -97,7 +97,7 @@ void FindPointsOnDistFromPointOnLine2(float angle, float xfrom, float yfrom, flo
 }
 
 
-glm::dvec3 GetRectCenter(glm::dvec3 topLeft, glm::dvec3 size)
+glm::dvec3 GetRectCenter( glm::dvec3 topLeft, glm::dvec3 size )
 {
 	return GetRectCenter( topLeft, size.x, size.y );
 }
@@ -115,9 +115,9 @@ glm::dvec3 GetRectCenter( glm::dvec3 topLeft, double width, double height )
 }
 
 
-glm::dvec3 GetRectTopLeft(glm::dvec3 center, glm::dvec3 size)
+glm::dvec3 GetRectTopLeft( glm::dvec3 center, glm::dvec3 size )
 {
-	return GetRectTopLeft(center, size.x, size.y);
+	return GetRectTopLeft( center, size.x, size.y );
 }
 
 
@@ -133,12 +133,68 @@ glm::dvec3 GetRectTopLeft( glm::dvec3 center, double width, double height )
 }
 
 
-bool IsPointInRect(glm::dvec3 pos, glm::dvec3 center, glm::dvec3 size)
+bool IsPointInRect( glm::dvec3 point, glm::dvec3 center, glm::dvec3 size )
 {
-	return	pos.x > center.x - size.x / 2 &&
-			pos.y > center.y - size.y / 2 &&
-			pos.x < center.x + size.x / 2 &&
-			pos.y < center.y + size.y / 2;
+	return	point.x > center.x - size.x / 2 &&
+		point.y > center.y - size.y / 2 &&
+		point.x < center.x + size.x / 2 &&
+		point.y < center.y + size.y / 2;
+}
+
+
+bool IsPointOnLine_VectorMath( glm::dvec3 first, glm::dvec3 last, glm::dvec3 point, double epsilon )
+{
+	glm::dvec3 cross = glm::cross( last - first, point - first );
+
+	// compare versus epsilon for floating point values, or != 0 if using integers
+	if ( glm::length(cross) < epsilon/* || glm::length( cross ) / glm::length( last - first ) / glm::length( point - first ) < epsilon*/ )
+	{
+		double dot = glm::dot( last - first, point - first );
+		if ( dot < 0 )
+		{
+			return false;
+		}
+
+		if ( dot > glm::distance2( last, first ) )
+		{
+			return false;
+		}
+
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+// this epsilon is perpendicular offset from edges of rectangle formed based on the line 
+bool IsPointOnLine_Rectangle( glm::dvec3 first, glm::dvec3 last, glm::dvec3 point, double epsilon )
+{
+	//glm::dvec2 vline = last - first;
+
+	//glm::perp(vline, )
+
+	return true;
+}
+
+
+bool IsPointOn90DegreeAlignedLine( glm::dvec3 first, glm::dvec3 last, glm::dvec3 point, double epsilon )
+{
+	glm::dvec3 center = glm::mix( last, first, 0.5 );
+	glm::dvec3 size;
+	if ( abs(first.x - last.x) < std::numeric_limits<double>::epsilon() )
+	{
+		size.x = epsilon * 2;
+		size.y = glm::length( last - first );
+	}
+	else 
+	{
+		size.y = epsilon * 2;
+		size.x = glm::length( last - first );
+	}
+
+	return IsPointInRect( point, center, size );
 }
 
 
@@ -159,7 +215,7 @@ glm::dvec3 GetRectShootPos(glm::dvec3 topLeft, glm::dvec3 size, Direction dir)
 		return glm::dvec3(topLeft.x, topLeft.y - size.y / 2, topLeft.z);
 		break;
 	default:
-		ERR(ERR_TYPE_PROGRAMMING_ERROR, "Unknown direction: %d", (int)dir);
+		ELOGB(ERR_TYPE_PROGRAMMING_ERROR, "Unknown direction: %d", (int)dir);
 		return topLeft;
 		break;
 	}
@@ -192,7 +248,45 @@ float DistanceFromLineSegmentToPoint( glm::dvec3 v, glm::dvec3 w, glm::dvec3 p )
 }
 
 
-bool glm::drect::ContainsPoint( glm::dvec3 point )
+bool glm::drect::ContainsPoint( const glm::dvec3& point )
 {
 	return IsPointInRect( point, GetCenter(), m_size );
 }
+
+
+bool glm::drect::ContainsRect( const glm::drect& another )
+{
+	return another.m_topLeft.x >= m_topLeft.x &&
+		another.m_topLeft.y <= m_topLeft.y &&
+		another.GetBottomRight().x <= GetBottomRight().x &&
+		another.GetBottomRight().y >= GetBottomRight().y;
+}
+
+
+glm::drect glm::drect::ClosestRectOfSameSizeInsideThisRect( const glm::drect& another )
+{
+	glm::drect closest = another;
+
+	if ( another.m_topLeft.x < m_topLeft.x )
+	{
+		closest.m_topLeft.x = m_topLeft.x;
+	}
+
+	if ( another.m_topLeft.y > m_topLeft.y )
+	{
+		closest.m_topLeft.y = m_topLeft.y;
+	}
+
+	if ( another.GetBottomRight().x > GetBottomRight().x )
+	{
+		closest.m_topLeft.x = GetBottomRight().x - another.m_size.x;
+	}
+
+	if ( another.GetBottomRight().y < GetBottomRight().y )
+	{
+		closest.m_topLeft.y = GetBottomRight().y + another.m_size.y;
+	}
+
+	return closest;
+}
+

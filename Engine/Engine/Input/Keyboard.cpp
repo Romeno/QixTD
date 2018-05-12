@@ -47,7 +47,7 @@ void Keyboard::Tick( Uint32 diff )
 
 	if ( !m_text.empty() )
 	{
-		INFO( "TEXT %s", Str2Wstr(m_text).c_str() );
+		ILOGBM( MODULE_KEYBOARD, "TEXT %s", Str2Wstr(m_text).c_str() );
 	}
 }
 
@@ -78,8 +78,8 @@ bool Keyboard::IsKeyClicked( SDL_Scancode code )
 
 bool Keyboard::IsKeyReleased( SDL_Scancode code )
 {
-	INFO( "PREVSTATE %d", m_prevState[code] );
-	INFO( "NOWSTATE %d", m_state[code] );
+	ILOGBM( MODULE_KEYBOARD, "PREVSTATE %d", m_prevState[code] );
+	ILOGBM( MODULE_KEYBOARD, "NOWSTATE %d", m_state[code] );
 
 	return m_prevState[code] && !m_state[code];
 }

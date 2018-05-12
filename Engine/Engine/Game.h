@@ -17,7 +17,11 @@ public:
 
 
 	virtual int Init();
+
+	virtual void PreTick( Uint32 diff );
 	virtual void Tick(Uint32 diff);
+	virtual void PostTick( Uint32 diff );
+
 	virtual void Render();
 
 	virtual InputHandler*	Input() = 0;

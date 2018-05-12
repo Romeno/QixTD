@@ -15,6 +15,12 @@ UIComponent::~UIComponent()
 
 }
 
+
+//void UIComponent::SetText( const std::string& text )
+//{
+//	m_object->m_nadpis = new TextComponent()
+//}
+
 //
 //void UIComponent::SetText(const std::string& text)
 //{

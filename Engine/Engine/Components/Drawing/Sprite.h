@@ -33,5 +33,7 @@ public:
 
 	Data*				m_originalData;			// в случае, если она поменяется текущая data можно будет её вернуть отсюда
 	Data*				m_data;
+
+	glm::dvec3 prev_pos;
 };
 

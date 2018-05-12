@@ -12,6 +12,15 @@
 class b2World;
 
 
+struct Border
+{
+	glm::dvec3 first;
+	glm::dvec3 second;
+	bool draw;
+	bool completed;
+};
+
+
 class QixTD : public Game
 {
 public:
@@ -47,7 +56,9 @@ public:
 
 	glm::dvec3						m_dir;
 
-	std::vector< std::pair<glm::dvec3, glm::dvec3> >	m_borders;
+	bool	m_borderInProgress;
+
+	std::vector< Border >	m_borders;
 };
 
 

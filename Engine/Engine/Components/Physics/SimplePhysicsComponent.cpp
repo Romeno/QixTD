@@ -2,6 +2,7 @@
 #include "SimplePhysicsComponent.h"
 #include "Engine/Entity.h"
 #include "Math/Math.h"
+#include "Engine/Utils/Utils.h"
 
 
 SimplePhysicsComponent::SimplePhysicsComponent()
@@ -68,7 +69,7 @@ glm::dvec3 SimplePhysicsComponent::GetDir()
 
 Direction SimplePhysicsComponent::GetDirEnum()
 {
-	return VecToDir( m_direction );
+	return Vec2Dir( m_direction );
 }
 
 
@@ -80,7 +81,7 @@ void SimplePhysicsComponent::SetDir( glm::dvec3 dir )
 
 void SimplePhysicsComponent::SetDir( Direction dir )
 {
-	m_direction = DirToVec( dir );
+	m_direction = Dir2Vec( dir );
 }
 
 
@@ -117,6 +118,8 @@ double SimplePhysicsComponent::GetVelocity()
 template <>
 void Entity::AddComponent( SimplePhysicsComponent* component )
 {
+	//SafeDelete( m_real );
+
 	m_real = component;
 	component->m_object = this;
 }

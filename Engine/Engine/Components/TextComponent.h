@@ -18,6 +18,28 @@ public:
 		POS_SIZE
 	};
 
+	enum XAlignment
+	{
+		XALIGN_CENTER,
+		XALIGN_LEFT,
+		XALIGN_RIGHT,
+		XALIGN_SIZE
+	};
+
+	enum YAlignment
+	{
+		YALIGN_CENTER,
+		YALIGN_TOP,
+		YALIGN_BOTTOM,
+		YALIGN_SIZE
+	};
+
+	struct Alignment 
+	{
+		XAlignment xal;
+		YAlignment yal;
+	};
+
 	enum Overflow
 	{
 		OVERFLOW_SHOW,
@@ -43,6 +65,9 @@ public:
 	virtual void Tick( Uint32 diff ) override;
 	virtual void Render() override;
 
+	virtual glm::drect GetVisualAABB() override;
+	virtual glm::drect GetSelectionRegion() override;
+
 	virtual void SetPositioning( Positioning pos ) { m_positioning = pos; }
 	virtual void SetOverflow( Overflow flow ) { m_overflow = flow; }
 
@@ -60,5 +85,7 @@ public:
 	RichText			m_richText;
 
 	static const int	defaultFontSize; 
+	static const std::string defaultFont;
+
 };
 

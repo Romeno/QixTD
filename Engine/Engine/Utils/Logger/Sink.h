@@ -10,19 +10,17 @@ public:
 
 	virtual std::wstring GetP7InitString();
 
-	void SetTraceName( const std::wstring& name ) { m_traceName = name; }	// for now one sink one trace
-
-	std::wstring		m_traceName;									// for now one sink one trace
-
 	void SetName( const std::wstring& name ) { m_name = name; }
 	void Enable( bool enabled ) { m_enabled = enabled; }
 	void SetVerb( int verb ) { m_verb = verb; }
 	void SetMemoryPoolSize( size_t size ) { m_memoryPoolSize = size; }
+	virtual bool GetUseCout() { return false; }
+	virtual void SetUseCout(bool use) { }
 
 	std::wstring		m_name;
 	bool				m_enabled;
 	int					m_verb;
-	size_t				m_memoryPoolSize;		// in Kilobytes
+	size_t				m_memoryPoolSize;		// in Kilobytes_
 };
 
 
@@ -84,6 +82,13 @@ public:
 	virtual std::wstring GetP7InitString();
 
 	void SetFormat( const std::wstring& format ) { m_format = format; }
+	virtual bool GetUseCout() { return m_useCout; }
+	virtual void SetUseCout( bool use ) { m_useCout = use; }
 
 	std::wstring			m_format;
+	bool					m_useCout;
 };
+
+
+
+

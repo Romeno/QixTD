@@ -27,8 +27,8 @@ extern GameManager* gameManager = nullptr;
 GameManager::GameManager()
 	: m_game(nullptr)
 
-	, vpHeight(480)
-	, vpWidth(640)
+	, vpHeight(720)
+	, vpWidth(960)
 
 	, win(nullptr)
 	, ren(nullptr)
@@ -72,7 +72,7 @@ int GameManager::Init(Game* game)
 	ret = InitSDL();
 	if (ret != 0) 
 	{
-		ERR(ERR_TYPE_ENGINE_ERROR, "InitSDL failed");
+		ELOGB(ERR_TYPE_ENGINE_ERROR, "InitSDL failed");
 		SDL_StopTextInput();
 		SDL_Quit();
 		_getch();
@@ -82,7 +82,7 @@ int GameManager::Init(Game* game)
 	ret = InitEngine();
 	if (ret != 0)
 	{
-		ERR(ERR_TYPE_ENGINE_ERROR, "InitEngine failed");
+		ELOGB(ERR_TYPE_ENGINE_ERROR, "InitEngine failed");
 		RemoveSDLObj(win, ren);
 		SDL_StopTextInput();
 		SDL_Quit();
@@ -90,7 +90,7 @@ int GameManager::Init(Game* game)
 		return ret;
 	}
 
-	PrintInfo(win, ren);
+	LogInfo(win, ren);
 
 	m_game = game;
 	m_game->Init();
@@ -103,19 +103,24 @@ int GameManager::InitLogger()
 {
 	int ret = 0;
 
+	loggerManager = new LoggerManager();
+
 	BaicalSink* baicalSink = new BaicalSink();
-	baicalSink->SetTraceName( TM("Game") );
+	ConsoleSink* consoleSink = new ConsoleSink();
 
-	//ConsoleSink* consoleSink = new ConsoleSink();
+	loggerManager->AddSink("BAICAL", baicalSink );
+	loggerManager->AddSink("CONSOLE", consoleSink );
+	loggerManager->AddSink("ALL", baicalSink );
+	loggerManager->AddSink("ALL", consoleSink );
 
-	Logger* logger = new Logger();
-	logger->AddSink( baicalSink );
-	//logger->AddSink( consoleSink );
-	ret = logger->Init();
+	ret = loggerManager->Init();
 
-	ShareLogger( logger );
-
-	LOG( "" );
+	loggerManager->AddModule( MODULE_MOUSE );
+	loggerManager->AddModule( MODULE_KEYBOARD );
+	loggerManager->AddModule( MODULE_GENERIC_INFO );
+	loggerManager->AddModule( MODULE_WINDOW_EVENTS );
+	loggerManager->AddModule( MODULE_TEXT );
+	loggerManager->AddModule( MODULE_RENDER );
 
 	return ret;
 }
@@ -125,33 +130,33 @@ int GameManager::InitSDL()
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING)) 
 	{
-		ERR(ERR_TYPE_SDL_ERROR, "SDL_Init error: %s", SDL_GetError());
+		ELOGB(ERR_TYPE_SDL_ERROR, "SDL_Init error: %s", SDL_GetError());
 		return 1;
 	}
 
 	if (TTF_Init())
 	{
-		ERR(ERR_TYPE_SDL_ERROR, "TTF_Init error: %s", SDL_GetError());
+		ELOGB(ERR_TYPE_SDL_ERROR, "TTF_Init error: %s", SDL_GetError());
 		return 1;
 	}
 
 	win = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, vpWidth, vpHeight, SDL_WINDOW_SHOWN);
 	if (win == nullptr)
 	{
-		ERR(ERR_TYPE_SDL_ERROR, "SDL_CreateWindow error: %s", SDL_GetError());
+		ELOGB(ERR_TYPE_SDL_ERROR, "SDL_CreateWindow error: %s", SDL_GetError());
 		return 1;
 	}
 
 	int numRenderDriver = GetNumOpenGLDriver();
 	if (numRenderDriver == -1)
 	{
-		ERR(ERR_TYPE_ENGINE_ERROR, "OpenGL driver not found");
+		ELOGB(ERR_TYPE_ENGINE_ERROR, "OpenGL driver not found");
 	}
 
 	ren = SDL_CreateRenderer(win, numRenderDriver, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (ren == nullptr) 
 	{
-		ERR(ERR_TYPE_SDL_ERROR, "SDL_CreateRenderer error: %s", SDL_GetError());
+		ELOGB(ERR_TYPE_SDL_ERROR, "SDL_CreateRenderer error: %s", SDL_GetError());
 		RemoveSDLObj(win);
 		return 1;
 	}
@@ -312,17 +317,13 @@ void GameManager::MainLoop()
 			}
 			else if ( e.type == SDL_WINDOWEVENT )
 			{
-				INFO( "SDL_WINDOWEVENT" );
-
-				PrintWindowEvent(&e);
+				LogWindowEvent( &e, LOGGER_BAICAL, MODULE_WINDOW_EVENTS );
 
 				wasEvent = true;
 			}
 			else
 			{
-				INFO( "SDL_GENERICEVENT %s", Str2Wstr(EventType2Str((SDL_EventType)e.type)).c_str() );
-				
-				PrintGenericEvent(&e);
+				LogGenericEvent( &e, LOGGER_BAICAL, MODULE_WINDOW_EVENTS );
 
 				wasEvent = true;
 			}
@@ -332,13 +333,13 @@ void GameManager::MainLoop()
 		{
 			if ( i >= 2 )
 			{
-				INFO( "TWICE" );
+				LOG( "TWICE" );
 			}
-			INFO( "Event handling finished" );
+			ILOGB( "Event handling finished" );
 
 			if( tiEventCount >= 2 )
 			{
-				INFO( "LETTERS in TICK %d", tiEventCount );
+				ILOGB( "LETTERS in TICK %d", tiEventCount );
 			}
 		}
 		//std::cout << "Event handling finished" << std::endl;
@@ -386,8 +387,16 @@ bool InitMousePos()
 }
 
 
+void GameManager::PreTick( Uint32 diff )
+{
+	mouse->PreTick( diff );
+	keyboard->PreTick( diff );
+
+	m_game->PreTick( diff );
+}
+
+
 bool a = false;
-std::string te = "";
 
 void GameManager::Tick(Uint32 diff) 
 {
@@ -398,10 +407,6 @@ void GameManager::Tick(Uint32 diff)
 	keyboard->Tick( diff );
 
 	windowTitleManager->Tick( diff );
-
-	INFO( "LMB %d", (int) LMB_PRESSED );
-	INFO( "MMB %d", (int) MMB_PRESSED );
-	INFO( "RMB %d", (int) RMB_PRESSED );
 
 	Uint32 t = SDL_GetTicks();
 
@@ -441,8 +446,8 @@ void GameManager::RenderScene(Uint32 diff)
 
 	m_game->Render();
 
-	//API::Inst()->DrawTextBlock( glm::dvec3( 0, 0, 400 ), glm::dvec3( 300, 100, 0 ), "fonts/Snap.ttf", std::to_string(Keyboard::Inst()->IsKeyDown(SDL_SCANCODE_RETURN)), 24 );
-	api->DrawTextBlock( glm::dvec3( 0, 0, 400 ), glm::dvec3( 300, 100, 0 ), "fonts/Snap.ttf", te, 24 );
+	//API::Inst()->DrawTextBlock( R2W(glm::dvec3( 0, 0, 400 )), glm::dvec3( 300, 100, 0 ), "fonts/Snap.ttf", std::to_string(Keyboard::Inst()->IsKeyDown(SDL_SCANCODE_RETURN)), 24 );
+	api->DrawTextBlock( R2W( glm::dvec3( -VP_WIDTH / 2, VP_HEIGHT / 2, 400 ) ), { TextComponent::XALIGN_LEFT, TextComponent::YALIGN_TOP }, "fonts/Snap.ttf", te, 24 );
 
 
 	//SDL_SetRenderDrawColor( ren, 1, 1, 1, 0 );
@@ -474,13 +479,6 @@ void GameManager::OutputFPS() {
 
 		windowTitleManager->AddToWindowTitle(title);
 	}
-}
-
-
-void GameManager::PreTick( Uint32 diff )
-{
-	mouse->PreTick(diff);
-	keyboard->PreTick( diff );
 }
 
 

@@ -6,6 +6,8 @@
 #include "Mechanics/Qix/Qix.h"
 #include "QixTD/QixTDAPI.h"
 #include "QixTD/Components/Controlling/QixTDPC.h"
+#include "QixTD/QixTD.h"
+#include "Engine/Utils/Utils.h"
 
 
 QixTDIH::QixTDIH()
@@ -28,52 +30,6 @@ int QixTDIH::Init()
 
 void QixTDIH::Tick( Uint32 diff )
 {
-	if ( keyboard->IsKeyReleased( SDL_SCANCODE_LEFT ) )
-	{
-		PC->RequestStopMoveLeft();
-	}
-	else if ( keyboard->IsKeyReleased( SDL_SCANCODE_RIGHT ) )
-	{
-		PC->RequestStopMoveRight();
-	}
-	else if ( keyboard->IsKeyReleased( SDL_SCANCODE_UP ) )
-	{
-		PC->RequestStopMoveUp();
-	}
-	else if ( keyboard->IsKeyReleased( SDL_SCANCODE_DOWN ) )
-	{
-		PC->RequestStopMoveDown();
-	}
-
-
-	if ( keyboard->IsKeyDown( SDL_SCANCODE_LEFT ) )
-	{
-		PC->RequestStartMoveLeft();
-		//Entity* hero = GAME->GetHero();
-		//(QixTDPC*)(hero->m_rozum)
-	}
-	else if ( keyboard->IsKeyDown( SDL_SCANCODE_RIGHT ) )
-	{
-		PC->RequestStartMoveRight();
-	}
-	else if ( keyboard->IsKeyDown( SDL_SCANCODE_UP ) )
-	{
-		PC->RequestStartMoveUp();
-	}
-	else if ( keyboard->IsKeyDown( SDL_SCANCODE_DOWN ) )
-	{
-		PC->RequestStartMoveDown();
-	}
-	else if ( keyboard->IsKeyDown( SDL_SCANCODE_SPACE ) )
-	{
-		PC->RequestShoot();
-	}
-
-	else if ( keyboard->IsKeyDown( SDL_SCANCODE_ESCAPE ) )
-	{
-		//GAME->Quit();
-	}
-
 	super::Tick( diff );
 }
 

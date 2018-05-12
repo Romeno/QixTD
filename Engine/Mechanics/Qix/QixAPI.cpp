@@ -34,7 +34,7 @@ void QixAPI::Play(Entity* e)
 {
 	if ( !qixMech )
 	{
-		ERR( ERR_TYPE_MECHANICS_ERROR, "Set Qix Mechacnics object first" );
+		ELOG( ERR_TYPE_MECHANICS_ERROR, "Set Qix Mechacnics object first" );
 		return;
 	}
 
@@ -52,7 +52,7 @@ TickPingPongAI* QixAPI::TickPingPongMonster( Entity* e )
 {
 	if ( !qixMech )
 	{
-		ERR( ERR_TYPE_MECHANICS_ERROR, "Set Qix Mechacnics object first" );
+		ELOGM( MODULE_MOUSE, ERR_TYPE_MECHANICS_ERROR, "Set Qix Mechacnics object first" );
 		return nullptr;
 	}
 
