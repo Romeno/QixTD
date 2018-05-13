@@ -5,6 +5,9 @@ There are several games in this repository none of which are finished, playable 
 The main game project of my "game pack" repository by now which I am currently developping. 
 The game supposed to be with mechanics of [Qix/Xonix](https://www.youtube.com/watch?v=Wvzyd0OZg1I) and tower controlling, monster fighting features.
 
+Now it looks like this
+![QixTD Screenshot](https://i.imgur.com/8KC3qV4.png)
+
 
 # Installation
 
