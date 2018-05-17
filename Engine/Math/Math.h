@@ -21,6 +21,13 @@ glm::dvec3 GetRectCenter( glm::dvec3 topLeft, double width, double height );
 glm::dvec3 GetRectTopLeft( glm::dvec3 center, glm::dvec3 size );
 glm::dvec3 GetRectTopLeft( glm::dvec3 center, double width, double height );
 
+bool intersectRayLine(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21, glm::dvec3 p22, double& dist);
+bool intersectRayLine(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21, glm::dvec3 p22, glm::dvec3& intersect);
+
+bool GetLineIntersection(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21, glm::dvec3 p22, glm::dvec3& intersect);
+bool GetLineSegmentIntersection(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21, glm::dvec3 p22, glm::dvec3& intersect);
+bool GetLineSegmentIntersection90(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21, glm::dvec3 p22, glm::dvec3& intersect);
+
 bool IsPointInRect( glm::dvec3 pos, glm::dvec3 center, glm::dvec3 size );
 bool IsPointOnLine_VectorMath( glm::dvec3 first, glm::dvec3 last, glm::dvec3 point, double epsilon = std::numeric_limits<double>::epsilon() );
 bool IsPointOn90DegreeAlignedLine( glm::dvec3 first, glm::dvec3 last, glm::dvec3 point, double epsilon );

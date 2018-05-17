@@ -97,6 +97,53 @@ void FindPointsOnDistFromPointOnLine2( float angle, float xfrom, float yfrom, fl
 }
 
 
+bool intersectRayLine(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21, glm::dvec3 p22, double& dist)
+{
+	glm::dvec3 norm = glm::normalize(glm::cross(p22 - p21, { 0, 0, 1 }));
+	glm::dvec3 dir = glm::normalize(p22 - p21);
+	return glm::intersectRayPlane(p21, dir, p21, norm, dist);
+}
+
+
+bool intersectRayLine(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21, glm::dvec3 p22, glm::dvec3& intersect)
+{
+	intersectRayLine(p11, p12, p21, p22, intersect);
+}
+
+
+bool GetLineIntersection(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21, glm::dvec3 p22, glm::dvec3& intersect)
+{
+	return intersectRayLine(p11, p12, p21, p22, intersect) || intersectRayLine(p12, p11, p21, p22, intersect);
+}
+
+
+bool GetLineSegmentIntersection(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21, glm::dvec3 p22, glm::dvec3& intersect)
+{
+	double epsilon = std::numeric_limits<double>::epsilon();
+
+	if (GetLineIntersection(p11, p12, p21, p22, intersect))
+	{
+		return (intersect.x - p21.x) * (intersect.x - p22.x) < epsilon &&
+			(intersect.y - p21.y) * (intersect.y - p22.y) < epsilon &&
+			(intersect.x - p11.x) * (intersect.x - p12.x) < epsilon &&
+			(intersect.y - p11.y) * (intersect.y - p12.y) < epsilon;
+	}
+
+	return false;
+}
+
+
+bool GetLineSegmentIntersection90(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21, glm::dvec3 p22, glm::dvec3& intersect)
+{
+	double epsilon = std::numeric_limits<double>::epsilon();
+
+	if (abs(p11.x - p12.x) < epsilon)
+	{
+		
+	}
+}
+
+
 glm::dvec3 GetRectCenter( glm::dvec3 topLeft, glm::dvec3 size )
 {
 	return GetRectCenter( topLeft, size.x, size.y );

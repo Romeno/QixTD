@@ -42,6 +42,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtx/norm.hpp>
 #include <glm/gtx/perpendicular.hpp>
+#include <glm/gtx/intersect.hpp>
+
 
 #include "Engine/Utils/pystring.h"
 
