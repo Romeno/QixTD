@@ -22,27 +22,53 @@
 
 // Romeno
 //					 
-//	(-screenWidth  / 2,           ↑ y
-//	  screenHeight / 2) ┌─────────┼─────────┐
-//	                    |         |         |	  
-//                      |         |         |
-//                    ──┼─────────┼─────────┼────> 
-//                      |         |(0, 0)   |	 x
-//                      |         |         |	
-//                      └─────────┼─────────┘ 
-//                                |         ( screenWidth  / 2, 
-//		                                     -screenHeight / 2)
+// (-screenWidth / 2 * worldScale,			        ↑ y
+//	 screenHeight / 2 * worldScale)       ┌─────────┼─────────┐
+// 	                                      |         |         |	  
+//                                        |         |         |
+//                                      ──┼─────────┼─────────┼────> 
+//                                        |         |(0, 0)   |	 x
+//                                        |         |         |	
+//                                        └─────────┼─────────┘ 
+//                                                  |         ( screenWidth  / 2 * worldScale, 
+//		                                                       -screenHeight / 2 * worldScale)
+//
+
+static double s_worldScale = 1.;
+
+void SetWorldScale( double worldScale )
+{
+	s_worldScale = worldScale;
+}
+
+
+double GetWorldScale()
+{
+	return s_worldScale;
+}
+
+
+int R2SSize(double size)
+{
+	return round( size / s_worldScale );
+}
+
+
+double S2RSize( int size )
+{
+	return size * s_worldScale;
+}
 
 
 double S2Rx(int x)
 {
-	return x - VP_WIDTH / 2;
+	return (x - VP_WIDTH / 2) * s_worldScale;
 }
 
 
 double S2Ry(int y)
 {
-	return VP_HEIGHT / 2 - y;
+	return (VP_HEIGHT / 2 - y) * s_worldScale;
 }
 
 
@@ -58,13 +84,13 @@ glm::dvec3 S2R(SDL_Point& sdlPoint)
 
 int R2Sx(double x)
 {
-	return round(x + VP_WIDTH / 2);
+	return (int)round(x / s_worldScale) + VP_WIDTH / 2;
 }
 
 
 int R2Sy(double y)
 {
-	return round(VP_HEIGHT / 2 - y);
+	return VP_HEIGHT / 2 - (int)round(y / s_worldScale );
 }
 
 

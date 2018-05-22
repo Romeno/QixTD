@@ -17,18 +17,24 @@
 
 // Romeno
 //					 
-//	(-screenWidth  / 2,           ↑ y
-//	  screenHeight / 2) ┌─────────┼─────────┐
-//	                    |         |         |	  
-//                      |         |         |
-//                    ──┼─────────┼─────────┼────> 
-//                      |         |(0, 0)   |	 x
-//                      |         |         |	
-//                      └─────────┼─────────┘ 
-//                                |         ( screenWidth  / 2, 
-//		                                     -screenHeight / 2)
+// (-screenWidth / 2 * worldScale,			        ↑ y
+//	 screenHeight / 2 * worldScale)       ┌─────────┼─────────┐
+// 	                                      |         |         |	  
+//                                        |         |         |
+//                                      ──┼─────────┼─────────┼────> 
+//                                        |         |(0, 0)   |	 x
+//                                        |         |         |	
+//                                        └─────────┼─────────┘ 
+//                                                  |         ( screenWidth  / 2 * worldScale, 
+//		                                                       -screenHeight / 2 * worldScale)
 //
 
+// returns old one
+void SetWorldScale( double worldScale );
+double GetWorldScale();
+
+int R2SSize( double size );
+double S2RSize( int size );
 
 double S2Rx(int x);
 double S2Ry(int y);
@@ -61,6 +67,7 @@ SDL_Point R2S(glm::dvec3& romenoPoint);
 //                                           |                          (levelWidth  / 2, 
 //                                                                       levelHeight / 2 )
 
+// no need for size functions as size does not differ in Romeno and World
 
 double S2Wx(int x);
 double S2Wy(int y);

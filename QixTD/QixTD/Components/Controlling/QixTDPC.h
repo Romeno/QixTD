@@ -27,9 +27,10 @@ public:
 	virtual void CheckIfPointOnBorder( const glm::dvec3& point );
 	bool CheckIfPointOnBorderSimple( const glm::dvec3& point );
 
+	bool WasPlayerOnBorderLastTick();
 	virtual int RequestShoot() override;
 
-	virtual void StartNewBorder() override;
+	virtual void StartNewBorder(glm::dvec3 point1, glm::dvec3 point2) override;
 	virtual glm::dvec3 PredictFuturePos( double velocity, Direction dir );
 
 	bool	m_onBorder;

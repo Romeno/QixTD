@@ -42,6 +42,8 @@ Entity::Entity()
 	, m_rozum(nullptr)
 	, m_ui(nullptr)
 	, m_miaja(nullptr)
+
+	, m_firstTickHappened(false)
 {
 
 }
@@ -209,8 +211,6 @@ void Entity::PreTick( Uint32 diff )
 	if ( RemoveIfElapsed() )
 		return;
 
-	REALP->PreTick( diff );
-
 	ROZUM->PreTick( diff );
 
 	UI->PreTick( diff );
@@ -225,10 +225,10 @@ void Entity::PreTick( Uint32 diff )
 
 void Entity::Tick(Uint32 diff)
 {
+	m_firstTickHappened = true;
+
 	if ( RemoveIfElapsed() )
 		return;
-
-	REALP->Tick( diff );
 
 	ROZUM->Tick( diff );
 
@@ -246,8 +246,6 @@ void Entity::PostTick( Uint32 diff )
 {
 	if ( RemoveIfElapsed() )
 		return;
-
-	REALP->PostTick( diff );
 
 	ROZUM->PostTick( diff );
 

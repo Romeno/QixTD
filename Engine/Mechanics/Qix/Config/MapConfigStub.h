@@ -17,6 +17,9 @@ public:
     glm::dvec3      m_mapDimensions;
 	glm::drect      m_mapRect;
 
+	std::string		m_worldScaleKey;
+	double			m_worldScale;
+
     std::string     m_playerStartPosKey;
     glm::dvec3      m_playerStartPos;
 };

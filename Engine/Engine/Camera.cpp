@@ -29,11 +29,11 @@ void Camera::Tick(Uint32 diff)
 }
 
 
-void Camera::SetWPos( glm::dvec3 worldPos, Pivot pivot /*= PIVOT_CENTER*/ )
+void Camera::SetWPos( glm::dvec3 wPos, Pivot pivot /*= PIVOT_CENTER*/ )
 {
 	if ( pivot == PIVOT_CENTER )
 	{
-		m_wPos = GetRectTopLeft( worldPos, VP_WIDTH, VP_HEIGHT );
+		m_wPos = GetRectTopLeft( wPos, VP_WIDTH, VP_HEIGHT );
 	}
 	else
 	{
@@ -62,7 +62,7 @@ double Camera::S2Wy( int y )
 
 glm::dvec3 Camera::S2W( SDL_Point& sdlPoint )
 {
-	return{
+	return {
 		S2Wx( sdlPoint.x ),
 		S2Wy( sdlPoint.y ),
 		0
@@ -84,7 +84,7 @@ int Camera::W2Sy( double y )
 
 SDL_Point Camera::W2S( glm::dvec3& worldPoint )
 {
-	return{
+	return {
 		W2Sx( worldPoint.x ),
 		W2Sy( worldPoint.y )
 	};

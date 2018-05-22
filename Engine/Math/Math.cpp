@@ -107,7 +107,7 @@ bool intersectRayLine(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21, glm::dvec3
 
 bool intersectRayLine(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21, glm::dvec3 p22, glm::dvec3& intersect)
 {
-	intersectRayLine(p11, p12, p21, p22, intersect);
+	return intersectRayLine(p11, p12, p21, p22, intersect);
 }
 
 
@@ -141,6 +141,8 @@ bool GetLineSegmentIntersection90(glm::dvec3 p11, glm::dvec3 p12, glm::dvec3 p21
 	{
 		
 	}
+
+	return false;
 }
 
 
@@ -215,6 +217,7 @@ bool IsPointOnLine_VectorMath( glm::dvec3 first, glm::dvec3 last, glm::dvec3 poi
 	}
 }
 
+
 // this epsilon is perpendicular offset from edges of rectangle formed based on the line 
 bool IsPointOnLine_Rectangle( glm::dvec3 first, glm::dvec3 last, glm::dvec3 point, double epsilon )
 {
@@ -228,13 +231,17 @@ bool IsPointOnLine_Rectangle( glm::dvec3 first, glm::dvec3 last, glm::dvec3 poin
 
 bool IsPointOn90DegreeAlignedLine( glm::dvec3 first, glm::dvec3 last, glm::dvec3 point, double epsilon )
 {
+	// находим центр
 	glm::dvec3 center = glm::mix( last, first, 0.5 );
 	glm::dvec3 size;
+
+	// если горизонтальная
 	if ( abs(first.x - last.x) < std::numeric_limits<double>::epsilon() )
 	{
 		size.x = epsilon * 2;
 		size.y = glm::length( last - first );
 	}
+	// если вертикальная
 	else 
 	{
 		size.y = epsilon * 2;

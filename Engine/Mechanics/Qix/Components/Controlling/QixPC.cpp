@@ -6,7 +6,7 @@
 
 
 
-const double QixPC::PLAYER_VELOCITY = 3.;
+const double QixPC::PLAYER_VELOCITY = 9.;
 
 
 QixPC::QixPC()

@@ -63,6 +63,8 @@ public:
 
 	bool				m_absolutePosition;
 
+	bool				m_firstTickHappened;
+
 	PhysicsComponent*	m_real;
 	Drawable*			m_malui;
 	TextComponent*		m_nadpis;

@@ -81,6 +81,10 @@ int QixTD::Init()
 		{
 			return 1;
 		}
+		else
+		{
+			ELOGA( ERR_TYPE_PROGRAMMING_ERROR, "error reading config" );
+		}
 
 		m_mapConfigs.push_back( map );
 	}
@@ -129,9 +133,11 @@ int QixTD::LoadLevel( int num )
 	m_mapNumber = num;
 	m_currentMap = m_mapConfigs[num];
 
+	SetWorldScale( m_currentMap->m_worldScale );
+
 	Entity* e = nullptr;
 
-	e = API->CreateSprite( "Gluka.png", m_currentMap->m_playerStartPos, glm::dvec3( 100.0, 100.0, 0 ), DIR_LEFT );
+	e = API->CreateHero( "Gluka.png", m_currentMap->m_playerStartPos, glm::dvec3( 300.0, 300.0, 0 ), DIR_LEFT );
 	e->m_name = "hero";
 	API->Play( e );
 
@@ -144,8 +150,8 @@ int QixTD::LoadLevel( int num )
 		glm::dvec3( m_currentMap->m_mapDimensions.x, m_currentMap->m_mapDimensions.y, 0 ) );
 	e->m_name = "map dimensions";
 
-	double playableAreaWidth = m_currentMap->m_mapDimensions.x - 100;
-	double playableAreaHeight = m_currentMap->m_mapDimensions.y - 100;
+	double playableAreaWidth = m_currentMap->m_mapDimensions.x - 300;
+	double playableAreaHeight = m_currentMap->m_mapDimensions.y - 300;
 
 	e = API->CreateColoredRect( glm::ivec4( 128, 128, 128, 0 ),
 		glm::dvec3( 0, 0, -200 ),
@@ -153,14 +159,14 @@ int QixTD::LoadLevel( int num )
 	e->m_name = "playable map area";
 
 	m_borders.clear();
-	m_borders.push_back( { { -playableAreaWidth / 2, playableAreaHeight / 2, 0 },{ playableAreaWidth / 2, playableAreaHeight / 2, 0 }, false, true } );
-	m_borders.push_back( { { playableAreaWidth / 2, playableAreaHeight / 2, 0 },{ playableAreaWidth / 2, -playableAreaHeight / 2, 0 }, false, true } );
-	m_borders.push_back( { { playableAreaWidth / 2, -playableAreaHeight / 2, 0 },{ -playableAreaWidth / 2, -playableAreaHeight / 2, 0 }, false, true } );
-	m_borders.push_back( { { -playableAreaWidth / 2, -playableAreaHeight / 2, 0 },{ -playableAreaWidth / 2, playableAreaHeight / 2, 0 }, false, true } );
+	m_borders.push_back( { { -playableAreaWidth / 2, playableAreaHeight / 2, 0 },{ playableAreaWidth / 2, playableAreaHeight / 2, 0 }, false, 1 } );
+	m_borders.push_back( { { playableAreaWidth / 2, playableAreaHeight / 2, 0 },{ playableAreaWidth / 2, -playableAreaHeight / 2, 0 }, false, 1 } );
+	m_borders.push_back( { { playableAreaWidth / 2, -playableAreaHeight / 2, 0 },{ -playableAreaWidth / 2, -playableAreaHeight / 2, 0 }, false, 1 } );
+	m_borders.push_back( { { -playableAreaWidth / 2, -playableAreaHeight / 2, 0 },{ -playableAreaWidth / 2, playableAreaHeight / 2, 0 }, false, 1 } );
 
 	e = API->CreateColoredRect( glm::ivec4( 196, 196, 196, 0 ),
 		glm::dvec3( 0, 0, -100 ),
-		glm::dvec3( 100, 100, 0 ) );
+		glm::dvec3( 300, 300, 0 ) );
 	e->m_name = "bg at center";
 
 	//e = API->CreateButton( glm::dvec3( 100, 100, 100 ),
@@ -172,8 +178,8 @@ int QixTD::LoadLevel( int num )
 
 	SimplePhysicsComponent* real = new SimplePhysicsComponent();
 	real->SetAbsolutePosition( true );
-	real->SetSize( glm::dvec3( 100, 100, 0 ) );
-	real->SetPos( glm::dvec3( 100, 100, 100 ) );
+	real->SetSize( glm::dvec3( 300, 300, 0 ) );
+	real->SetPos( glm::dvec3( 750, 750, 0 ) );
 	e->AddComponent( real );
 
 	UIButton* button = new UIButton();
@@ -183,17 +189,17 @@ int QixTD::LoadLevel( int num )
 
 	Sprite* sStandard = new Sprite();
 	sStandard->SetImage( "UI/Button.png" );
-	sStandard->m_originalData->m_visualSize = glm::dvec3( 100, 100, 0 );
+	sStandard->m_originalData->m_visualSize = glm::dvec3( 300, 300, 0 );
 	e->AddComponent( sStandard );
 
 	Sprite* sHover = new Sprite();
 	sHover->SetImage( "UI/ButtonHovered.png" );
-	sHover->m_originalData->m_visualSize = glm::dvec3( 100, 100, 0 );
+	sHover->m_originalData->m_visualSize = glm::dvec3( 300, 300, 0 );
 	sHover->Init();
 
 	Sprite* sClick = new Sprite();
 	sClick->SetImage( "UI/ButtonPressed.png" );
-	sClick->m_originalData->m_visualSize = glm::dvec3( 100, 100, 0 );
+	sClick->m_originalData->m_visualSize = glm::dvec3( 300, 300, 0 );
 	sClick->Init();
 
 	((UIButton*) e->m_ui)->SetStandardDrawable( sStandard );
@@ -211,9 +217,9 @@ int QixTD::LoadLevel( int num )
 
 	e = API->CreateColoredRect( glm::ivec4( 255, 255, 255, 0 ),
 		glm::dvec3( 150, 0, 0 ),
-		glm::dvec3( 30, 30, 0 ) );
+		glm::dvec3( 90, 90, 0 ) );
 	API->TickPingPongMonster( e );
-	e->m_real->SetVelocity( 1 );
+	e->m_real->SetVelocity( 3 );
 
 	e = API->CreateEntity();
 	SimplePhysicsComponent* p = new SimplePhysicsComponent();

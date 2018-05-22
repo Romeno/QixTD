@@ -136,9 +136,33 @@ bool QixTDPC::CheckIfPointOnBorderSimple( const glm::dvec3& point )
 {
 	bool res = false;
 
+	Uint32 tickTime = SDL_GetTicks();
+
 	for ( auto b : GAME->m_borders )
 	{
-		if ( b.completed && IsPointOn90DegreeAlignedLine( b.first, b.second, point, 2 ) )
+		if ( b.completeTickTime != 0 &&										// if border is completed
+			 b.completeTickTime < GAME->m_prevTickTime &&					// not the last tick
+			 IsPointOn90DegreeAlignedLine( b.first, b.second, point, 2 ) )	// 
+		{
+			res = true;
+		}
+	}
+
+	return res;
+}
+
+
+bool QixTDPC::WasPlayerOnBorderLastTick()
+{
+	bool res = false;
+
+	glm::dvec3 playerPos = m_object->m_real->GetPrevPos();
+
+	for ( auto b : GAME->m_borders )
+	{
+		if ( b.completeTickTime != 0 &&											// if border is completed
+			b.completeTickTime < GAME->m_prevTickTime &&						// not the last tick
+			IsPointOn90DegreeAlignedLine( b.first, b.second, playerPos, 2 ) )	// 
 		{
 			res = true;
 		}
@@ -156,6 +180,17 @@ int QixTDPC::RequestStartMoveLeft()
 		return 0;
 	}
 
+
+	if ( ( WasPlayerOnBorderLastTick() &&		// was on border last tick
+		!m_onBorder ) ||
+		( m_object->m_real->GetDirEnum() != DIR_LEFT &&
+		  m_drawingBorder )
+		) 						// now is not on border
+	{
+		// then from last tick to current there were a border drawned
+		StartNewBorder( m_object->m_real->GetPrevPos(), m_object->m_real->GetPos() );
+	}
+
 	glm::dvec3 predictedFuturePos = PredictFuturePos( QixTDPC::PLAYER_VELOCITY, DIR_LEFT );
 	if (   ( m_object->m_real->GetDirEnum() != DIR_LEFT 
 			&& !m_onBorder )   // если новое направление и он не на границе (тогда это под вопросом надо вообще или нет)
@@ -165,8 +200,21 @@ int QixTDPC::RequestStartMoveLeft()
 			)   // или если будущая позиция будет не на границе
 		)
 	{
-		StartNewBorder();
+		StartNewBorder( m_object->m_real->GetPrevPos(), m_object->m_real->GetPos() );
 	}
+
+
+	//glm::dvec3 predictedFuturePos = PredictFuturePos( QixTDPC::PLAYER_VELOCITY, DIR_LEFT );
+	//if (   ( m_object->m_real->GetDirEnum() != DIR_LEFT 
+	//		&& !m_onBorder )   // если новое направление и он не на границе (тогда это под вопросом надо вообще или нет)
+	//	|| ( m_onBorder 
+	//		&& !CheckIfPointOnBorderSimple( predictedFuturePos ) 
+	//		&& GAME->m_currentMap->m_mapRect.ContainsRect( { GetRectTopLeft( predictedFuturePos, m_object->m_real->GetSize() ), m_object->m_real->GetSize() } )
+	//		)   // или если будущая позиция будет не на границе
+	//	)
+	//{
+	//	StartNewBorder();
+	//}
 
 	// установить скорость и направление
 	if ( m_object->m_real->GetVelocity() < std::numeric_limits<double>::epsilon() )
@@ -194,17 +242,17 @@ int QixTDPC::RequestStartMoveRight()
 		return 0;
 	}
 
-	glm::dvec3 predictedFuturePos = PredictFuturePos( QixTDPC::PLAYER_VELOCITY, DIR_RIGHT );
-	if ( (m_object->m_real->GetDirEnum() != DIR_RIGHT 
-		  && !m_onBorder)		// если новое направление и он не на границе (тогда это под вопросом надо вообще или нет)
-		|| ( m_onBorder 
-			&& !CheckIfPointOnBorderSimple( predictedFuturePos )
-			&& GAME->m_currentMap->m_mapRect.ContainsRect( { GetRectTopLeft( predictedFuturePos, m_object->m_real->GetSize() ), m_object->m_real->GetSize() } )
-			)   // или если будущая позиция будет не на границе
-		)
-	{
-		StartNewBorder();
-	}
+	//glm::dvec3 predictedFuturePos = PredictFuturePos( QixTDPC::PLAYER_VELOCITY, DIR_RIGHT );
+	//if ( (m_object->m_real->GetDirEnum() != DIR_RIGHT 
+	//	  && !m_onBorder)		// если новое направление и он не на границе (тогда это под вопросом надо вообще или нет)
+	//	|| ( m_onBorder 
+	//		&& !CheckIfPointOnBorderSimple( predictedFuturePos )
+	//		&& GAME->m_currentMap->m_mapRect.ContainsRect( { GetRectTopLeft( predictedFuturePos, m_object->m_real->GetSize() ), m_object->m_real->GetSize() } )
+	//		)   // или если будущая позиция будет не на границе
+	//	)
+	//{
+	//	StartNewBorder();
+	//}
 
 	if ( m_object->m_real->GetVelocity() < std::numeric_limits<double>::epsilon())
 	{
@@ -231,18 +279,18 @@ int QixTDPC::RequestStartMoveUp()
 		return 0;
 	}
 
-	glm::dvec3 predictedFuturePos = PredictFuturePos( QixTDPC::PLAYER_VELOCITY, DIR_TOP );
+	//glm::dvec3 predictedFuturePos = PredictFuturePos( QixTDPC::PLAYER_VELOCITY, DIR_TOP );
 
-	if ( (m_object->m_real->GetDirEnum() != DIR_TOP 
-		  && !m_onBorder)							// если новое направление и он не на границе (тогда это под вопросом надо вообще или нет)
-		|| ( m_onBorder 
-			&& !CheckIfPointOnBorderSimple( predictedFuturePos )
-			&& GAME->m_currentMap->m_mapRect.ContainsRect( { GetRectTopLeft( predictedFuturePos, m_object->m_real->GetSize() ), m_object->m_real->GetSize() } )
-			)   // или если будущая позиция будет не на границе
-		)
-	{
-		StartNewBorder();
-	}
+	//if ( (m_object->m_real->GetDirEnum() != DIR_TOP 
+	//	  && !m_onBorder)							// если новое направление и он не на границе (тогда это под вопросом надо вообще или нет)
+	//	|| ( m_onBorder 
+	//		&& !CheckIfPointOnBorderSimple( predictedFuturePos )
+	//		&& GAME->m_currentMap->m_mapRect.ContainsRect( { GetRectTopLeft( predictedFuturePos, m_object->m_real->GetSize() ), m_object->m_real->GetSize() } )
+	//		)   // или если будущая позиция будет не на границе
+	//	)
+	//{
+	//	StartNewBorder();
+	//}
 
 	if ( m_object->m_real->GetVelocity() < std::numeric_limits<double>::epsilon() )
 	{
@@ -269,17 +317,17 @@ int QixTDPC::RequestStartMoveDown()
 		return 0;
 	}
 
-	glm::dvec3 predictedFuturePos = PredictFuturePos( QixTDPC::PLAYER_VELOCITY, DIR_BOTTOM );
-	if ( (m_object->m_real->GetDirEnum() != DIR_BOTTOM 
-		  && !m_onBorder)		 // если новое направление и он не на границе (тогда это под вопросом надо вообще или нет)
-		|| (m_onBorder 
-			&& !CheckIfPointOnBorderSimple( predictedFuturePos )
-			&& GAME->m_currentMap->m_mapRect.ContainsRect( { GetRectTopLeft(predictedFuturePos, m_object->m_real->GetSize() ), m_object->m_real->GetSize() } )
-			)   // или если будущая позиция будет не на границе
-		)
-	{
-		StartNewBorder();
-	}
+	//glm::dvec3 predictedFuturePos = PredictFuturePos( QixTDPC::PLAYER_VELOCITY, DIR_BOTTOM );
+	//if ( (m_object->m_real->GetDirEnum() != DIR_BOTTOM 
+	//	  && !m_onBorder)		 // если новое направление и он не на границе (тогда это под вопросом надо вообще или нет)
+	//	|| (m_onBorder 
+	//		&& !CheckIfPointOnBorderSimple( predictedFuturePos )
+	//		&& GAME->m_currentMap->m_mapRect.ContainsRect( { GetRectTopLeft(predictedFuturePos, m_object->m_real->GetSize() ), m_object->m_real->GetSize() } )
+	//		)   // или если будущая позиция будет не на границе
+	//	)
+	//{
+	//	StartNewBorder();
+	//}
 
 	if ( m_object->m_real->GetVelocity() < std::numeric_limits<double>::epsilon() )
 	{
@@ -305,10 +353,10 @@ int QixTDPC::RequestShoot()
 }
 
 
-void QixTDPC::StartNewBorder()
+void QixTDPC::StartNewBorder( glm::dvec3 point1, glm::dvec3 point2 )
 {
 	m_drawingBorder = true;
-	GAME->m_borders.push_back( { m_object->m_real->GetPos(), m_object->m_real->GetPos(), true } );
+	GAME->m_borders.push_back( { point1, point2, true, SDL_GetTicks() } );
 }
 
 

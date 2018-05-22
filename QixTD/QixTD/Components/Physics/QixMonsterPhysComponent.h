@@ -2,13 +2,13 @@
 #include "Engine/Components/Physics/SimplePhysicsComponent.h"
 
 
-class QixPhysComponent : public SimplePhysicsComponent
+class QixMonsterPhysComponent : public SimplePhysicsComponent
 {
 public:
 	typedef SimplePhysicsComponent super;
 
-	QixPhysComponent();
-	virtual ~QixPhysComponent();
+	QixMonsterPhysComponent();
+	virtual ~QixMonsterPhysComponent();
 
 
 	virtual void Tick( Uint32 diff ) override;

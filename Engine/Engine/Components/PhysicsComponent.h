@@ -9,6 +9,9 @@ public:
 	PhysicsComponent();
 	virtual ~PhysicsComponent();
 
+	virtual glm::dvec3 GetPrevPos() = 0;
+	virtual glm::dvec3 GetFuturePos() = 0;
+
 	virtual glm::dvec3 GetPos() = 0;
 	virtual void SetPos( glm::dvec3 wPos, Pivot pivot = PIVOT_CENTER ) = 0;
 

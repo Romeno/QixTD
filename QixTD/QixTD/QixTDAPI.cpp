@@ -5,7 +5,8 @@
 #include "Mechanics/Qix/Components/Controlling/TickPingPongAI.h"
 #include "Mechanics/Qix/Qix.h"
 #include "QixTD/Components/Controlling/QixTDPC.h"
-#include "QixTD/Components/Physics/QixPhysComponent.h"
+#include "QixTD/Components/Physics/QixHeroPhysComponent.h"
+#include "QixTD/Components/Physics/QixMonsterPhysComponent.h"
 
 
 //DEFINE_SINGLETON( QixTDAPI )
@@ -48,7 +49,7 @@ void QixTDAPI::Play(Entity* e)
 }
 
 
-Entity* QixTDAPI::CreateSprite( const std::string& path, glm::dvec3 wpos, glm::dvec3 size, Direction dir )
+Entity* QixTDAPI::CreateMonster( const std::string& path, glm::dvec3 wpos, glm::dvec3 size, Direction dir )
 {
 	Entity* e = CreateEntity();
 
@@ -57,7 +58,28 @@ Entity* QixTDAPI::CreateSprite( const std::string& path, glm::dvec3 wpos, glm::d
 	e->AddComponent( malui );
 	malui->m_originalData->m_visualSize = size;
 
-	QixPhysComponent* real = new QixPhysComponent();
+	QixMonsterPhysComponent* real = new QixMonsterPhysComponent();
+	real->SetSize( size );
+	real->SetPos( wpos );
+	real->SetDir( dir );
+	e->AddComponent( real );
+
+	e->Init();
+
+	return e;
+}
+
+
+Entity* QixTDAPI::CreateHero( const std::string& path, glm::dvec3 wpos, glm::dvec3 size, Direction dir )
+{
+	Entity* e = CreateEntity();
+
+	Sprite* malui = new Sprite();
+	malui->SetImage( path );
+	e->AddComponent( malui );
+	malui->m_originalData->m_visualSize = size;
+
+	QixHeroPhysComponent* real = new QixHeroPhysComponent();
 	real->SetSize( size );
 	real->SetPos( wpos );
 	real->SetDir( dir );

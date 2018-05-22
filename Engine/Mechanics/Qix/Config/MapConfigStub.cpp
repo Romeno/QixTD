@@ -7,9 +7,13 @@ MapConfigStub::MapConfigStub(const std::string& id)
 
     , m_mapDimensionsKey("MapDimensions")
     , m_mapDimensions(0, 0, 0)
+	, m_mapRect()
 
-    , m_playerStartPosKey("PlayerStartPos")
-    , m_playerStartPos(0, 0, 0)
+    , m_worldScaleKey("WorldScale")
+    , m_worldScale(1)
+
+	, m_playerStartPosKey( "PlayerStartPos" )
+	, m_playerStartPos( 0, 0, 0 )
 {
 
 }
@@ -47,6 +51,11 @@ void MapConfigStub::Parse(std::ifstream& strm)
 
             m_playerStartPos = ParseVector2(parts[1]);
         }
+		else if ( parts[0] == m_worldScaleKey ) {
+			parts[1] = pys::strip( parts[1] );
+
+			m_worldScale = ParseDouble( parts[1] );
+		}
 		else
 		{
 			throw "shit";

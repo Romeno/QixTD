@@ -40,6 +40,8 @@ public:
 
 	std::vector<Entity*>		m_entities;
 
+	Uint32						m_prevTickTime;
+
 
 protected:
 	void RemovePhase();

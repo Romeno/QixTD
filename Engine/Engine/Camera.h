@@ -60,9 +60,7 @@ public:
 	glm::dvec3 W2R( glm::dvec3& worldPoint );
 
 
-protected:
-	glm::dvec3 m_wPos;					// position of top left corner in World coordinates
-
+	glm::dvec3	m_wPos;					// position of top left corner in World coordinates
 };
 
 

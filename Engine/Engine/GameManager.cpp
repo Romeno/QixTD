@@ -447,7 +447,7 @@ void GameManager::RenderScene(Uint32 diff)
 	m_game->Render();
 
 	//API::Inst()->DrawTextBlock( R2W(glm::dvec3( 0, 0, 400 )), glm::dvec3( 300, 100, 0 ), "fonts/Snap.ttf", std::to_string(Keyboard::Inst()->IsKeyDown(SDL_SCANCODE_RETURN)), 24 );
-	api->DrawTextBlock( R2W( glm::dvec3( -VP_WIDTH / 2, VP_HEIGHT / 2, 400 ) ), { TextComponent::XALIGN_LEFT, TextComponent::YALIGN_TOP }, "fonts/Snap.ttf", te, 24 );
+	api->DrawTextBlock( R2W( glm::dvec3( -VP_WIDTH / 2, VP_HEIGHT / 2, 400 ) * GetWorldScale() ), { TextComponent::XALIGN_LEFT, TextComponent::YALIGN_TOP }, "fonts/Snap.ttf", te, 24 );
 
 
 	//SDL_SetRenderDrawColor( ren, 1, 1, 1, 0 );

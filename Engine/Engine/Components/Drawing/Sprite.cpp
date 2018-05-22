@@ -61,8 +61,8 @@ void Sprite::Render()
 		dstrect = {
 			R2Sx( pos.x ),
 			R2Sy( pos.y ),
-			(int) m_object->m_real->GetSize().x,
-			(int) m_object->m_real->GetSize().y
+			R2SSize( m_object->m_real->GetSize().x ),
+			R2SSize( m_object->m_real->GetSize().y )
 		};
 	}
 	else
@@ -70,8 +70,8 @@ void Sprite::Render()
 		dstrect = {
 			W2Sx( pos.x ),
 			W2Sy( pos.y ),
-			(int) m_object->m_real->GetSize().x,
-			(int) m_object->m_real->GetSize().y
+			R2SSize( m_object->m_real->GetSize().x ),
+			R2SSize( m_object->m_real->GetSize().y )
 		};
 	}
 

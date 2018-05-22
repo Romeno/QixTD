@@ -131,7 +131,7 @@ void Api::DrawTextBlock( glm::dvec3 wPos, TextComponent::Alignment align, const 
 
 	if ( align.xal == TextComponent::XALIGN_CENTER )
 	{
-		wPos.x -= w / 2;
+		wPos.x -= S2RSize( w / 2 );
 	}
 	else if ( align.xal == TextComponent::XALIGN_LEFT )
 	{
@@ -139,7 +139,7 @@ void Api::DrawTextBlock( glm::dvec3 wPos, TextComponent::Alignment align, const 
 	}
 	else if ( align.xal == TextComponent::XALIGN_RIGHT )
 	{
-		wPos.x -= w;
+		wPos.x -= S2RSize( w );
 	}
 	else
 	{
@@ -148,7 +148,7 @@ void Api::DrawTextBlock( glm::dvec3 wPos, TextComponent::Alignment align, const 
 
 	if ( align.yal == TextComponent::YALIGN_CENTER )
 	{
-		wPos.y += h / 2;
+		wPos.y += S2RSize( h / 2 );
 	}
 	else if ( align.yal == TextComponent::YALIGN_TOP )
 	{
@@ -156,7 +156,7 @@ void Api::DrawTextBlock( glm::dvec3 wPos, TextComponent::Alignment align, const 
 	}
 	else if ( align.yal == TextComponent::YALIGN_BOTTOM )
 	{
-		wPos.y += h;
+		wPos.y += S2RSize( h );
 	}
 	else
 	{

@@ -15,6 +15,8 @@ Game::Game()
 	: m_quit(false)
 
 	, m_entities()
+
+	, m_prevTickTime(0)
 {
 
 }
@@ -38,6 +40,15 @@ int Game::Init()
 
 void Game::PreTick( Uint32 diff )
 {
+	// first update physics
+	for ( auto it = m_entities.begin(); it != m_entities.end(); it++ )
+	{
+		if ( (*it)->m_real )
+		{
+			(*it)->m_real->PreTick( diff );
+		}
+	}
+
 	for ( auto it = m_entities.begin(); it != m_entities.end(); it++ )
 	{
 		(*it)->PreTick( diff );
@@ -47,19 +58,45 @@ void Game::PreTick( Uint32 diff )
 
 void Game::Tick(Uint32 diff)
 {
+	// this is not quite the start but whatever
+	Uint32 startOfCurrentTickTime = SDL_GetTicks();
+
+	// first update input
 	Input()->Tick(diff);
 
+	// then camera
+	Camera_()->Tick( diff );
+
+	// next tick all components except physics
 	for (auto it = m_entities.begin(); it != m_entities.end(); it++)
 	{
 		(*it)->Tick(diff);
 	}
 
-	Camera_()->Tick( diff );
+	// after all that update physics
+	for ( auto it = m_entities.begin(); it != m_entities.end(); it++ )
+	{
+		if ( (*it)->m_real )
+		{
+			(*it)->m_real->Tick( diff );
+		}
+	}
+
+	m_prevTickTime = startOfCurrentTickTime;
 }
 
 
 void Game::PostTick( Uint32 diff )
 {
+	// first update physics
+	for ( auto it = m_entities.begin(); it != m_entities.end(); it++ )
+	{
+		if ( (*it)->m_real )
+		{
+			(*it)->m_real->PostTick( diff );
+		}
+	}
+
 	for ( auto it = m_entities.begin(); it != m_entities.end(); it++ )
 	{
 		(*it)->PostTick( diff );

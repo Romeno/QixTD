@@ -14,10 +14,11 @@ class b2World;
 
 struct Border
 {
-	glm::dvec3 first;
-	glm::dvec3 second;
-	bool draw;
-	bool completed;
+	glm::dvec3 first;			// first point
+	glm::dvec3 second;			// second point
+	bool visible;				// should this border be visible?
+	Uint32 completeTickTime;	// when this border was completed 
+								// 0 for not completed borders
 };
 
 

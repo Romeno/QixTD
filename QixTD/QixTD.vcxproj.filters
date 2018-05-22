@@ -42,7 +42,10 @@
     <ClInclude Include="QixTD\Components\Drawable\LineDrawable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="QixTD\Components\Physics\QixPhysComponent.h">
+    <ClInclude Include="QixTD\Components\Physics\QixHeroPhysComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QixTD\Components\Physics\QixMonsterPhysComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -71,7 +74,10 @@
     <ClCompile Include="QixTD\Components\Drawable\LineDrawable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="QixTD\Components\Physics\QixPhysComponent.cpp">
+    <ClCompile Include="QixTD\Components\Physics\QixHeroPhysComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QixTD\Components\Physics\QixMonsterPhysComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
