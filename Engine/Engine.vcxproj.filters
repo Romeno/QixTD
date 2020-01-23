@@ -60,7 +60,6 @@
     <ClInclude Include="Engine\Config\AppConfig.h" />
     <ClInclude Include="Engine\Config\Config.h" />
     <ClInclude Include="Engine\Config\MapConfig.h" />
-    <ClInclude Include="Engine\Config\MapConfigTiled.h" />
     <ClInclude Include="Engine\Components\Collision\CircleCollider.h" />
     <ClInclude Include="Engine\Components\Collision\Collider.h">
       <Filter>Base</Filter>
@@ -140,6 +139,13 @@
     <ClInclude Include="Engine\Utils\PreprocessorUtils.h" />
     <ClInclude Include="Engine\Utils\Logger\Loggers.h" />
     <ClInclude Include="Engine\Utils\TextUtils.h" />
+    <ClInclude Include="Engine\Config\Backends\JsonConfigBackend.h" />
+    <ClInclude Include="Engine\Config\Backends\RConfigBackend.h" />
+    <ClInclude Include="Engine\Config\Backends\PostgresConfigBackend.h" />
+    <ClInclude Include="Engine\Config\Backends\ConfigBackend.h" />
+    <ClInclude Include="Engine\Config\Backends\DBConfigBackend.h" />
+    <ClInclude Include="Engine\Utils\Common.h" />
+    <ClInclude Include="Engine\Config\Backends\CsvConfigBackend.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -209,9 +215,6 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Config\MapConfig.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Config\MapConfigTiled.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Components\Collision\CircleCollider.cpp">
@@ -416,6 +419,24 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Utils\TextUtils.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\Backends\JsonConfigBackend.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\Backends\RConfigBackend.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\Backends\PostgresConfigBackend.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\Backends\ConfigBackend.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\Backends\DBConfigBackend.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Config\Backends\CsvConfigBackend.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,7 +7,7 @@ class AnimationConfig : public Config
 public:
 	typedef Config super;
 
-	AnimationConfig(const std::string& configPath);
+	AnimationConfig();
 	virtual ~AnimationConfig();
 
 };

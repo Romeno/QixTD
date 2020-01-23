@@ -1,15 +1,20 @@
 #include "stdafx.h"
 #include "QixTD.h"
 #include "Engine/Utils/Utils.h"
+
 #include "Engine/Config/AppConfig.h"
 #include "Mechanics/Qix/Config/MapConfigStub.h"
+#include "Engine/Config/Backends/RConfigBackend.h"
+
 #include "Engine/Components/Physics/Box2DPhysicsComponent.h"
 #include "Engine/Components/Physics/SimplePhysicsComponent.h"
 #include "Engine/Utils/SystemInfo.h"
 #include "Engine/Input/Mouse.h"
 #include "Engine/Input/Keyboard.h"
+
 #include "QixTD/QixTDAPI.h"
 #include "QixTD/Components/Drawable/LineDrawable.h"
+
 #include "Engine/Components/UI/UIButton.h"
 #include "Engine/Components/Drawing/Sprite.h"
 #include "Engine/Components/UI/Sensors/MouseInputSensor.h"
@@ -73,21 +78,36 @@ int QixTD::Init()
 	//m_borderController = new LineCascade("borders");
 
 	ConfigError configRes = CONFIG_ERROR_OK;
+	RConfigBackend be( "" );
+	std::string data;
 
-	for ( int i = 0; i < CFG->m_numMaps; i++ ) {
-		MapConfigStub* map = new MapConfigStub( std::to_string( i ) );
-		configRes = map->Read();
+	for ( int i = 0; i < CFG->m_numMaps; i++ ) 
+	{
+		configRes = CONFIG_ERROR_OK;
+
+		be.m_filename = "map" + std::to_string( i );
+		configRes = be.Read( data );
 		if ( configRes != CONFIG_ERROR_OK )
 		{
+			ELOGA( ERR_TYPE_PROGRAMMING_ERROR, "error reading config" );
 			return 1;
 		}
-		else
-		{
-			ELOGA( ERR_TYPE_PROGRAMMING_ERROR, "error reading config" );
-		}
 
-		m_mapConfigs.push_back( map );
+		MapConfigStub* conf = new MapConfigStub();
+		MapConfigStub::LoadFromRConfig( data, conf );
+		m_mapConfigs.push_back( conf );
 	}
+
+	be.m_filename = "player";
+	configRes = be.Read( data );
+	if ( configRes != CONFIG_ERROR_OK )
+	{
+		ELOGA( ERR_TYPE_PROGRAMMING_ERROR, "error reading config" );
+		return 1;
+	}
+
+	m_playerConfig = new PlayerConfig();
+	PlayerConfig::LoadFromRConfig( data, m_playerConfig );
 
 	InitPhysics();
 

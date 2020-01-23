@@ -5,10 +5,6 @@
 #include "Math/Math.h"
 
 
-
-const double QixPC::PLAYER_VELOCITY = 9.;
-
-
 QixPC::QixPC()
 	: super()
 
@@ -96,14 +92,12 @@ void QixPC::Clear()
 }
 
 
-int QixPC::RequestStartMoveLeft()
+int QixPC::OrderStartMoveLeft()
 {
 	if ( m_object->m_real->GetVelocity() < std::numeric_limits<double>::epsilon() && m_object->m_real->GetDirEnum() == DIR_LEFT )
 	{
-		m_object->m_real->SetVelocity( PLAYER_VELOCITY );
+		m_object->m_real->SetVelocity( 9. );
 		m_object->m_real->SetDir( Direction::DIR_LEFT );
-
-		StartNewBorder();
 	}
 
 
@@ -128,7 +122,7 @@ int QixPC::RequestStartMoveLeft()
 }
 
 
-int QixPC::RequestStopMoveLeft()
+int QixPC::OrderStop()
 {
 	m_object->m_real->SetVelocity( 0 );
 
@@ -139,9 +133,9 @@ int QixPC::RequestStopMoveLeft()
 }
 
 
-int QixPC::RequestStartMoveRight()
+int QixPC::OrderStartMoveRight()
 {
-	m_object->m_real->SetVelocity( PLAYER_VELOCITY );
+	m_object->m_real->SetVelocity( 9. );
 	m_object->m_real->SetDir( Direction::DIR_RIGHT );
 
 	//if (!(m_facing & Direction::DIR_LEFT))
@@ -168,24 +162,9 @@ int QixPC::RequestStartMoveRight()
 }
 
 
-int QixPC::RequestStopMoveRight()
+int QixPC::OrderStartMoveUp()
 {
-	m_object->m_real->SetVelocity( 0 );
-
-	//m_facing &= ~Direction::DIR_RIGHT;
-	//if (m_facing & Direction::DIR_LEFT)
-	//{
-	//	m_tryingToMove = false;
-	//}
-	//m_tryingToMove = false;
-
-	return 1;
-}
-
-
-int QixPC::RequestStartMoveUp()
-{
-	m_object->m_real->SetVelocity( PLAYER_VELOCITY );
+	m_object->m_real->SetVelocity( 9. );
 	m_object->m_real->SetDir( Direction::DIR_TOP );
 
 	//if (m_facing != Direction::DIR_TOP)
@@ -213,20 +192,9 @@ int QixPC::RequestStartMoveUp()
 }
 
 
-int QixPC::RequestStopMoveUp()
+int QixPC::OrderStartMoveDown()
 {
-	m_object->m_real->SetVelocity(0);
-
-	//m_facing &= ~Direction::DIR_TOP;
-	//m_tryingToMove = false;
-
-	return 1;
-}
-
-
-int QixPC::RequestStartMoveDown()
-{
-	m_object->m_real->SetVelocity(PLAYER_VELOCITY );
+	m_object->m_real->SetVelocity( 9. );
 	m_object->m_real->SetDir( Direction::DIR_BOTTOM );
 
 	//if (m_facing != Direction::DIR_BOTTOM)
@@ -254,17 +222,6 @@ int QixPC::RequestStartMoveDown()
 }
 
 
-int QixPC::RequestStopMoveDown()
-{
-	m_object->m_real->SetVelocity( 0 );
-
-	//m_facing &= ~Direction::DIR_BOTTOM;
-	//m_tryingToMove = false;
-
-	return 1;
-}
-
-
 //void QixPC::SetWPos(glm::dvec3 wPos, Pivot pivot)
 //{
 //    m_sprite->SetWPos(wPos, pivot);
@@ -272,15 +229,7 @@ int QixPC::RequestStopMoveDown()
 //}
 
 
-void QixPC::StartNewBorder()
-{
-	//GAME->m_borders.push_back( { {0,0,0}, {0,0,0} } );
-//	GameManager::Inst()->m_borderController->AddLine(m_lastTurnPos, m_sprite->GetRectCenter());
-}
-
-
-
-int QixPC::RequestShoot()
+int QixPC::OrderShoot()
 {
 // 	Sprite* shoot = new Sprite("shoot", m_playerShootImagePath, glm::dvec3(10, 10, 0));
 // 	shoot->Init();

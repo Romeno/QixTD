@@ -1,0 +1,19 @@
+{
+	[
+		{
+			"unitId": 0,
+			"unitCount": 1,
+			"unitPos": null,
+			"unitDir": null,
+			"sideId": 0
+		},
+		{
+			"unitId": 1,
+			"unitCount": 2,
+			"unitPos": null,
+			"unitDir": null	
+			"sideId": 1
+		}
+	]
+}
+

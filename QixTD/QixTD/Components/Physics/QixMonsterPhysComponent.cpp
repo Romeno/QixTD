@@ -18,12 +18,15 @@ QixMonsterPhysComponent::~QixMonsterPhysComponent()
 
 void QixMonsterPhysComponent::Tick( Uint32 diff )
 {
-	// calculate pos
-	m_futurePos += m_dir * m_velocity;
+	m_prevPos = m_pos;
+	m_prevDir = m_dir;
 
-	if ( !GAME->m_currentMap->m_mapRect.ContainsRect( { m_futurePos, m_size } ) )
+	// calculate pos
+	m_pos += m_dir * m_velocity;
+
+	if ( !GAME->m_currentMap->m_mapRect.ContainsRect( { m_pos, m_size } ) )
 	{
-		m_futurePos = GAME->m_currentMap->m_mapRect.ClosestRectOfSameSizeInsideThisRect( { m_futurePos, m_size } ).m_topLeft;
+		m_pos = GAME->m_currentMap->m_mapRect.ClosestRectOfSameSizeInsideThisRect( { m_pos, m_size } ).m_topLeft;
 	}
 }
 

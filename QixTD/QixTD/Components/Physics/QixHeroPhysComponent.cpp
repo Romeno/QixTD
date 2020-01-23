@@ -18,17 +18,20 @@ QixHeroPhysComponent::~QixHeroPhysComponent()
 
 void QixHeroPhysComponent::Tick( Uint32 diff )
 {
+	m_prevPos = m_pos;
+	m_prevDir = m_dir;
+
 	// calculate pos
-	m_futurePos += m_dir * m_velocity;
+	m_pos += m_dir * m_velocity;
 
-	if ( m_velocity > std::numeric_limits<double>::epsilon() )
-	{
-		GAME->m_borderInProgress = true;
-	}
+	//if ( m_velocity > std::numeric_limits<double>::epsilon() )
+	//{
+	//	GAME->m_borderInProgress = true;
+	//}
 
-	if ( !GAME->m_currentMap->m_mapRect.ContainsRect( { m_futurePos, m_size } ) )
+	if ( !GAME->m_currentMap->m_mapRect.ContainsRect( { m_pos, m_size } ) )
 	{
-		m_futurePos = GAME->m_currentMap->m_mapRect.ClosestRectOfSameSizeInsideThisRect( { m_futurePos, m_size } ).m_topLeft;
+		m_pos = GAME->m_currentMap->m_mapRect.ClosestRectOfSameSizeInsideThisRect( { m_pos, m_size } ).m_topLeft;
 	}
 }
 

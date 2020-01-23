@@ -3,55 +3,76 @@
 #include "Engine/Utils/Utils.h"
 
 
+std::string AppConfig::s_windowTitleKey( "WindowTitle" );
+std::string AppConfig::s_numMapsKey( "NumMaps" );
+
+
+typedef AppConfig thisT;
+
+
 AppConfig::AppConfig()
-	: super("conf")
+	: super()
 
 	, m_windowTitle("")
-	, m_windowTitleKey("WindowTitle")
-
     , m_numMaps(0)
-    , m_numMapsKey("NumMaps")
 {
 
 }
 
 
-AppConfig::~AppConfig()
+void AppConfig::LoadFromJson( nlohmann::json& data, AppConfig* conf )
 {
-
+	*conf = data;
 }
 
 
-void AppConfig::Parse(std::ifstream& strm)
+void AppConfig::LoadFromRConfig( const std::string& data, AppConfig* conf )
 {
+	std::vector<std::string> lines;
 	std::vector<std::string> parts;
-	std::string s;
-	char line[255];
-	while (!strm.eof()) {
-		strm.getline(line, 255);
-		s = line;
-		s = pys::strip(s);
+
+	pys::split( data, lines, "\n" );
+	for (auto s : lines )
+	{
+		s = pys::strip( s );
 
 		if ( s.empty() )
 			continue;
 
-		pys::split(s, parts, "=", 1);
+		pys::split( s, parts, "=", 1 );
 
-		parts[0] = pys::strip(parts[0]);
-		if (parts[0] == m_windowTitleKey) {
-			parts[1] = pys::strip(parts[1]);
+		parts[0] = pys::strip( parts[0] );
+		if ( parts[0] == s_windowTitleKey ) {
+			parts[1] = pys::strip( parts[1] );
 
-            m_windowTitle = ParseString(parts[1]);
-		} 
-        else if (parts[0] == m_numMapsKey)
-        {
-            parts[1] = pys::strip(parts[1]);
+			conf->m_windowTitle = ParseString( parts[1] );
+		}
+		else if ( parts[0] == s_numMapsKey )
+		{
+			parts[1] = pys::strip( parts[1] );
 
-            m_numMaps = ParseInt(parts[1]);
-        }
+			conf->m_numMaps = ParseInt( parts[1] );
+		}
 		else
 		{
 			throw "shit";
 		}
 	}
 }
+
+
+void to_json( json& j, const AppConfig& d ) 
+{
+	j = json { 
+		{ thisT::s_windowTitleKey, d.m_windowTitle },
+		{ thisT::s_numMapsKey, d.m_numMaps }
+	};
+}
+
+
+void from_json( const json& j, AppConfig& d ) 
+{
+	d.m_numMaps = j.at( thisT::s_numMapsKey ).get<int>();
+	d.m_windowTitle = j.at( thisT::s_windowTitleKey	).get<std::string>();
+}
+

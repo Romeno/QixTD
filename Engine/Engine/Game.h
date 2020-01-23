@@ -41,7 +41,7 @@ public:
 	std::vector<Entity*>		m_entities;
 
 	Uint32						m_prevTickTime;
-
+	Uint32						m_curTickTime;
 
 protected:
 	void RemovePhase();

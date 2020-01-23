@@ -15,27 +15,27 @@ public:
 	virtual void Clear() override;
 
 
-	virtual int RequestStartMoveLeft() override;
-	virtual int RequestStopMoveLeft() override;
-	virtual int RequestStartMoveRight() override;
-	virtual int RequestStopMoveRight() override;
-	virtual int RequestStartMoveUp() override;
-	virtual int RequestStopMoveUp() override;
-	virtual int RequestStartMoveDown() override;
-	virtual int RequestStopMoveDown() override;
+	virtual int OrderStop() override;
 
-	virtual void CheckIfPointOnBorder( const glm::dvec3& point );
-	bool CheckIfPointOnBorderSimple( const glm::dvec3& point );
+	virtual int OrderStartMoveLeft() override;
+	virtual int OrderStartMoveRight() override;
+	virtual int OrderStartMoveUp() override;
+	virtual int OrderStartMoveDown() override;
 
-	bool WasPlayerOnBorderLastTick();
-	virtual int RequestShoot() override;
+	virtual int OrderShoot() override;
 
-	virtual void StartNewBorder(glm::dvec3 point1, glm::dvec3 point2) override;
-	virtual glm::dvec3 PredictFuturePos( double velocity, Direction dir );
 
-	bool	m_onBorder;
-	bool	m_haveBeenOnBorderOnce;
-	bool	m_firstTick;
+	bool IsOnOwnTerritory( glm::dvec3 pos );
+
+	virtual void CompleteBorders();
+	//bool CheckIfPointOnBorderSimple( const glm::dvec3& point );
+
+	virtual void StartNewBorder(glm::dvec3 point1, glm::dvec3 point2);
+	//virtual glm::dvec3 PredictFuturePos( double velocity, Direction dir );
+
+	bool	m_onOwnTerritory;
+	bool	m_haveBeenOnOwnTerritoryOnce;
 	bool	m_drawingBorder;
+	bool    m_startedBorder;
 };
 

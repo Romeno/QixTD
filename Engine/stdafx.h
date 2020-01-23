@@ -39,15 +39,21 @@
 #include <SDL_opengl.h>
 #include <SDL_opengl_glext.h>
 
+#include "minicsv.h"
+
 #include <glm/glm.hpp>
 #include <glm/gtx/norm.hpp>
 #include <glm/gtx/perpendicular.hpp>
 #include <glm/gtx/intersect.hpp>
 
+#include <nlohmann/json.hpp>
 
 #include "Engine/Utils/pystring.h"
 
 #include "Box2D/Box2D.h"
+
+using json = nlohmann::json;
+using namespace mini;
 
 
 // TODO: reference additional headers your program requires here

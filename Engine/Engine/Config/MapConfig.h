@@ -7,9 +7,9 @@ class MapConfig : public Config
 public:
 	typedef Config super;
 
-	MapConfig(const std::string& id);
+	MapConfig();
 	virtual ~MapConfig();
 
-	virtual void Parse(std::ifstream& strm) override;
+	//virtual void Parse(std::ifstream& strm) override;
 };
 

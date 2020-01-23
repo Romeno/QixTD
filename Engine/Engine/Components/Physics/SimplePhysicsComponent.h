@@ -16,9 +16,7 @@ public:
 	virtual void Tick( Uint32 diff ) override;
 	virtual void PostTick( Uint32 diff ) override;
 
-
 	virtual glm::dvec3 GetPrevPos() override;
-	virtual glm::dvec3 GetFuturePos() override;
 
 	/*
 	 * if m_absolutePosition is set then position returned is rPos 
@@ -35,6 +33,9 @@ public:
 	
 	virtual glm::dvec3 GetSize() override;
 	virtual void SetSize( glm::dvec3 size ) override;
+
+	virtual glm::dvec3 GetPrevDir() override;
+	virtual Direction GetPrevDirEnum() override;
 
 	virtual glm::dvec3 GetDir() override;
 	virtual Direction GetDirEnum() override;
@@ -75,19 +76,18 @@ public:
 	/* Position comprises coordinates of top left corner in World coordinates
 	 * if m_absolutePosition is set position is in Romeno coordinates
 	 */
-	glm::dvec3			m_previousPos;
+	glm::dvec3			m_prevPos;
 	glm::dvec3			m_pos;
-	glm::dvec3			m_futurePos;
 
-	glm::dvec3			m_previousDir;
+	glm::dvec3			m_prevDir;
 	glm::dvec3			m_dir;
-	glm::dvec3			m_futureDir;
 
+	// размер не должен пока меняться между тиками
+	// это может спровоцировать неправильное опрделение прошлой позиции
+	// надо вводить тогда прошлый размер
 	glm::dvec3			m_size;
-	glm::dvec3			m_futureSize;
 
 	double				m_velocity;
-	double				m_futureVelocity;
 
 	bool				m_absolutePosition;
 

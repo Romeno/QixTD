@@ -225,8 +225,6 @@ void Entity::PreTick( Uint32 diff )
 
 void Entity::Tick(Uint32 diff)
 {
-	m_firstTickHappened = true;
-
 	if ( RemoveIfElapsed() )
 		return;
 
@@ -239,6 +237,8 @@ void Entity::Tick(Uint32 diff)
 	NADPIS->Tick( diff );
 
 	MALUI->Tick( diff );
+
+	m_firstTickHappened = true;
 }
 
 

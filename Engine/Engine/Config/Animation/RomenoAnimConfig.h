@@ -7,10 +7,10 @@ class RomenoAnimConfig : public AnimationConfig
 public:
 	typedef AnimationConfig super;
 
-	RomenoAnimConfig(const std::string path);
+	RomenoAnimConfig();
 	virtual ~RomenoAnimConfig();
 
-	virtual void Parse( std::ifstream& strm ) override;
+	//virtual void Parse( std::ifstream& strm ) override;
 
 };
 

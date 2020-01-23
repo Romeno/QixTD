@@ -4,6 +4,7 @@
 #include "QixTDIH.h"
 #include "Mechanics/Qix/QixCamera.h"
 #include "Mechanics/Qix/Config/MapConfigStub.h"
+#include "Mechanics/Qix/Config/PlayerConfig.h"
 
 
 #define GAME ((QixTD*)(gameManager->m_game))
@@ -54,10 +55,11 @@ public:
 	std::vector<MapConfigStub*>		m_mapConfigs;
 	int 							m_mapNumber;
 	MapConfigStub*					m_currentMap;
+	PlayerConfig*					m_playerConfig;
 
 	glm::dvec3						m_dir;
 
-	bool	m_borderInProgress;
+	//bool	m_borderInProgress;
 
 	std::vector< Border >	m_borders;
 };

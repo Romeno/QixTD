@@ -1,6 +1,8 @@
 #pragma once
 
-enum ConfigError {
+
+enum ConfigError
+{
 	CONFIG_ERROR_OK = 0,
 	CONFIG_ERROR_FAIL,
 	CONFIG_ERROR_MAX,
@@ -10,18 +12,22 @@ enum ConfigError {
 class Config
 {
 public:
-	Config(const std::string& filename);
+	Config();
 	virtual ~Config();
 
-	ConfigError Read();
-	virtual void Parse(std::ifstream& strm);
+	//virtual void Parse(std::ifstream& strm);
 
-    glm::dvec3 ParseVector2(const std::string& str);
-    std::string ParseString(const std::string& str);
-    int ParseInt(const std::string& str);
-	double ParseDouble( const std::string& str );
+    static glm::dvec3 ParseVector2(const std::string& str);
+	static std::string ParseString(const std::string& str);
+	static int ParseInt(const std::string& str);
+	static double ParseDouble( const std::string& str );
+	static bool ParseBool( const std::string& str );
 
+	static glm::dvec3 JsonListParseVector2( const std::string& str );
 
-	std::string		m_filename;
+	//std::string		m_filename;
 };
 
+
+std::vector<double> GlmVec2StdVec( glm::dvec3 v );
+glm::dvec3 StdVec2GlmVec( std::vector<double> v );

@@ -16,6 +16,7 @@ Game::Game()
 
 	, m_entities()
 
+	, m_curTickTime(0)
 	, m_prevTickTime(0)
 {
 
@@ -59,13 +60,10 @@ void Game::PreTick( Uint32 diff )
 void Game::Tick(Uint32 diff)
 {
 	// this is not quite the start but whatever
-	Uint32 startOfCurrentTickTime = SDL_GetTicks();
+	m_curTickTime = SDL_GetTicks();
 
 	// first update input
 	Input()->Tick(diff);
-
-	// then camera
-	Camera_()->Tick( diff );
 
 	// next tick all components except physics
 	for (auto it = m_entities.begin(); it != m_entities.end(); it++)
@@ -82,7 +80,10 @@ void Game::Tick(Uint32 diff)
 		}
 	}
 
-	m_prevTickTime = startOfCurrentTickTime;
+	// then camera
+	Camera_()->Tick( diff );
+
+	m_prevTickTime = m_curTickTime;
 }
 
 

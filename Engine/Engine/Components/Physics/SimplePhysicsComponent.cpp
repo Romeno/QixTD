@@ -8,19 +8,15 @@
 SimplePhysicsComponent::SimplePhysicsComponent()
 	: super()
 
-	, m_previousPos( 0, 0, 0 )
+	, m_prevPos( 0, 0, 0 )
 	, m_pos(0, 0, 0)
-	, m_futurePos(0, 0, 0)
 
-	, m_previousDir( 0, 0, 0 )
+	, m_prevDir( 0, 0, 0 )
 	, m_dir( 0, 0, 0 )
-	, m_futureDir(0, 0, 0)
 
 	, m_size(0, 0, 0)
-	, m_futureSize(0, 0, 0)
 
 	, m_velocity(0.)
-	, m_futureVelocity( 0. )
 
 	, m_absolutePosition(false)
 {
@@ -42,21 +38,21 @@ int SimplePhysicsComponent::Init()
 
 void SimplePhysicsComponent::PreTick( Uint32 diff )
 {
-	m_previousPos = m_pos;
-	m_previousDir = m_dir;
-
-	// set direction and pos from prev tick as current 
-	m_pos = m_futurePos;
-	m_dir = m_futureDir;
-	m_size = m_futureSize;
-	m_velocity = m_futureVelocity;
+	//// set direction and pos from prev tick as current 
+	//m_pos = m_futurePos;
+	//m_dir = m_futureDir;
+	//m_size = m_futureSize;
+	//m_velocity = m_futureVelocity;
 }
 
 
 void SimplePhysicsComponent::Tick( Uint32 diff )
 {
+	m_prevPos = m_pos;
+	m_prevDir = m_dir;
+
 	// calculate pos
-	m_futurePos += m_dir * m_velocity;
+	m_pos += m_dir * m_velocity;
 }
 
 
@@ -68,13 +64,7 @@ void SimplePhysicsComponent::PostTick( Uint32 diff )
 
 glm::dvec3 SimplePhysicsComponent::GetPrevPos()
 {
-	return m_previousPos;
-}
-
-
-glm::dvec3 SimplePhysicsComponent::GetFuturePos()
-{
-	return m_futurePos;
+	return GetRectCenter( m_prevPos, m_size );
 }
 
 
@@ -87,7 +77,7 @@ glm::dvec3 SimplePhysicsComponent::GetPos()
 void SimplePhysicsComponent::SetPos( glm::dvec3 pos, Pivot pivot /*= PIVOT_CENTER */ )
 {
 	if ( pivot == PIVOT_CENTER ) {
-		m_futurePos = GetRectTopLeft( pos, m_size );
+		m_pos = GetRectTopLeft( pos, m_size );
 	}
 	else
 	{
@@ -96,8 +86,7 @@ void SimplePhysicsComponent::SetPos( glm::dvec3 pos, Pivot pivot /*= PIVOT_CENTE
 
 	if ( !m_object || !m_object->m_firstTickHappened )
 	{
-		m_pos = m_futurePos;
-		m_previousPos = m_pos;
+		m_prevPos = m_pos;
 	}
 }
 
@@ -110,12 +99,19 @@ glm::dvec3 SimplePhysicsComponent::GetSize()
 
 void SimplePhysicsComponent::SetSize( glm::dvec3 size )
 {
-	m_futureSize = size;
+	m_size = size;
+}
 
-	if ( !m_object || !m_object->m_firstTickHappened )
-	{
-		m_size = m_futureSize;
-	}
+
+glm::dvec3 SimplePhysicsComponent::GetPrevDir()
+{
+	return m_prevDir;
+}
+
+
+Direction SimplePhysicsComponent::GetPrevDirEnum()
+{
+	return Vec2Dir( m_prevDir );
 }
 
 
@@ -133,24 +129,22 @@ Direction SimplePhysicsComponent::GetDirEnum()
 
 void SimplePhysicsComponent::SetDir( glm::dvec3 dir )
 {
-	m_futureDir = glm::normalize( dir );
+	m_dir = glm::normalize( dir );
 
 	if ( !m_object || !m_object->m_firstTickHappened )
 	{
-		m_dir = m_futureDir;
-		m_previousDir = m_dir;
+		m_prevDir = m_dir;
 	}
 }
 
 
 void SimplePhysicsComponent::SetDir( Direction dir )
 {
-	m_futureDir = Dir2Vec( dir );
+	m_dir = Dir2Vec( dir );
 
 	if ( !m_object || !m_object->m_firstTickHappened )
 	{
-		m_dir = m_futureDir;
-		m_previousDir = m_dir;
+		m_prevDir = m_dir;
 	}
 }
 
@@ -163,12 +157,7 @@ double SimplePhysicsComponent::GetVelocity()
 
 void SimplePhysicsComponent::SetVelocity( double velocity )
 {
-	m_futureVelocity = velocity;
-
-	if ( !m_object || !m_object->m_firstTickHappened )
-	{
-		m_velocity = m_futureVelocity;
-	}
+	m_velocity = velocity;
 }
 
 

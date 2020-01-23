@@ -72,7 +72,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)json\include\;$(ROMENO_BUNDLE)csv\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\$(Configuration)\;$(ROMENO_BUNDLE)glew\lib\x86\debug\;$(ROMENO_BUNDLE)collisions\Box2D\lib\$(PlatformShortName)\$(Configuration)\</LibraryPath>
     <SourcePath>$(VC_SourcePath);$(ROMENO_BUNDLE)__sources\full\SDL\SDL2-2.0.5\src\;$(ROMENO_BUNDLE)collisions\Box2D\Box2D\Box2D\;</SourcePath>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
@@ -80,19 +80,19 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)json\include\;$(ROMENO_BUNDLE)csv\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\$(Configuration)\;$(ROMENO_BUNDLE)glew\lib\x64\debug\;$(ROMENO_BUNDLE)collisions\Box2D\lib\$(PlatformShortName)\$(Configuration)\</LibraryPath>
     <SourcePath>$(VC_SourcePath);$(ROMENO_BUNDLE)__sources\full\SDL\SDL2-2.0.5\src\;$(ROMENO_BUNDLE)collisions\Box2D\Box2D\Box2D\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)json\include\;$(ROMENO_BUNDLE)csv\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\$(Configuration)\;$(ROMENO_BUNDLE)glew\lib\x86\release\;$(ROMENO_BUNDLE)collisions\Box2D\lib\$(PlatformShortName)\$(Configuration)\</LibraryPath>
     <SourcePath>$(VC_SourcePath);$(ROMENO_BUNDLE)__sources\full\SDL\SDL2-2.0.5\src\;$(ROMENO_BUNDLE)collisions\Box2D\Box2D\Box2D\;</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
+    <IncludePath>$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)json\include\;$(ROMENO_BUNDLE)csv\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\lib\$(PlatformShortName)\;$(ROMENO_BUNDLE)P7\lib\$(PlatformShortName)\$(Configuration)\;$(ROMENO_BUNDLE)glew\lib\x64\release\;$(ROMENO_BUNDLE)collisions\Box2D\lib\$(PlatformShortName)\$(Configuration)\</LibraryPath>
     <SourcePath>$(VC_SourcePath);$(ROMENO_BUNDLE)__sources\full\SDL\SDL2-2.0.5\src\;$(ROMENO_BUNDLE)collisions\Box2D\Box2D\Box2D\;</SourcePath>
   </PropertyGroup>
@@ -193,6 +193,10 @@
     <Text Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Config\Backends\CsvConfigBackend.h" />
+    <ClInclude Include="Engine\Config\Backends\DBConfigBackend.h" />
+    <ClInclude Include="Engine\Config\Backends\ConfigBackend.h" />
+    <ClInclude Include="Engine\Utils\Common.h" />
     <ClInclude Include="Engine\Utils\DebugOutputManager.h" />
     <ClInclude Include="Engine\Config\AnimationConfig.h" />
     <ClInclude Include="Engine\Components\Drawing\ConfigAnimation.h" />
@@ -281,6 +285,7 @@
     <ClInclude Include="Engine\Input\Keyboard.h" />
     <ClInclude Include="Engine\Utils\types.h" />
     <ClInclude Include="Engine\Components\UI\FocusManager.h" />
+    <ClInclude Include="Engine\Config\Backends\JsonConfigBackend.h" />
     <ClInclude Include="Mechanics\Tetris\Fields\FieldInt.h" />
     <ClInclude Include="Mechanics\Qix\Components\Controlling\PingPongAI.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -296,7 +301,6 @@
     <ClInclude Include="Engine\Config\MapConfig.h" />
     <ClInclude Include="Mechanics\Qix\Config\PlayerConfig.h" />
     <ClInclude Include="Mechanics\Qix\Config\MapConfigStub.h" />
-    <ClInclude Include="Engine\Config\MapConfigTiled.h" />
     <ClInclude Include="Engine\CoordinateSystem.h" />
     <ClInclude Include="Engine\Entity.h" />
     <ClInclude Include="Engine\GameManager.h" />
@@ -347,6 +351,8 @@
     <ClInclude Include="Engine\Utils\Logger\Sink.h" />
     <ClInclude Include="Mechanics\Tetris\TetrisCommon.h" />
     <ClInclude Include="Mechanics\Menu\Menu.h" />
+    <ClInclude Include="Engine\Config\Backends\RConfigBackend.h" />
+    <ClInclude Include="Engine\Config\Backends\PostgresConfigBackend.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Engine\Components\UIComponent.h" />
@@ -363,6 +369,9 @@
     <ClInclude Include="Engine\Utils\TextUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Config\Backends\CsvConfigBackend.cpp" />
+    <ClCompile Include="Engine\Config\Backends\DBConfigBackend.cpp" />
+    <ClCompile Include="Engine\Config\Backends\ConfigBackend.cpp" />
     <ClCompile Include="Engine\Utils\DebugOutputManager.cpp" />
     <ClCompile Include="Engine\Config\AnimationConfig.cpp" />
     <ClCompile Include="Engine\Components\Drawing\ConfigAnimation.cpp" />
@@ -449,6 +458,7 @@
     <ClCompile Include="Engine\Components\UI\Sensors\EntityPositionSensor.cpp" />
     <ClCompile Include="Engine\Input\Keyboard.cpp" />
     <ClCompile Include="Engine\Components\UI\FocusManager.cpp" />
+    <ClCompile Include="Engine\Config\Backends\JsonConfigBackend.cpp" />
     <ClCompile Include="Mechanics\Tetris\Fields\FieldInt.cpp" />
     <ClCompile Include="Mechanics\Qix\Components\Controlling\PingPongAI.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
@@ -464,7 +474,6 @@
     <ClCompile Include="Engine\Config\MapConfig.cpp" />
     <ClCompile Include="Mechanics\Qix\Config\PlayerConfig.cpp" />
     <ClCompile Include="Mechanics\Qix\Config\MapConfigStub.cpp" />
-    <ClCompile Include="Engine\Config\MapConfigTiled.cpp" />
     <ClCompile Include="Engine\CoordinateSystem.cpp" />
     <ClCompile Include="Engine\Entity.cpp" />
     <ClCompile Include="Engine\GameManager.cpp" />
@@ -514,6 +523,8 @@
     <ClCompile Include="Engine\Components\Drawing\SpriteBase.cpp" />
     <ClCompile Include="Engine\Config\Animation\RomenoAnimConfig.cpp" />
     <ClCompile Include="Engine\Utils\Logger\Sink.cpp" />
+    <ClCompile Include="Engine\Config\Backends\RConfigBackend.cpp" />
+    <ClCompile Include="Engine\Config\Backends\PostgresConfigBackend.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

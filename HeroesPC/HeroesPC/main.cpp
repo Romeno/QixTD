@@ -18,13 +18,14 @@ using std::string;
 
 int main()
 {
-	int ret = GameManager::Inst()->Init( new Heroes() );
+	gameManager = new GameManager();
+	int ret = gameManager->Init( new Heroes() );
 	if ( ret )
 	{
 		return ret;
 	}
 
-	GameManager::Inst()->MainLoop();
+	gameManager->MainLoop();
 
 	return 0;
 }

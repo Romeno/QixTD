@@ -70,16 +70,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Engine\;$(SolutionDir)HeroesBase\;$(SolutionDir)HeroesBase\;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)Engine\;$(SolutionDir)HeroesBase\;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)json\include\;$(ROMENO_BUNDLE)csv\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(SolutionDir)Engine\;$(SolutionDir)HeroesBase\;$(SolutionDir)HeroesBase\;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)Engine\;$(SolutionDir)HeroesBase\;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)json\include\;$(ROMENO_BUNDLE)csv\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)Engine\;$(SolutionDir)HeroesBase\;$(SolutionDir)HeroesBase\;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)Engine\;$(SolutionDir)HeroesBase\;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)json\include\;$(ROMENO_BUNDLE)csv\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(SolutionDir)Engine\;$(SolutionDir)HeroesBase\;$(SolutionDir)HeroesBase\;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)Engine\;$(SolutionDir)HeroesBase\;$(ROMENO_BUNDLE)sdl\SDL2-2.0.5\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_ttf\include\;$(ROMENO_BUNDLE)sdl\extensions\SDL_image\include\;$(ROMENO_BUNDLE)glm\include\;$(ROMENO_BUNDLE)P7\include\;$(ROMENO_BUNDLE)glew\include\;$(ROMENO_BUNDLE)json\include\;$(ROMENO_BUNDLE)csv\include\;$(ROMENO_BUNDLE)collisions\Box2D\include\;$(ProjectDir);$(VC_IncludePath);$(WindowsSDK_IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -138,28 +138,72 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Heroes\Data\Objects\BattleSideInfo.h" />
+    <ClInclude Include="Heroes\Data\Objects\BattleObjectInfo.h" />
+    <ClInclude Include="Heroes\Data\Objects\BattleInfo.h" />
+    <ClInclude Include="Heroes\Data\Objects\ArenaInfo.h" />
+    <ClInclude Include="Heroes\Data\Objects\WorldViewObjectInfo.h" />
+    <ClInclude Include="Heroes\Data\Types\WorldObjectTypeInfo.h" />
+    <ClInclude Include="Heroes\Config\BattleObjectConfig.h" />
+    <ClInclude Include="Heroes\Config\BattleSideConfig.h" />
+    <ClInclude Include="Heroes\Config\BattleConfig.h" />
+    <ClInclude Include="Heroes\Config\ArenaConfig.h" />
+    <ClInclude Include="Heroes\Config\PlayerConfig.h" />
+    <ClInclude Include="Heroes\Config\UnitTypeConfig.h" />
+    <ClInclude Include="Heroes\HeroesAPI.h" />
+    <ClInclude Include="Heroes\HeroesCamera.h" />
     <ClInclude Include="Heroes\Heroes.h" />
+    <ClInclude Include="Heroes\Config\WorldRegionConfig.h" />
+    <ClInclude Include="Heroes\Data\Objects\PlayerInfo.h" />
+    <ClInclude Include="Heroes\Data\Types\ResourceTypeInfo.h" />
+    <ClInclude Include="Heroes\Data\Objects\ResourceInfo.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Heroes\UnitConfig.h" />
+    <ClInclude Include="Heroes\Config\WorldObjectTypeConfig.h" />
+    <ClInclude Include="Heroes\Data\Types\UnitTypeInfo.h" />
+    <ClInclude Include="Heroes\Data\Types\UnitAbilitiyTypeInfo.h" />
+    <ClInclude Include="Heroes\Config\UnitAbilityTypeConfig.h" />
+    <ClInclude Include="Heroes\Data\Objects\WorldRegionInfo.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Heroes\Data\Objects\BattleSideInfo.cpp" />
+    <ClCompile Include="Heroes\Data\Objects\BattleObjectInfo.cpp" />
+    <ClCompile Include="Heroes\Data\Objects\BattleInfo.cpp" />
+    <ClCompile Include="Heroes\Data\Objects\ArenaInfo.cpp" />
+    <ClCompile Include="Heroes\Data\Objects\WorldViewObjectInfo.cpp" />
+    <ClCompile Include="Heroes\Data\Types\WorldObjectTypeInfo.cpp" />
+    <ClCompile Include="Heroes\Config\BattleObjectConfig.cpp" />
+    <ClCompile Include="Heroes\Config\BattleSideConfig.cpp" />
+    <ClCompile Include="Heroes\Config\BattleConfig.cpp" />
+    <ClCompile Include="Heroes\Config\ArenaConfig.cpp" />
+    <ClCompile Include="Heroes\Config\PlayerConfig.cpp" />
+    <ClCompile Include="Heroes\Config\UnitTypeConfig.cpp" />
+    <ClCompile Include="Heroes\HeroesAPI.cpp" />
+    <ClCompile Include="Heroes\HeroesCamera.cpp" />
     <ClCompile Include="Heroes\Heroes.cpp" />
+    <ClCompile Include="Heroes\Config\WorldRegionConfig.cpp" />
+    <ClCompile Include="Heroes\Data\Objects\PlayerInfo.cpp" />
+    <ClCompile Include="Heroes\Data\Types\ResourceTypeInfo.cpp" />
+    <ClCompile Include="Heroes\Data\Objects\ResourceInfo.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Heroes\UnitConfig.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HeroesBase\HeroesBase.vcxproj">
-      <Project>{4ae558b8-d7ba-4921-924c-5e6bd70b5ce1}</Project>
-    </ProjectReference>
+    <ClCompile Include="Heroes\Config\WorldObjectTypeConfig.cpp" />
+    <ClCompile Include="Heroes\Data\Types\UnitTypeInfo.cpp" />
+    <ClCompile Include="Heroes\Data\Types\UnitAbilitiyTypeInfo.cpp" />
+    <ClCompile Include="Heroes\Config\UnitAbilityTypeConfig.cpp" />
+    <ClCompile Include="Heroes\Data\Objects\WorldRegionInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engine\Engine.vcxproj">
+      <Project>{b73245f3-4fa5-4d8a-8cd9-904eb32914b0}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

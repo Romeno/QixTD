@@ -2,8 +2,8 @@
 #include "RomenoAnimConfig.h"
 
 
-RomenoAnimConfig::RomenoAnimConfig( const std::string path )
-	: super(path)
+RomenoAnimConfig::RomenoAnimConfig( )
+	: super()
 {
 
 }
@@ -15,7 +15,7 @@ RomenoAnimConfig::~RomenoAnimConfig()
 }
 
 
-void RomenoAnimConfig::Parse( std::ifstream& strm )
-{
-
-}
+//void RomenoAnimConfig::Parse( std::ifstream& strm )
+//{
+//
+//}

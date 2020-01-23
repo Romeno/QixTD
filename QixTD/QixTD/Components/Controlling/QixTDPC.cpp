@@ -7,10 +7,10 @@
 
 
 QixTDPC::QixTDPC()
-	: m_onBorder( false )
-	, m_haveBeenOnBorderOnce( false)
-	, m_firstTick( true )
+	: m_onOwnTerritory( false )
+	, m_haveBeenOnOwnTerritoryOnce( false)
 	, m_drawingBorder( false )
+	, m_startedBorder( false )
 {
 
 }
@@ -30,85 +30,111 @@ int QixTDPC::Init()
 
 void QixTDPC::Tick( Uint32 diff )
 {
-	//if ( m_firstTick )
-	//{
-	//	CheckIfPointOnBorder(m_object->m_real->GetPos());
-	//	m_firstTick = false;
-	//}
+	m_startedBorder = false;
+	m_onOwnTerritory = false;
 
-	CheckIfPointOnBorder( m_object->m_real->GetPos() );
-
-	// если находится не на границе, используя текущую позицию продлить последнюю нарисованную границу
-	if ( !m_onBorder && m_haveBeenOnBorderOnce )
+	if ( !m_object || !m_object->m_firstTickHappened )
 	{
-		//if ( m_object->m_real->GetVelocity() > std::numeric_limits<double>::epsilon() )
-		//{
-		GAME->m_borders.back().second = m_object->m_real->GetPos();
-		//}
+		m_onOwnTerritory = IsOnOwnTerritory( m_object->m_real->GetPos() );
 	}
 
 	// если отпущена стрелка - приказать остановиться
-	if ( keyboard->IsKeyReleased( SDL_SCANCODE_LEFT ) )
+	if ( keyboard->IsKeyReleased( SDL_SCANCODE_LEFT ) ||
+		keyboard->IsKeyReleased( SDL_SCANCODE_RIGHT ) ||
+		keyboard->IsKeyReleased( SDL_SCANCODE_UP ) || 
+		keyboard->IsKeyReleased( SDL_SCANCODE_DOWN ) )
 	{
-		RequestStopMoveLeft();
-	}
-	else if ( keyboard->IsKeyReleased( SDL_SCANCODE_RIGHT ) )
-	{
-		RequestStopMoveRight();
-	}
-	else if ( keyboard->IsKeyReleased( SDL_SCANCODE_UP ) )
-	{
-		RequestStopMoveUp();
-	}
-	else if ( keyboard->IsKeyReleased( SDL_SCANCODE_DOWN ) )
-	{
-		RequestStopMoveDown();
+		OrderStop();
 	}
 
 	// если стрелки нажаты, приказать начать движение в нужную сторону (со следующего кадра)
 	if ( keyboard->IsKeyDown( SDL_SCANCODE_LEFT ) )
 	{
-		RequestStartMoveLeft();
-		//Entity* hero = GAME->GetHero();
-		//(QixTDPC*)(hero->m_rozum)
+		OrderStartMoveLeft();
 	}
 	else if ( keyboard->IsKeyDown( SDL_SCANCODE_RIGHT ) )
 	{
-		RequestStartMoveRight();
+		OrderStartMoveRight();
 	}
 	else if ( keyboard->IsKeyDown( SDL_SCANCODE_UP ) )
 	{
-		RequestStartMoveUp();
+		OrderStartMoveUp();
 	}
 	else if ( keyboard->IsKeyDown( SDL_SCANCODE_DOWN ) )
 	{
-		RequestStartMoveDown();
+		OrderStartMoveDown();
 	}
 	else if ( keyboard->IsKeyDown( SDL_SCANCODE_SPACE ) )
 	{
-		RequestShoot();
+		OrderShoot();
 	}
 
-	m_onBorder = false;
+	CompleteBorders();
+
+	// если находится не на захваченной территории или рисуется граница, начать новую или продлить последнюю нарисованную границу
+	if ( !m_onOwnTerritory && m_haveBeenOnOwnTerritoryOnce && !m_drawingBorder )
+	{
+		StartNewBorder( m_object->m_real->GetPrevPos(), m_object->m_real->GetPos() );
+	}
+	else if ( m_drawingBorder )
+	{
+		GAME->m_borders.back().second = m_object->m_real->GetPos();
+	}
+	
+	if ( m_object->m_real->GetDirEnum() != m_object->m_real->GetPrevDirEnum() &&	// direction has changed
+		 m_drawingBorder &&
+		 !m_startedBorder			// prevent several border starts same tick
+		) 						
+	{
+		// then start new border. for now it has same start and end
+		StartNewBorder( m_object->m_real->GetPos(), m_object->m_real->GetPos() );
+	}
+
+	//glm::dvec3 predictedFuturePos = PredictFuturePos( QixTDPC::PLAYER_VELOCITY, DIR_LEFT );
+	//if (   ( m_object->m_real->GetDirEnum() != DIR_LEFT 
+	//		&& !m_onOwnTerritory )   // если новое направление и он не на границе (тогда это под вопросом надо вообще или нет)
+	//	|| ( m_onOwnTerritory 
+	//		&& !CheckIfPointOnBorderSimple( predictedFuturePos ) 
+	//		&& GAME->m_currentMap->m_mapRect.ContainsRect( { GetRectTopLeft( predictedFuturePos, m_object->m_real->GetSize() ), m_object->m_real->GetSize() } )
+	//		)   // или если будущая позиция будет не на границе
+	//	)
+	//{
+	//	StartNewBorder( m_object->m_real->GetPrevPos(), m_object->m_real->GetPos() );
+	//}
 }
 
 
-void QixTDPC::Clear()
+bool QixTDPC::IsOnOwnTerritory( glm::dvec3 pos )
 {
+	bool res = false;
 
+	for ( auto b : GAME->m_borders )
+	{
+		if ( b.completeTickTime != 0 &&											// if border is completed
+			b.completeTickTime < GAME->m_curTickTime &&							// not completed just now
+			IsPointOn90DegreeAlignedLine( b.first, b.second, pos, 2 ) )			// 
+		{
+			res = true;
+		}
+	}
+
+	// TODO: Add check for not only on border but also on own territory (crossed the border during tick) (tunneling)
+
+	return res;
 }
 
 
-void QixTDPC::CheckIfPointOnBorder( const glm::dvec3& point )
+void QixTDPC::CompleteBorders()
 {
 	bool drawingCompleted = false;
 
 	for ( auto b : GAME->m_borders )
 	{
-		if ( b.completed && IsPointOn90DegreeAlignedLine( b.first, b.second, point, 2 ) )
+		if ( b.completeTickTime != 0 && 
+			IsPointOn90DegreeAlignedLine( b.first, b.second, m_object->m_real->GetPos(), 2 ) )
 		{
-			m_onBorder = true;
-			m_haveBeenOnBorderOnce = true;
+			m_onOwnTerritory = true;
+			m_haveBeenOnOwnTerritoryOnce = true;
 
 			if ( m_drawingBorder )
 			{
@@ -123,56 +149,52 @@ void QixTDPC::CheckIfPointOnBorder( const glm::dvec3& point )
 	{
 		for ( auto& b : GAME->m_borders )
 		{
-			if ( !b.completed )
+			if ( b.completeTickTime == 0 )
 			{
-				b.completed = true;
+				b.completeTickTime = GAME->m_curTickTime;
 			}
 		}
 	}
 }
 
 
-bool QixTDPC::CheckIfPointOnBorderSimple( const glm::dvec3& point )
+void QixTDPC::StartNewBorder( glm::dvec3 point1, glm::dvec3 point2 )
 {
-	bool res = false;
-
-	Uint32 tickTime = SDL_GetTicks();
-
-	for ( auto b : GAME->m_borders )
-	{
-		if ( b.completeTickTime != 0 &&										// if border is completed
-			 b.completeTickTime < GAME->m_prevTickTime &&					// not the last tick
-			 IsPointOn90DegreeAlignedLine( b.first, b.second, point, 2 ) )	// 
-		{
-			res = true;
-		}
-	}
-
-	return res;
+	m_startedBorder = true;
+	m_drawingBorder = true;
+	GAME->m_borders.push_back( { point1, point2, true, 0 } );
 }
 
 
-bool QixTDPC::WasPlayerOnBorderLastTick()
+//bool QixTDPC::CheckIfPointOnBorderSimple( const glm::dvec3& point )
+//{
+//	bool res = false;
+//
+//	Uint32 tickTime = SDL_GetTicks();
+//
+//	for ( auto b : GAME->m_borders )
+//	{
+//		if ( b.completeTickTime != 0 &&										// if border is completed
+//			 b.completeTickTime < GAME->m_prevTickTime &&					// not the last tick
+//			 IsPointOn90DegreeAlignedLine( b.first, b.second, point, 2 ) )	// 
+//		{
+//			res = true;
+//		}
+//	}
+//
+//	return res;
+//}
+
+
+int QixTDPC::OrderStop()
 {
-	bool res = false;
+	m_object->m_real->SetVelocity( 0 );
 
-	glm::dvec3 playerPos = m_object->m_real->GetPrevPos();
-
-	for ( auto b : GAME->m_borders )
-	{
-		if ( b.completeTickTime != 0 &&											// if border is completed
-			b.completeTickTime < GAME->m_prevTickTime &&						// not the last tick
-			IsPointOn90DegreeAlignedLine( b.first, b.second, playerPos, 2 ) )	// 
-		{
-			res = true;
-		}
-	}
-
-	return res;
+	return 0;
 }
 
 
-int QixTDPC::RequestStartMoveLeft()
+int QixTDPC::OrderStartMoveLeft()
 {
 	// не выполнять приказ движения, если за пределами карты
 	if ( m_object->m_real->GetPos().x < -GAME->m_currentMap->m_mapDimensions.x / 2 )
@@ -180,29 +202,27 @@ int QixTDPC::RequestStartMoveLeft()
 		return 0;
 	}
 
+	//if ( ( IsOnOwnTerritory( m_object->m_real->GetPrevPos() ) &&		// was on border last tick
+	//	!m_onOwnTerritory ) ||
+	//	( m_object->m_real->GetDirEnum() != DIR_LEFT &&
+	//	  m_drawingBorder )
+	//	) 						// now is not on border
+	//{
+	//	// then from last tick to current there were a border drawn
+	//	StartNewBorder( m_object->m_real->GetPrevPos(), m_object->m_real->GetPos() );
+	//}
 
-	if ( ( WasPlayerOnBorderLastTick() &&		// was on border last tick
-		!m_onBorder ) ||
-		( m_object->m_real->GetDirEnum() != DIR_LEFT &&
-		  m_drawingBorder )
-		) 						// now is not on border
-	{
-		// then from last tick to current there were a border drawned
-		StartNewBorder( m_object->m_real->GetPrevPos(), m_object->m_real->GetPos() );
-	}
-
-	glm::dvec3 predictedFuturePos = PredictFuturePos( QixTDPC::PLAYER_VELOCITY, DIR_LEFT );
-	if (   ( m_object->m_real->GetDirEnum() != DIR_LEFT 
-			&& !m_onBorder )   // если новое направление и он не на границе (тогда это под вопросом надо вообще или нет)
-		|| ( m_onBorder 
-			&& !CheckIfPointOnBorderSimple( predictedFuturePos ) 
-			&& GAME->m_currentMap->m_mapRect.ContainsRect( { GetRectTopLeft( predictedFuturePos, m_object->m_real->GetSize() ), m_object->m_real->GetSize() } )
-			)   // или если будущая позиция будет не на границе
-		)
-	{
-		StartNewBorder( m_object->m_real->GetPrevPos(), m_object->m_real->GetPos() );
-	}
-
+	//glm::dvec3 predictedFuturePos = PredictFuturePos( QixTDPC::PLAYER_VELOCITY, DIR_LEFT );
+	//if (   ( m_object->m_real->GetDirEnum() != DIR_LEFT 
+	//		&& !m_onOwnTerritory )   // если новое направление и он не на границе (тогда это под вопросом надо вообще или нет)
+	//	|| ( m_onOwnTerritory 
+	//		&& !CheckIfPointOnBorderSimple( predictedFuturePos ) 
+	//		&& GAME->m_currentMap->m_mapRect.ContainsRect( { GetRectTopLeft( predictedFuturePos, m_object->m_real->GetSize() ), m_object->m_real->GetSize() } )
+	//		)   // или если будущая позиция будет не на границе
+	//	)
+	//{
+	//	StartNewBorder( m_object->m_real->GetPrevPos(), m_object->m_real->GetPos() );
+	//}
 
 	//glm::dvec3 predictedFuturePos = PredictFuturePos( QixTDPC::PLAYER_VELOCITY, DIR_LEFT );
 	//if (   ( m_object->m_real->GetDirEnum() != DIR_LEFT 
@@ -219,23 +239,15 @@ int QixTDPC::RequestStartMoveLeft()
 	// установить скорость и направление
 	if ( m_object->m_real->GetVelocity() < std::numeric_limits<double>::epsilon() )
 	{
-		m_object->m_real->SetVelocity( PLAYER_VELOCITY );
+		m_object->m_real->SetVelocity( GAME->m_playerConfig->m_playerVelocity );
 	}
 	m_object->m_real->SetDir( Direction::DIR_LEFT );
 
-	return 1;
+	return 0;
 }
 
 
-int QixTDPC::RequestStopMoveLeft()
-{
-	m_object->m_real->SetVelocity( 0 );
-
-	return 1;
-}
-
-
-int QixTDPC::RequestStartMoveRight()
+int QixTDPC::OrderStartMoveRight()
 {
 	if ( m_object->m_real->GetPos().x > GAME->m_currentMap->m_mapDimensions.x / 2 )
 	{
@@ -256,23 +268,15 @@ int QixTDPC::RequestStartMoveRight()
 
 	if ( m_object->m_real->GetVelocity() < std::numeric_limits<double>::epsilon())
 	{
-		m_object->m_real->SetVelocity( PLAYER_VELOCITY );
+		m_object->m_real->SetVelocity( GAME->m_playerConfig->m_playerVelocity );
 	}
 	m_object->m_real->SetDir( Direction::DIR_RIGHT );
 
-	return 1;
+	return 0;
 }
 
 
-int QixTDPC::RequestStopMoveRight()
-{
-	m_object->m_real->SetVelocity( 0 );
-
-	return 1;
-}
-
-
-int QixTDPC::RequestStartMoveUp()
+int QixTDPC::OrderStartMoveUp()
 {
 	if ( m_object->m_real->GetPos().y > GAME->m_currentMap->m_mapDimensions.y / 2 )
 	{
@@ -294,23 +298,15 @@ int QixTDPC::RequestStartMoveUp()
 
 	if ( m_object->m_real->GetVelocity() < std::numeric_limits<double>::epsilon() )
 	{
-		m_object->m_real->SetVelocity( PLAYER_VELOCITY );
+		m_object->m_real->SetVelocity( GAME->m_playerConfig->m_playerVelocity );
 	}
 	m_object->m_real->SetDir( Direction::DIR_TOP );
 
-	return 1;
+	return 0;
 }
 
 
-int QixTDPC::RequestStopMoveUp()
-{
-	m_object->m_real->SetVelocity( 0 );
-
-	return 1;
-}
-
-
-int QixTDPC::RequestStartMoveDown()
+int QixTDPC::OrderStartMoveDown()
 {
 	if ( m_object->m_real->GetPos().y < -GAME->m_currentMap->m_mapDimensions.y / 2 )
 	{
@@ -331,39 +327,31 @@ int QixTDPC::RequestStartMoveDown()
 
 	if ( m_object->m_real->GetVelocity() < std::numeric_limits<double>::epsilon() )
 	{
-		m_object->m_real->SetVelocity( PLAYER_VELOCITY );
+		m_object->m_real->SetVelocity( GAME->m_playerConfig->m_playerVelocity );
 	}
 	m_object->m_real->SetDir( Direction::DIR_BOTTOM );
 
-	return 1;
+	return 0;
 }
 
 
-int QixTDPC::RequestStopMoveDown()
+int QixTDPC::OrderShoot()
 {
-	m_object->m_real->SetVelocity( 0 );
-
-	return 1;
+	return 0;
 }
 
 
-int QixTDPC::RequestShoot()
+void QixTDPC::Clear()
 {
-	return 1;
+
 }
 
 
-void QixTDPC::StartNewBorder( glm::dvec3 point1, glm::dvec3 point2 )
-{
-	m_drawingBorder = true;
-	GAME->m_borders.push_back( { point1, point2, true, SDL_GetTicks() } );
-}
-
-
-glm::dvec3 QixTDPC::PredictFuturePos( double velocity, Direction dir )
-{
-	return m_object->m_real->GetPos() + velocity * Dir2Vec( dir );
-}
+//
+//glm::dvec3 QixTDPC::PredictFuturePos( double velocity, Direction dir )
+//{
+//	return m_object->m_real->GetPos() + velocity * Dir2Vec( dir );
+//}
 
 
 template <>

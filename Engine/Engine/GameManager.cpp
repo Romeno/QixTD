@@ -1,24 +1,29 @@
 #include "stdafx.h"
+#include "GameManager.h"
+
 #include "Engine/Utils/Utils.h"
 #include "Engine/Utils/SystemInfo.h"
 #include "Engine/Utils/Logger/Logger.h"
 #include "Engine/Utils/Logger/Sink.h"
 #include "Engine/Utils/WindowTitleManager.h"
+
+#include "Engine/Config/Backends/RConfigBackend.h"
 #include "Engine/Config/AppConfig.h"
 #include "Engine/Config/MapConfig.h"
-#include "Engine/GameManager.h"
+
 #include "Engine/CoordinateSystem.h"
 #include "Engine/Game.h"
 #include "Engine/InputHandler.h"
 #include "Engine/Input/Mouse.h"
 #include "Engine/Input/Keyboard.h"
-#include "Math/Math.h"
 #include "Engine/API.h"
 #include "Mechanics/Qix/LineCascade.h"
 #include "Engine/Components/Physics/SimplePhysicsComponent.h"
 #include "Engine/Components/UI/FocusManager.h"
 #include "Engine/Cache/FontCache.h"
 #include "Engine/Cache/TextureCache.h"
+
+#include "Math/Math.h"
 
 
 extern GameManager* gameManager = nullptr;
@@ -198,12 +203,16 @@ void GameManager::CenterWindow()
 
 int GameManager::InitEngine()
 {
-	m_cfg = new AppConfig();
-	ConfigError cfgRet = m_cfg->Read();
-	if (cfgRet != CONFIG_ERROR_OK) 
+	std::string data;
+	RConfigBackend be("app");
+	ConfigError cfgRet = be.Read(data);	
+	if ( cfgRet != CONFIG_ERROR_OK )
 	{
 		return 1;
 	}
+
+	m_cfg = new AppConfig();
+	AppConfig::LoadFromRConfig( data, m_cfg );
 
 	keyboard = new Keyboard();
 	keyboard->Init();
