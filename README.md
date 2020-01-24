@@ -8,6 +8,9 @@ The game supposed to be with mechanics of [Qix/Xonix](https://www.youtube.com/wa
 Now it looks like this
 ![QixTD Screenshot](https://i.imgur.com/8KC3qV4.png)
 
+## Project status
+QixTD and Engine was abandoned. It compiles and runs. You can move your character, push a single button and draw lines. I did not finish the actual Qix machanis.
+
 
 # Installation
 
