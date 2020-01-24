@@ -2,7 +2,7 @@
 There are several games in this repository none of which are finished, playable and most are just stubs. Some may even not compile.
 
 # QixTD
-The main game project of my "game pack" repository by now which I am currently developping. 
+There are a lot folders and projects in solution AllGames. But the only project I worked on is Engine and QixTD.
 The game supposed to be with mechanics of [Qix/Xonix](https://www.youtube.com/watch?v=Wvzyd0OZg1I) and tower controlling, monster fighting features.
 
 Now it looks like this
