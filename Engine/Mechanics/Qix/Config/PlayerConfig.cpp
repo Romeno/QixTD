@@ -53,7 +53,8 @@ void PlayerConfig::LoadFromRConfig( const std::string& data, PlayerConfig* conf 
 		}
 		else
 		{
-			throw "shit";
+			// TODO: add error handling
+			ELOG( ERR_TYPE_VALUE_ERROR, "Parse error." );
 		}
 	}
 }
@@ -82,7 +83,8 @@ void PlayerConfig::LoadFromRConfig( const std::string& data, PlayerConfig* conf 
 //		} 
 //		else
 //		{
-//			throw "shit";
+//          // TODO: add error handling
+//          ELOG( ERR_TYPE_VALUE_ERROR, "Parse error." );
 //		}
 //	}
 //}

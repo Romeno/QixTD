@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MapConfigStub.h"
+#include "Engine/Utils/Utils.h"
 
 
 std::string MapConfigStub::s_mapDimensionsKey( "MapDimensions" );
@@ -68,7 +69,8 @@ void MapConfigStub::LoadFromRConfig( const std::string& data, MapConfigStub* con
 		}
 		else
 		{
-			throw "shit";
+			// TODO: add error handling
+			ELOG( ERR_TYPE_VALUE_ERROR, "Parse error." );
 		}
 	}
 }

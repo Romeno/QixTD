@@ -495,13 +495,3 @@ void GameManager::Clean()
 {
 	TTF_Quit();
 }
-
-
-
-/*
- *
- * Romeno's code
- * To be Romeno Company
- * Project: Learning game development
- *
- */

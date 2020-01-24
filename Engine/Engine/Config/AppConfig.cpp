@@ -55,7 +55,8 @@ void AppConfig::LoadFromRConfig( const std::string& data, AppConfig* conf )
 		}
 		else
 		{
-			throw "shit";
+			// TODO: add error handling
+			ELOG( ERR_TYPE_VALUE_ERROR, "Parse error." );
 		}
 	}
 }

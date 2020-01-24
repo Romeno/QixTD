@@ -38,11 +38,17 @@
 #include <SDL_opengl.h>
 #include <SDL_opengl_glext.h>
 
+#include <nlohmann/json.hpp>
+
+#include "minicsv.h"
+
 #include <glm/glm.hpp>
 
 #include "Engine/Utils/pystring.h"
 
 #include "Box2D/Box2D.h"
+
+using json = nlohmann::json;
 
 
 // TODO: reference additional headers your program requires here

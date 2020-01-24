@@ -37,7 +37,8 @@ void Camera::SetWPos( glm::dvec3 wPos, Pivot pivot /*= PIVOT_CENTER*/ )
 	}
 	else
 	{
-		throw "shit";
+		// TODO: add error handling
+		ELOG( ERR_TYPE_PROGRAMMING_ERROR, "pivot != PIVOT_CENTER. Unsupported." );
 	}
 }
 

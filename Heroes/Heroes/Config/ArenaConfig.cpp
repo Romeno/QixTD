@@ -53,7 +53,8 @@ ArenaConfig::~ArenaConfig()
 //		}
 //		else
 //		{
-//			throw "shit";
+//          // TODO: add error handling
+//          ELOG( ERR_TYPE_VALUE_ERROR, "Parse error." );
 //		}
 //	}
 //}

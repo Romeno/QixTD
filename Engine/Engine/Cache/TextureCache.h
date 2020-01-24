@@ -25,14 +25,4 @@ private:
 
 extern TextureCache* textureCache;
 
-
-/********************************************************************
-created:	2017/07/18
-created:	18:7:2017   3:30
-filename: 	I:\Romeno\Projects\Visual Studio\Qix TD\QixTD\TextureManager.h
-file base:	TextureManager
-author:		Romeno
-
-purpose:
-*********************************************************************/
 #endif

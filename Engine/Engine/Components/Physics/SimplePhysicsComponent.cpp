@@ -81,7 +81,8 @@ void SimplePhysicsComponent::SetPos( glm::dvec3 pos, Pivot pivot /*= PIVOT_CENTE
 	}
 	else
 	{
-		throw "shit";
+		// TODO: add error handling
+		ELOG( ERR_TYPE_PROGRAMMING_ERROR, "Pivot != PIVOT_CENTER. Unsupported." );
 	}
 
 	if ( !m_object || !m_object->m_firstTickHappened )

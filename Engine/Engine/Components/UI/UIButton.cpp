@@ -217,7 +217,7 @@ void UIButton::OnClick( ClickData* click )
 		m_onClickClbck( click, m_userData );
 	}
 
-	gameManager->te += "shit";
+	gameManager->te += "Test ";
 }
 
 
