@@ -1,6 +1,15 @@
 # General
 There are several games in this repository none of which are finished, playable and most are just stubs. Some may even not compile.
 
+# The build
+The build is available only for Windows (should work on 7+). It is available [here](https://drive.google.com/open?id=1M-TOyxjOCwLsxZcL-mhJAMzULgOTZ2OA)
+
+## Prerequisites
+You need to have Visual C++ Redistributable for Visual Studio 2015 installed.
+
+## Executable
+The build archive consists of **debug** and **release** folder. The debug version is included just in case. The main executable  **QixTDPC.exe** is located in the **bin** directory.
+
 # QixTD
 There are a lot folders and projects in solution AllGames. But the only project I worked on is Engine and QixTD.
 The game supposed to be with mechanics of [Qix/Xonix](https://www.youtube.com/watch?v=Wvzyd0OZg1I) and tower controlling, monster fighting features.
