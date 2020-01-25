@@ -50,7 +50,7 @@ TTF_Font* FontCache::LoadFont(const std::string& path, int pointSize)
 {
 	TTF_Font* font = TTF_OpenFont(path.c_str(), pointSize);
 	if (font == nullptr) {
-		ELOGB(ERR_TYPE_SDL_ERROR, "TTF_OpenFont error: %s", SDL_GetError());
+		ELOG(ERR_TYPE_SDL_ERROR, "TTF_OpenFont error: %s", SDL_GetError());
 		return nullptr;
 	}
 	m_fonts[path][pointSize] = font;

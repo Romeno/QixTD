@@ -3,10 +3,11 @@
 #include "Engine/Utils/Utils.h"
 
 
-void LogInfo(SDL_Window* win, SDL_Renderer* ren, const char* logger = LOGGER_BAICAL, const wchar_t* loggerModule = MODULE_GENERIC_INFO );
+void LogInfo(SDL_Window* win, SDL_Renderer* ren, const char* logger = DEFAULT_LOGGER, const wchar_t* loggerModule = MODULE_GENERIC_INFO );
 
 void LogCustomInfo( const char* logger, const wchar_t* loggerModule );
 void LogFilesystemH( const char* logger, const wchar_t* loggerModule );
+void LogAvailableRenderers( const char* logger, const wchar_t* loggerModule );
 void LogVideoH(SDL_Window* win, const char* logger, const wchar_t* loggerModule );
 void LogRenderH(SDL_Window* win, SDL_Renderer* ren, const char* logger, const wchar_t* loggerModule );
 void LogAudioH( const char* logger, const wchar_t* loggerModule );

@@ -269,7 +269,7 @@ glm::dvec3 GetRectShootPos(glm::dvec3 topLeft, glm::dvec3 size, Direction dir)
 		return glm::dvec3(topLeft.x, topLeft.y - size.y / 2, topLeft.z);
 		break;
 	default:
-		ELOGB(ERR_TYPE_PROGRAMMING_ERROR, "Unknown direction: %d", (int)dir);
+		ELOG(ERR_TYPE_PROGRAMMING_ERROR, "Unknown direction: %d", (int)dir);
 		return topLeft;
 		break;
 	}

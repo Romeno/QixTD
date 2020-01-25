@@ -7,7 +7,7 @@
 #define LOGGER_FILE "FILE"
 #define LOGGER_ALL "ALL"
 
-#define DEFAULT_LOGGER LOGGER_BAICAL
+#define DEFAULT_LOGGER LOGGER_CONSOLE
 
 /* IF ADDING THIS ADD TO GameManager::InitLogger */
 /*		MODULES	 	 */
@@ -49,7 +49,7 @@
 #define ILOG(fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_INFO, DEFAULT_LOGGER, DEFAULT_MODULE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
 #define WLOG(fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_WARNING, DEFAULT_LOGGER, DEFAULT_MODULE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
 #define ELOG(errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_ERROR, DEFAULT_LOGGER, DEFAULT_MODULE, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
-#define CLOG(fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_CRITICAL, DEFAULT_LOGGER, DEFAULT_MODULE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
+#define CLOG(errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_CRITICAL, DEFAULT_LOGGER, DEFAULT_MODULE, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
 
 // using DEFAULT_VERBOSITY
 #define LOGC(fmt, ...) loggerManager->Log( DEFAULT_VERBOSITY, LOGGER_CONSOLE, DEFAULT_MODULE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
@@ -76,10 +76,10 @@
 #define ELOGA(errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_ERROR, LOGGER_ALL, DEFAULT_MODULE, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );         
 
 // critical verbosity
-#define CLOGC(fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_CRITICAL, LOGGER_CONSOLE, DEFAULT_MODULE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );     
-#define CLOGB(fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_CRITICAL, LOGGER_BAICAL, DEFAULT_MODULE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );      
-#define CLOGF(fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_CRITICAL, LOGGER_FILE, DEFAULT_MODULE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );        
-#define CLOGA(fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_CRITICAL, LOGGER_ALL, DEFAULT_MODULE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );         
+#define CLOGC(errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_CRITICAL, LOGGER_CONSOLE, DEFAULT_MODULE, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );     
+#define CLOGB(errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_CRITICAL, LOGGER_BAICAL, DEFAULT_MODULE, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );      
+#define CLOGF(errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_CRITICAL, LOGGER_FILE, DEFAULT_MODULE, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );        
+#define CLOGA(errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_CRITICAL, LOGGER_ALL, DEFAULT_MODULE, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );         
 
 // to specified logger
 #define LOGTO(logger, fmt, ...) loggerManager->Log( DEFAULT_VERBOSITY, logger, DEFAULT_MODULE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
@@ -87,7 +87,7 @@
 #define ILOGTO(logger, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_INFO, logger, DEFAULT_MODULE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
 #define WLOGTO(logger, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_WARNING, logger, DEFAULT_MODULE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
 #define ELOGTO(errorType, logger, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_ERROR, logger, DEFAULT_MODULE, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
-#define CLOGTO(logger, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_CRITICAL, logger, DEFAULT_MODULE, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
+#define CLOGTO(errorType, logger, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_CRITICAL, logger, DEFAULT_MODULE, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
 
 
 /************************************************************************/
@@ -112,7 +112,7 @@
 #define ILOGM(module, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_INFO, DEFAULT_LOGGER, module, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );      
 #define WLOGM(module, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_WARNING, DEFAULT_LOGGER, module, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );   
 #define ELOGM(module, errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_ERROR, DEFAULT_LOGGER, module, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );     
-#define CLOGM(module, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_CRITICAL, DEFAULT_LOGGER, module, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );  
+#define CLOGM(module, errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_CRITICAL, DEFAULT_LOGGER, module, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );  
 
 // using DEFAULT_VERBOSITY
 #define LOGCM(module, fmt, ...) loggerManager->Log( DEFAULT_VERBOSITY, LOGGER_CONSOLE, module, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );       
@@ -139,10 +139,10 @@
 #define ELOGAM(module, errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_ERROR, LOGGER_ALL, module, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
 
 // critical verbosity
-#define CLOGCM(module, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_CRITICAL, LOGGER_CONSOLE, module, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );  
-#define CLOGBM(module, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_CRITICAL, LOGGER_BAICAL, module, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );   
-#define CLOGFM(module, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_CRITICAL, LOGGER_FILE, module, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );     
-#define CLOGAM(module, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_CRITICAL, LOGGER_ALL, module, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );      
+#define CLOGCM(module, errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_CRITICAL, LOGGER_CONSOLE, module, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );  
+#define CLOGBM(module, errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_CRITICAL, LOGGER_BAICAL, module, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );   
+#define CLOGFM(module, errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_CRITICAL, LOGGER_FILE, module, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );     
+#define CLOGAM(module, errorType, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_CRITICAL, LOGGER_ALL, module, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );      
 
 // to specified logger
 #define LOGTOM(logger, module, fmt, ...) loggerManager->Log( DEFAULT_VERBOSITY, logger, module, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
@@ -150,6 +150,6 @@
 #define ILOGTOM(logger, module, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_INFO, logger, module, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
 #define WLOGTOM(logger, module, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_WARNING, logger, module, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
 #define ELOGTOM(errorType, logger, module, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_ERROR, logger, module, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
-#define CLOGTOM(logger, module, fmt, ...) loggerManager->Log( EP7TRACE_LEVEL_CRITICAL, logger, module, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
+#define CLOGTOM(errorType, logger, module, fmt, ...) loggerManager->LogError( EP7TRACE_LEVEL_CRITICAL, logger, module, errorType, __LINE__, __FILE__, __FUNCTION__, L##fmt, __VA_ARGS__ );
 
 

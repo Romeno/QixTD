@@ -30,7 +30,7 @@ ConfigError JsonConfigBackend::Read( json& data)
 
 	if ( ifstrm.fail() )
 	{
-		ELOGB( ERR_TYPE_ENGINE_ERROR, "Config %s could not be read", Str2Wstr( path ).c_str() );
+		ELOG( ERR_TYPE_ENGINE_ERROR, "Config %s could not be read", Str2Wstr( path ).c_str() );
 		return CONFIG_ERROR_FAIL;
 	}
 	else
@@ -54,7 +54,7 @@ ConfigError JsonConfigBackend::Save( json& data )
 
 	if ( ofstrm.fail() )
 	{
-		ELOGB( ERR_TYPE_ENGINE_ERROR, "Config %s could not be written", Str2Wstr( path ).c_str() );
+		ELOG( ERR_TYPE_ENGINE_ERROR, "Config %s could not be written", Str2Wstr( path ).c_str() );
 		return CONFIG_ERROR_FAIL;
 	}
 	else

@@ -53,13 +53,13 @@ void testLogger()
 	ELOG( ERR_TYPE_PROGRAMMING_ERROR, "test message %f %f", 111.111, 222.222 );
 	ELOG( ERR_TYPE_PROGRAMMING_ERROR, "test message %s %s", L"asdasdasdasd", L"eeeee" );
 
-	CLOG( "test message %d", 111 );
-	CLOG( "test message %f", 111.111 );
-	CLOG( "test message %s", L"asdasdasdasd" );
+	CLOG( ERR_TYPE_PROGRAMMING_ERROR, "test message %d", 111 );
+	CLOG( ERR_TYPE_PROGRAMMING_ERROR, "test message %f", 111.111 );
+	CLOG( ERR_TYPE_PROGRAMMING_ERROR, "test message %s", L"asdasdasdasd" );
 
-	CLOG( "test message %d %d", 111, 222 );
-	CLOG( "test message %f %f", 111.111, 222.222 );
-	CLOG( "test message %s %s", L"asdasdasdasd", L"eeeee" );
+	CLOG( ERR_TYPE_PROGRAMMING_ERROR, "test message %d %d", 111, 222 );
+	CLOG( ERR_TYPE_PROGRAMMING_ERROR, "test message %f %f", 111.111, 222.222 );
+	CLOG( ERR_TYPE_PROGRAMMING_ERROR, "test message %s %s", L"asdasdasdasd", L"eeeee" );
 
 	/* DEFAULT LOGGER, specific module */
 
@@ -95,13 +95,13 @@ void testLogger()
 	ELOGM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "1test message %f %f", 111.111, 222.222 );
 	ELOGM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "1test message %s %s", L"asdasdasdasd", L"eeeee" );
 
-	CLOGM( MODULE_MOUSE, "1test message %d", 111 );
-	CLOGM( MODULE_MOUSE, "1test message %f", 111.111 );
-	CLOGM( MODULE_MOUSE, "1test message %s", L"asdasdasdasd" );
+	CLOGM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "1test message %d", 111 );
+	CLOGM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "1test message %f", 111.111 );
+	CLOGM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "1test message %s", L"asdasdasdasd" );
 
-	CLOGM( MODULE_MOUSE, "1test message %d %d", 111, 222 );
-	CLOGM( MODULE_MOUSE, "1test message %f %f", 111.111, 222.222 );
-	CLOGM( MODULE_MOUSE, "1test message %s %s", L"asdasdasdasd", L"eeeee" );
+	CLOGM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "1test message %d %d", 111, 222 );
+	CLOGM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "1test message %f %f", 111.111, 222.222 );
+	CLOGM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "1test message %s %s", L"asdasdasdasd", L"eeeee" );
 
 	/* Baical logger, DEFAULT MODULE */
 
@@ -137,13 +137,13 @@ void testLogger()
 	ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "B test message %f %f", 111.111, 222.222 );
 	ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "B test message %s %s", L"asdasdasdasd", L"eeeee" );
 
-	CLOGB( "B test message %d", 111 );
-	CLOGB( "B test message %f", 111.111 );
-	CLOGB( "B test message %s", L"asdasdasdasd" );
+	CLOGB( ERR_TYPE_PROGRAMMING_ERROR, "B test message %d", 111 );
+	CLOGB( ERR_TYPE_PROGRAMMING_ERROR, "B test message %f", 111.111 );
+	CLOGB( ERR_TYPE_PROGRAMMING_ERROR, "B test message %s", L"asdasdasdasd" );
 
-	CLOGB( "B test message %d %d", 111, 222 );
-	CLOGB( "B test message %f %f", 111.111, 222.222 );
-	CLOGB( "B test message %s %s", L"asdasdasdasd", L"eeeee" );
+	CLOGB( ERR_TYPE_PROGRAMMING_ERROR, "B test message %d %d", 111, 222 );
+	CLOGB( ERR_TYPE_PROGRAMMING_ERROR, "B test message %f %f", 111.111, 222.222 );
+	CLOGB( ERR_TYPE_PROGRAMMING_ERROR, "B test message %s %s", L"asdasdasdasd", L"eeeee" );
 
 	/* Baical logger, specific module */
 
@@ -179,13 +179,13 @@ void testLogger()
 	ELOGBM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "BM test message %f %f", 111.111, 222.222 );
 	ELOGBM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "BM test message %s %s", L"asdasdasdasd", L"eeeee" );
 
-	CLOGBM( MODULE_MOUSE, "BM test message %d", 111 );
-	CLOGBM( MODULE_MOUSE, "BM test message %f", 111.111 );
-	CLOGBM( MODULE_MOUSE, "BM test message %s", L"asdasdasdasd" );
+	CLOGBM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "BM test message %d", 111 );
+	CLOGBM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "BM test message %f", 111.111 );
+	CLOGBM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "BM test message %s", L"asdasdasdasd" );
 
-	CLOGBM( MODULE_MOUSE, "BM test message %d %d", 111, 222 );
-	CLOGBM( MODULE_MOUSE, "BM test message %f %f", 111.111, 222.222 );
-	CLOGBM( MODULE_MOUSE, "BM test message %s %s", L"asdasdasdasd", L"eeeee" );
+	CLOGBM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "BM test message %d %d", 111, 222 );
+	CLOGBM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "BM test message %f %f", 111.111, 222.222 );
+	CLOGBM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "BM test message %s %s", L"asdasdasdasd", L"eeeee" );
 
 	/* Console logger, DEFAULT_MODULE */
 
@@ -221,13 +221,13 @@ void testLogger()
 	ELOGC( ERR_TYPE_PROGRAMMING_ERROR, "C test message %f %f", 111.111, 222.222 );
 	ELOGC( ERR_TYPE_PROGRAMMING_ERROR, "C test message %s %s", L"asdasdasdasd", L"eeeee" );
 
-	CLOGC( "C test message %d", 111 );
-	CLOGC( "C test message %f", 111.111 );
-	CLOGC( "C test message %s", L"asdasdasdasd" );
+	CLOGC( ERR_TYPE_PROGRAMMING_ERROR, "C test message %d", 111 );
+	CLOGC( ERR_TYPE_PROGRAMMING_ERROR, "C test message %f", 111.111 );
+	CLOGC( ERR_TYPE_PROGRAMMING_ERROR, "C test message %s", L"asdasdasdasd" );
 
-	CLOGC( "C test message %d %d", 111, 222 );
-	CLOGC( "C test message %f %f", 111.111, 222.222 );
-	CLOGC( "C test message %s %s", L"asdasdasdasd", L"eeeee" );
+	CLOGC( ERR_TYPE_PROGRAMMING_ERROR, "C test message %d %d", 111, 222 );
+	CLOGC( ERR_TYPE_PROGRAMMING_ERROR, "C test message %f %f", 111.111, 222.222 );
+	CLOGC( ERR_TYPE_PROGRAMMING_ERROR, "C test message %s %s", L"asdasdasdasd", L"eeeee" );
 
 	/* Console logger, specific module */
 
@@ -263,13 +263,13 @@ void testLogger()
 	ELOGCM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "CM test message %f %f", 111.111, 222.222 );
 	ELOGCM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "CM test message %s %s", L"asdasdasdasd", L"eeeee" );
 
-	CLOGCM( MODULE_MOUSE, "CM test message %d", 111 );
-	CLOGCM( MODULE_MOUSE, "CM test message %f", 111.111 );
-	CLOGCM( MODULE_MOUSE, "CM test message %s", L"asdasdasdasd" );
+	CLOGCM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "CM test message %d", 111 );
+	CLOGCM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "CM test message %f", 111.111 );
+	CLOGCM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "CM test message %s", L"asdasdasdasd" );
 
-	CLOGCM( MODULE_MOUSE, "CM test message %d %d", 111, 222 );
-	CLOGCM( MODULE_MOUSE, "CM test message %f %f", 111.111, 222.222 );
-	CLOGCM( MODULE_MOUSE, "CM test message %s %s", L"asdasdasdasd", L"eeeee" );
+	CLOGCM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "CM test message %d %d", 111, 222 );
+	CLOGCM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "CM test message %f %f", 111.111, 222.222 );
+	CLOGCM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "CM test message %s %s", L"asdasdasdasd", L"eeeee" );
 
 	/* File loggers, specific module */
 
@@ -315,13 +315,13 @@ void testLogger()
 	ELOGA( ERR_TYPE_PROGRAMMING_ERROR, "A test message %f %f", 111.111, 222.222 );
 	ELOGA( ERR_TYPE_PROGRAMMING_ERROR, "A test message %s %s", L"asdasdasdasd", L"eeeee" );
 
-	CLOGA( "A test message %d", 111 );
-	CLOGA( "A test message %f", 111.111 );
-	CLOGA( "A test message %s", L"asdasdasdasd" );
+	CLOGA( ERR_TYPE_PROGRAMMING_ERROR, "A test message %d", 111 );
+	CLOGA( ERR_TYPE_PROGRAMMING_ERROR, "A test message %f", 111.111 );
+	CLOGA( ERR_TYPE_PROGRAMMING_ERROR, "A test message %s", L"asdasdasdasd" );
 
-	CLOGA( "A test message %d %d", 111, 222 );
-	CLOGA( "A test message %f %f", 111.111, 222.222 );
-	CLOGA( "A test message %s %s", L"asdasdasdasd", L"eeeee" );
+	CLOGA( ERR_TYPE_PROGRAMMING_ERROR, "A test message %d %d", 111, 222 );
+	CLOGA( ERR_TYPE_PROGRAMMING_ERROR, "A test message %f %f", 111.111, 222.222 );
+	CLOGA( ERR_TYPE_PROGRAMMING_ERROR, "A test message %s %s", L"asdasdasdasd", L"eeeee" );
 
 	/* All loggers, specific module */
 
@@ -357,13 +357,13 @@ void testLogger()
 	ELOGAM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "AM test message %f %f", 111.111, 222.222 );
 	ELOGAM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "AM test message %s %s", L"asdasdasdasd", L"eeeee" );
 
-	CLOGAM( MODULE_MOUSE, "AM test message %d", 111 );
-	CLOGAM( MODULE_MOUSE, "AM test message %f", 111.111 );
-	CLOGAM( MODULE_MOUSE, "AM test message %s", L"asdasdasdasd" );
+	CLOGAM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "AM test message %d", 111 );
+	CLOGAM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "AM test message %f", 111.111 );
+	CLOGAM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "AM test message %s", L"asdasdasdasd" );
 
-	CLOGAM( MODULE_MOUSE, "AM test message %d %d", 111, 222 );
-	CLOGAM( MODULE_MOUSE, "AM test message %f %f", 111.111, 222.222 );
-	CLOGAM( MODULE_MOUSE, "AM test message %s %s", L"asdasdasdasd", L"eeeee" );
+	CLOGAM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "AM test message %d %d", 111, 222 );
+	CLOGAM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "AM test message %f %f", 111.111, 222.222 );
+	CLOGAM( MODULE_MOUSE, ERR_TYPE_PROGRAMMING_ERROR, "AM test message %s %s", L"asdasdasdasd", L"eeeee" );
 
 	/* With logger parameter, DEFAULT MODULE */
 
@@ -431,21 +431,21 @@ void testLogger()
 	ELOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, "E TO B test message %f %f", 111.111, 222.222 );
 	ELOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, "E TO B test message %s %s", L"asdasdasdasd", L"eeeee" );
 
-	CLOGTO( LOGGER_CONSOLE, "C TO C test message %d", 111 );
-	CLOGTO( LOGGER_CONSOLE, "C TO C test message %f", 111.111 );
-	CLOGTO( LOGGER_CONSOLE, "C TO C test message %s", L"asdasdasdasd" );
+	CLOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_CONSOLE, "C TO C test message %d", 111 );
+	CLOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_CONSOLE, "C TO C test message %f", 111.111 );
+	CLOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_CONSOLE, "C TO C test message %s", L"asdasdasdasd" );
 
-	CLOGTO( LOGGER_CONSOLE, "C TO C test message %d %d", 111, 222 );
-	CLOGTO( LOGGER_CONSOLE, "C TO C test message %f %f", 111.111, 222.222 );
-	CLOGTO( LOGGER_CONSOLE, "C TO C test message %s %s", L"asdasdasdasd", L"eeeee" );
+	CLOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_CONSOLE, "C TO C test message %d %d", 111, 222 );
+	CLOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_CONSOLE, "C TO C test message %f %f", 111.111, 222.222 );
+	CLOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_CONSOLE, "C TO C test message %s %s", L"asdasdasdasd", L"eeeee" );
 
-	CLOGTO( LOGGER_BAICAL, "C TO B test message %d", 111 );
-	CLOGTO( LOGGER_BAICAL, "C TO B test message %f", 111.111 );
-	CLOGTO( LOGGER_BAICAL, "C TO B test message %s", L"asdasdasdasd" );
+	CLOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, "C TO B test message %d", 111 );
+	CLOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, "C TO B test message %f", 111.111 );
+	CLOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, "C TO B test message %s", L"asdasdasdasd" );
 
-	CLOGTO( LOGGER_BAICAL, "C TO B test message %d %d", 111, 222 );
-	CLOGTO( LOGGER_BAICAL, "C TO B test message %f %f", 111.111, 222.222 );
-	CLOGTO( LOGGER_BAICAL, "C TO B test message %s %s", L"asdasdasdasd", L"eeeee" );
+	CLOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, "C TO B test message %d %d", 111, 222 );
+	CLOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, "C TO B test message %f %f", 111.111, 222.222 );
+	CLOGTO( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, "C TO B test message %s %s", L"asdasdasdasd", L"eeeee" );
 
 	/* With logger parameter, specific module */
 
@@ -513,21 +513,21 @@ void testLogger()
 	ELOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, MODULE_MOUSE, "E TO BM test message %f %f", 111.111, 222.222 );
 	ELOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, MODULE_MOUSE, "E TO BM test message %s %s", L"asdasdasdasd", L"eeeee" );
 
-	CLOGTOM( LOGGER_CONSOLE, MODULE_MOUSE, "C TO CM test message %d", 111 );
-	CLOGTOM( LOGGER_CONSOLE, MODULE_MOUSE, "C TO CM test message %f", 111.111 );
-	CLOGTOM( LOGGER_CONSOLE, MODULE_MOUSE, "C TO CM test message %s", L"asdasdasdasd" );
+	CLOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_CONSOLE, MODULE_MOUSE, "C TO CM test message %d", 111 );
+	CLOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_CONSOLE, MODULE_MOUSE, "C TO CM test message %f", 111.111 );
+	CLOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_CONSOLE, MODULE_MOUSE, "C TO CM test message %s", L"asdasdasdasd" );
 
-	CLOGTOM( LOGGER_CONSOLE, MODULE_MOUSE, "C TO CM test message %d %d", 111, 222 );
-	CLOGTOM( LOGGER_CONSOLE, MODULE_MOUSE, "C TO CM test message %f %f", 111.111, 222.222 );
-	CLOGTOM( LOGGER_CONSOLE, MODULE_MOUSE, "C TO CM test message %s %s", L"asdasdasdasd", L"eeeee" );
+	CLOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_CONSOLE, MODULE_MOUSE, "C TO CM test message %d %d", 111, 222 );
+	CLOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_CONSOLE, MODULE_MOUSE, "C TO CM test message %f %f", 111.111, 222.222 );
+	CLOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_CONSOLE, MODULE_MOUSE, "C TO CM test message %s %s", L"asdasdasdasd", L"eeeee" );
 
-	CLOGTOM( LOGGER_BAICAL, MODULE_MOUSE, "C TO BM test message %d", 111 );
-	CLOGTOM( LOGGER_BAICAL, MODULE_MOUSE, "C TO BM test message %f", 111.111 );
-	CLOGTOM( LOGGER_BAICAL, MODULE_MOUSE, "C TO BM test message %s", L"asdasdasdasd" );
+	CLOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, MODULE_MOUSE, "C TO BM test message %d", 111 );
+	CLOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, MODULE_MOUSE, "C TO BM test message %f", 111.111 );
+	CLOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, MODULE_MOUSE, "C TO BM test message %s", L"asdasdasdasd" );
 
-	CLOGTOM( LOGGER_BAICAL, MODULE_MOUSE, "C TO BM test message %d %d", 111, 222 );
-	CLOGTOM( LOGGER_BAICAL, MODULE_MOUSE, "C TO BM test message %f %f", 111.111, 222.222 );
-	CLOGTOM( LOGGER_BAICAL, MODULE_MOUSE, "C TO BM test message %s %s", L"asdasdasdasd", L"eeeee" );
+	CLOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, MODULE_MOUSE, "C TO BM test message %d %d", 111, 222 );
+	CLOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, MODULE_MOUSE, "C TO BM test message %f %f", 111.111, 222.222 );
+	CLOGTOM( ERR_TYPE_PROGRAMMING_ERROR, LOGGER_BAICAL, MODULE_MOUSE, "C TO BM test message %s %s", L"asdasdasdasd", L"eeeee" );
 
 	_getch();
 }

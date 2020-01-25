@@ -25,7 +25,7 @@ std::wstring Sink::GetP7InitString()
 
 	if ( !m_name.empty() )
 	{
-		ret += TM("/P7.Name=") + m_name;
+		ret += TM("/P7.Name=") + m_name + TM(" ");
 	}
 
 	return ret;
@@ -55,31 +55,31 @@ std::wstring BaicalSink::GetP7InitString()
 {
 	std::wstring ret = super::GetP7InitString();
 
-	ret += TM("/P7.Sink=Baical");
+	ret += TM("/P7.Sink=Baical ");
 
 	if ( !m_serverAddress.empty() )
 	{
-		ret += TM("/P7.Addr=") + m_serverAddress;
+		ret += TM("/P7.Addr=") + m_serverAddress + TM(" ");
 	}
 
 	if ( m_port )
 	{
-		ret += TM("/P7.Port=") + std::to_wstring( m_port );
+		ret += TM("/P7.Port=") + std::to_wstring( m_port ) + TM( " " );
 	}
 	
 	if ( m_packetSize )
 	{
-		ret += TM("/P7.PSize=") + std::to_wstring( m_packetSize );
+		ret += TM("/P7.PSize=") + std::to_wstring( m_packetSize ) + TM( " " );
 	}
 
 	if ( m_windowSize )
 	{
-		ret += TM("/P7.Window=") + std::to_wstring( m_windowSize );
+		ret += TM("/P7.Window=") + std::to_wstring( m_windowSize ) + TM( " " );
 	}
 
 	if ( m_transmissionTimeout )
 	{
-		ret += TM("/P7.Eto=") + std::to_wstring( m_transmissionTimeout );
+		ret += TM("/P7.Eto=") + std::to_wstring( m_transmissionTimeout ) + TM( " " );
 	}
 
 	return ret;
@@ -108,26 +108,26 @@ std::wstring FileSink::GetP7InitString()
 {
 	std::wstring ret = super::GetP7InitString();
 
-	ret += TM("/P7.Sink=FileTxt");
+	ret += TM("/P7.Sink=FileTxt ");
 
 	if ( !m_format.empty() )
 	{
-		ret += TM("/P7.Format=") + m_format;
+		ret += TM("/P7.Format=") + m_format + TM( " " );
 	}
 
 	if ( !m_dir.empty() )
 	{
-		ret += TM("/P7.Dir=") + m_dir;
+		ret += TM("/P7.Dir=") + m_dir + TM( " " );
 	}
 
 	if ( !m_roll.empty() )
 	{
-		ret += TM("/P7.Roll=") + m_roll;
+		ret += TM("/P7.Roll=") + m_roll + TM( " " );
 	}
 
 	if ( m_maxLogs )
 	{
-		ret += TM("/P7.Files=") + std::to_wstring(m_maxLogs);
+		ret += TM("/P7.Files=") + std::to_wstring(m_maxLogs) + TM( " " );
 	}
 
 	return ret;
@@ -165,11 +165,11 @@ std::wstring ConsoleSink::GetP7InitString()
 {
 	std::wstring ret = super::GetP7InitString();
 
-	ret += TM("/P7.Sink=Console");
+	ret += TM("/P7.Sink=Console ");
 
 	if ( !m_format.empty() )
 	{
-		ret += TM("/P7.Format=") + m_format;
+		ret += TM("/P7.Format=") + m_format + TM( " " );
 	}
 
 	return ret;

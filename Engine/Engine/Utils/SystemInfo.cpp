@@ -13,12 +13,12 @@ using std::string;
 
 void LogInfo( SDL_Window* win, SDL_Renderer* ren, const char* logger, const wchar_t* loggerModule )
 {
-	LogCustomInfo(logger, loggerModule);
+	LogCustomInfo( logger, loggerModule );
 	LogFilesystemH( logger, loggerModule );
-	//LogVideoH(win, logger, loggerModule);
-	LogRenderH(win, ren, logger, loggerModule );
+	//LogVideoH( win, logger, loggerModule );
+	LogRenderH( win, ren, logger, loggerModule );
 	LogAudioH( logger, loggerModule );
-	LogKeyboardH(win, logger, loggerModule );
+	LogKeyboardH( win, logger, loggerModule );
 	LogMouseH( logger, loggerModule );
 	LogTouchH( logger, loggerModule );
 	LogTimerH( logger, loggerModule );
@@ -28,7 +28,7 @@ void LogInfo( SDL_Window* win, SDL_Renderer* ren, const char* logger, const wcha
 	LogSystemH( logger, loggerModule );
 	LogClipboardH( logger, loggerModule );
 	LogPlatformH( logger, loggerModule );
-	LogTTFH("i:\\Romeno\\Projects\\VisualStudio\\AllGames\\Debug\\res\\fonts\\SNAP.ttf", logger, loggerModule );
+	//LogTTFH( "i:\\Romeno\\Projects\\VisualStudio\\AllGames\\Debug\\res\\fonts\\SNAP.ttf", logger, loggerModule );
 }
 
 
@@ -204,6 +204,25 @@ void LogVideoH(SDL_Window* win, const char* logger, const wchar_t* loggerModule 
 }
 
 
+void LogAvailableRenderers( const char* logger, const wchar_t* loggerModule )
+{
+	LTO( " " );
+	LTO( "-------------     AVAILABLE RENDERERS     -------------" );
+
+	int numRenderDrivers = SDL_GetNumRenderDrivers();
+	LTO( "SDL_GetNumRenderDrivers(): %d", numRenderDrivers );
+
+	SDL_RendererInfo rdrinfo;
+	for ( size_t rdr = 0; rdr < numRenderDrivers; rdr++ )
+	{
+		LTO( " " );
+		SDL_GetRenderDriverInfo( rdr, &rdrinfo );
+		LTO( "SDL_GetRenderDriverInfo(%d)", rdr );
+		LogRendererInfo( &rdrinfo, logger, loggerModule );
+	}
+}
+
+
 void LogRenderH(SDL_Window* win, SDL_Renderer* ren, const char* logger, const wchar_t* loggerModule )
 {
 	LTO( " " );
@@ -213,14 +232,6 @@ void LogRenderH(SDL_Window* win, SDL_Renderer* ren, const char* logger, const wc
 	LTO( "SDL_GetNumRenderDrivers(): %d", numRenderDrivers );
 
 	SDL_RendererInfo rdrinfo;
-	for (size_t rdr = 0; rdr < numRenderDrivers; rdr++)
-	{
-		LTO( " " );
-		SDL_GetRenderDriverInfo(rdr, &rdrinfo);
-		LTO( "SDL_GetRenderDriverInfo(%d)", rdr );
-		LogRendererInfo( &rdrinfo, logger, loggerModule );
-	}
-
 	//SDL_CreateWindowAndRenderer
 	//SDL_CreateRenderer
 	//SDL_CreateSoftwareRenderer
@@ -313,7 +324,8 @@ void LogAudioH( const char* logger, const wchar_t* loggerModule )
 	//SDL_AudioInit
 	//SDL_AudioQuit
 	LTO( " " );
-	LTO( "SDL_GetCurrentAudioDriver(): %s", Str2Wstr( SDL_GetCurrentAudioDriver() ).c_str() );
+	const char* currentAudioDriver = SDL_GetCurrentAudioDriver();
+	LTO( "SDL_GetCurrentAudioDriver(): %s", Str2Wstr( currentAudioDriver ).c_str() );
 
 	LTO( " " );
 	int numAudioDevices0 = SDL_GetNumAudioDevices(0);
@@ -810,7 +822,7 @@ std::string AudioStatus2Str( SDL_AudioStatus s )
 	auto it = map.find( s );
 	if ( it == map.end() )
 	{
-		ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "Unknown AudioStatus" );
+		ELOG( ERR_TYPE_PROGRAMMING_ERROR, "Unknown AudioStatus" );
 		return std::string( "UNKNOWN_AUDIO_STATUS" );
 	}
 	else
@@ -841,7 +853,7 @@ std::string PowerState2Str( SDL_PowerState s )
 	auto it = map.find( s );
 	if ( it == map.end() )
 	{
-		ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "Unknown PowerState" );
+		ELOG( ERR_TYPE_PROGRAMMING_ERROR, "Unknown PowerState" );
 		return std::string( "UNKNOWN_POWER_STATE" );
 	}
 	else
@@ -886,7 +898,7 @@ std::string WindowEventType2Str( SDL_WindowEventID windowEventId )
 	auto it = map.find( windowEventId );
 	if ( it == map.end() )
 	{
-		ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Window Event Type" );
+		ELOG( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Window Event Type" );
 		return std::string("UNKNOWN_WINDOW_EVENT_TYPE");
 	}
 	else
@@ -984,7 +996,7 @@ std::string EventType2Str( SDL_EventType eventType )
 	auto it = map.find( eventType );
 	if ( it == map.end() )
 	{
-		ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Event Type" );
+		ELOG( ERR_TYPE_PROGRAMMING_ERROR, "Unknown Event Type" );
 		return std::string( "UNKNOWN_EVENT_TYPE" );
 	}
 	else
@@ -1021,7 +1033,7 @@ std::string FontStyle2Str( int style )
 	auto it = map.find( style );
 	if ( it == map.end() )
 	{
-		ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "Unknown font style" );
+		ELOG( ERR_TYPE_PROGRAMMING_ERROR, "Unknown font style" );
 		return std::string( "UNKNOWN_FONT_STYLE" );
 	}
 	else
@@ -1051,7 +1063,7 @@ std::string FontHintning2Str( int hinting )
 	auto it = map.find( hinting );
 	if ( it == map.end() )
 	{
-		ELOGB( ERR_TYPE_PROGRAMMING_ERROR, "Unknown font hinting" );
+		ELOG( ERR_TYPE_PROGRAMMING_ERROR, "Unknown font hinting" );
 		return std::string( "UNKNOWN_FONT_HINTING" );
 	}
 	else

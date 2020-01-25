@@ -11,6 +11,7 @@
 #include "Tests/TestLogger.h"
 
 
+
 #undef main
 
 
@@ -38,6 +39,7 @@ int runGame()
 	int ret = gameManager->Init( new QixTD() );
 	if ( ret )
 	{
+		ELOG(ERR_TYPE_ENGINE_ERROR, "Error initing GameManager: %d", ret);
 		return ret;
 	}
 

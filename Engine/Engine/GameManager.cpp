@@ -69,7 +69,7 @@ int GameManager::Init(Game* game)
 	ret = InitLogger();
 	if (ret != 0)
 	{
-		std::cout << "InitLogger failed" << std::endl;
+		std::cout << "InitLogger failed." << std::endl;
 		_getch();
 		return ret;
 	}
@@ -77,7 +77,7 @@ int GameManager::Init(Game* game)
 	ret = InitSDL();
 	if (ret != 0) 
 	{
-		ELOGB(ERR_TYPE_ENGINE_ERROR, "InitSDL failed");
+		ELOG(ERR_TYPE_ENGINE_ERROR, "InitSDL failed.");
 		SDL_StopTextInput();
 		SDL_Quit();
 		_getch();
@@ -87,7 +87,7 @@ int GameManager::Init(Game* game)
 	ret = InitEngine();
 	if (ret != 0)
 	{
-		ELOGB(ERR_TYPE_ENGINE_ERROR, "InitEngine failed");
+		ELOG(ERR_TYPE_ENGINE_ERROR, "InitEngine failed.");
 		RemoveSDLObj(win, ren);
 		SDL_StopTextInput();
 		SDL_Quit();
@@ -95,10 +95,11 @@ int GameManager::Init(Game* game)
 		return ret;
 	}
 
-	LogInfo(win, ren);
-
 	m_game = game;
 	m_game->Init();
+
+	LogCustomInfo( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	// LogInfo( win, ren );
 
 	return 0;
 }
@@ -112,6 +113,8 @@ int GameManager::InitLogger()
 
 	BaicalSink* baicalSink = new BaicalSink();
 	ConsoleSink* consoleSink = new ConsoleSink();
+	//consoleSink->SetFormat(L"\"%lv: %ms                                                                     /////// (%fs: %fn, %fl)\"");
+	consoleSink->SetFormat( L"\"%lv: %ms" );
 
 	loggerManager->AddSink("BAICAL", baicalSink );
 	loggerManager->AddSink("CONSOLE", consoleSink );
@@ -135,40 +138,116 @@ int GameManager::InitSDL()
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING)) 
 	{
-		ELOGB(ERR_TYPE_SDL_ERROR, "SDL_Init error: %s", SDL_GetError());
+		ELOG(ERR_TYPE_SDL_ERROR, "SDL_Init error: %s.", Str2Wstr(SDL_GetError()).c_str());
 		return 1;
 	}
 
 	if (TTF_Init())
 	{
-		ELOGB(ERR_TYPE_SDL_ERROR, "TTF_Init error: %s", SDL_GetError());
+		ELOG(ERR_TYPE_SDL_ERROR, "TTF_Init error: %s.", Str2Wstr(SDL_GetError()).c_str());
 		return 1;
 	}
+
+	LogFilesystemH( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	LogAudioH( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	LogMouseH( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	LogTouchH( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	LogTimerH( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	LogEventsH( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	LogCpuinfoH( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	LogPowerH( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	LogSystemH( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	LogClipboardH( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	LogPlatformH( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
 
 	win = SDL_CreateWindow("", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, vpWidth, vpHeight, SDL_WINDOW_SHOWN);
 	if (win == nullptr)
 	{
-		ELOGB(ERR_TYPE_SDL_ERROR, "SDL_CreateWindow error: %s", SDL_GetError());
+		ELOG(ERR_TYPE_SDL_ERROR, "SDL_CreateWindow error: %s.", Str2Wstr(SDL_GetError()).c_str());
 		return 1;
 	}
 
-	int numRenderDriver = GetNumOpenGLDriver();
-	if (numRenderDriver == -1)
-	{
-		ELOGB(ERR_TYPE_ENGINE_ERROR, "OpenGL driver not found");
-	}
+	LogKeyboardH( win, DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	LogVideoH( win, DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+	LogAvailableRenderers( DEFAULT_LOGGER, MODULE_GENERIC_INFO );
 
-	ren = SDL_CreateRenderer(win, numRenderDriver, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (ren == nullptr) 
+	int res = CreateRenderer();
+	if ( res != 0 )
 	{
-		ELOGB(ERR_TYPE_SDL_ERROR, "SDL_CreateRenderer error: %s", SDL_GetError());
-		RemoveSDLObj(win);
-		return 1;
+		return res;
 	}
 
 	SDL_StartTextInput();
 
 	return 0;
+}
+
+
+int GameManager::CreateRenderer()
+{
+	int numRenderDriver = GetNumOpenGLDriver();
+	if ( numRenderDriver == -1 )
+	{
+		ELOG( ERR_TYPE_ENGINE_ERROR, "OpenGL driver not found." );
+
+		ren = TryCreateAnyAccelerated();
+		if ( ren == nullptr )
+		{
+			CLOG( ERR_TYPE_ENGINE_ERROR, "Failed to create renderer." );
+			RemoveSDLObj( win );
+			return 1;
+		}
+	}
+	else
+	{
+		ren = SDL_CreateRenderer( win, numRenderDriver, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+		if ( ren == nullptr )
+		{
+			ELOG( ERR_TYPE_SDL_ERROR, "SDL_CreateRenderer error: %s.", Str2Wstr( SDL_GetError() ).c_str() );
+
+			ren = TryCreateAnyAccelerated();
+			if ( ren == nullptr )
+			{
+				CLOG( ERR_TYPE_ENGINE_ERROR, "Failed to create renderer." );
+				RemoveSDLObj( win );
+				return 1;
+			}
+		}
+	}
+
+	LogRenderH( win, ren, DEFAULT_LOGGER, MODULE_GENERIC_INFO );
+
+	return 0;
+}
+
+
+SDL_Renderer* GameManager::TryCreateAnyAccelerated()
+{
+	SDL_RendererInfo info;
+	int numRenderDrivers = SDL_GetNumRenderDrivers();
+	for ( int i = 0; i < numRenderDrivers; i++ )
+	{
+		SDL_GetRenderDriverInfo( i, &info );
+		if ( (info.flags & SDL_RENDERER_ACCELERATED) == SDL_RENDERER_ACCELERATED && 
+			 (info.flags & SDL_RENDERER_PRESENTVSYNC) == SDL_RENDERER_PRESENTVSYNC )
+		{
+			ren = SDL_CreateRenderer( win, i, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+			if ( ren == nullptr )
+			{
+				ELOG( ERR_TYPE_SDL_ERROR, "SDL_CreateRenderer error: %s.", Str2Wstr( SDL_GetError() ).c_str() );
+			}
+			else
+			{
+				return ren;
+			}
+		}
+		else
+		{
+			ILOG( "Renderer %s is not suitable.", Str2Wstr( info.name ).c_str() );
+		}
+	}
+
+	return nullptr;
 }
 
 

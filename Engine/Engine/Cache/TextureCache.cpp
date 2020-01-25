@@ -38,7 +38,7 @@ SDL_Texture* TextureCache::LoadTexture(const std::string& path)
 {
 	SDL_Surface *img = IMG_Load(path.c_str());
 	if (img == nullptr) {
-		ELOGB(ERR_TYPE_SDL_ERROR, "IMG_Load error: %s", SDL_GetError());
+		ELOG(ERR_TYPE_SDL_ERROR, "IMG_Load error: %s", SDL_GetError());
 		RemoveSDLObj(img);
 		return nullptr;
 	}
@@ -46,7 +46,7 @@ SDL_Texture* TextureCache::LoadTexture(const std::string& path)
 	SDL_Texture* texture = SDL_CreateTextureFromSurface(REN, img);
 	RemoveSDLObj(img);
 	if (texture == nullptr) {
-		ELOGB(ERR_TYPE_SDL_ERROR, "SDL_CreateTextureFromSurface error: %s", SDL_GetError());
+		ELOG(ERR_TYPE_SDL_ERROR, "SDL_CreateTextureFromSurface error: %s", SDL_GetError());
 		RemoveSDLObj(texture);
 		return nullptr;
 	}

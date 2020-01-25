@@ -31,6 +31,8 @@ public:
 	void PostTick( Uint32 diff );
 
 	void RenderScene(Uint32 diff);
+	int CreateRenderer();
+	SDL_Renderer* TryCreateAnyAccelerated();
 
 	int	GetNumOpenGLDriver();
 

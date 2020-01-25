@@ -24,7 +24,7 @@ Config::~Config()
 //
 //	if (ifstrm.fail()) 
 //	{
-//		ELOGB(ERR_TYPE_ENGINE_ERROR, "Config %s could not be read", Str2Wstr(path).c_str());
+//		ELOG(ERR_TYPE_ENGINE_ERROR, "Config %s could not be read", Str2Wstr(path).c_str());
 //		return CONFIG_ERROR_FAIL;
 //	}
 //	else 
@@ -103,7 +103,7 @@ bool Config::ParseBool( const std::string& str )
 	}
 	else
 	{
-		ELOGB( ERR_TYPE_VALUE_ERROR, "Cannot convert %s to boolean", Str2Wstr( str.c_str() ) );
+		ELOG( ERR_TYPE_VALUE_ERROR, "Cannot convert %s to boolean", Str2Wstr( str.c_str() ) );
 		return false;
 	}
 }

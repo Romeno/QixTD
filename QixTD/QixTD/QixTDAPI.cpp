@@ -35,7 +35,7 @@ void QixTDAPI::Play(Entity* e)
 {
 	if ( !qixMech )
 	{
-		ELOGB( ERR_TYPE_MECHANICS_ERROR, "Set Qix Mechacnics object first" );
+		ELOG( ERR_TYPE_MECHANICS_ERROR, "Set Qix Mechacnics object first" );
 		return;
 	}
 
@@ -95,7 +95,7 @@ Entity* QixTDAPI::CreateHero( const std::string& path, glm::dvec3 wpos, glm::dve
 //{
 //	if ( !qixMech )
 //	{
-//		ELOGB( ERR_TYPE_MECHANICS_ERROR, "Set Qix Mechacnics object first" );
+//		ELOG( ERR_TYPE_MECHANICS_ERROR, "Set Qix Mechacnics object first" );
 //		return nullptr;
 //	}
 //
