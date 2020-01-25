@@ -24,7 +24,7 @@ Now it looks like this
 QixTD and Engine were abandoned. It compiles and runs. You can move your character, push a single button and draw lines. I did not finish the actual Qix machanis.
 
 
-# Installation
+# Development
 
 1. Clone
 2. Define ROMENO_BUNLDE env variable which should point to parent directory of all dependecies for the project.
