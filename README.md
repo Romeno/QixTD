@@ -10,6 +10,9 @@ You need to have Visual C++ Redistributable for Visual Studio 2015 installed.
 ## Executable
 The build archive consists of **debug** and **release** folder. The debug version is included just in case. The main executable  **QixTDPC.exe** is located in the **bin** directory.
 
+## Controls
+The character can be moved by arrow keys. You can push the button and that is pretty much it. The console logs some of the system info and debug info.
+
 # QixTD
 There are a lot folders and projects in solution AllGames. But the only project I worked on is Engine and QixTD.
 The game supposed to be with mechanics of [Qix/Xonix](https://www.youtube.com/watch?v=Wvzyd0OZg1I) and tower controlling, monster fighting features.
@@ -18,7 +21,7 @@ Now it looks like this
 ![QixTD Screenshot](https://i.imgur.com/8KC3qV4.png)
 
 ## Project status
-QixTD and Engine was abandoned. It compiles and runs. You can move your character, push a single button and draw lines. I did not finish the actual Qix machanis.
+QixTD and Engine were abandoned. It compiles and runs. You can move your character, push a single button and draw lines. I did not finish the actual Qix machanis.
 
 
 # Installation
